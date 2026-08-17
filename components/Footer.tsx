@@ -9,28 +9,28 @@ export function Footer() {
     <footer className="w-full bg-slate-50 text-slate-600 py-12 md:py-16 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* 5-Column Main Footer Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 mb-12 items-start">
           
           {/* Col 1: Brand & Overview */}
-          <div className="space-y-3.5 sm:col-span-2 lg:col-span-1">
+          <div className="space-y-3">
             <Link href="/" className="inline-flex items-center hover:opacity-90 transition-opacity">
               <Logo />
             </Link>
-            <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-normal">
+            <p className="text-slate-500 text-xs leading-relaxed font-normal">
               Fast, 100% free, client-side reverse tax calculators for sales tax, VAT, GST/HST, and payroll. Calculate pre-tax net amounts and tax paid instantly.
             </p>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-white border border-slate-200 text-slate-700 text-xs font-semibold shadow-2xs">
+            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 text-slate-700 text-[11px] font-semibold shadow-2xs">
               <ShieldCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-              <span>Tax Rates Verified: August 2026</span>
+              <span>Verified: August 2026</span>
             </div>
           </div>
 
           {/* Col 2: Core Calculators */}
           <div>
-            <h3 className="text-slate-900 font-bold text-xs uppercase tracking-wider mb-4">
+            <h3 className="text-slate-900 font-extrabold text-[11px] uppercase tracking-wider mb-3.5">
               Core Calculators
             </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
+            <ul className="space-y-2 text-xs font-medium">
               <li>
                 <Link href="/reverse-sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
                   Reverse Sales Tax Calculator
@@ -38,7 +38,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/reverse-vat-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Reverse VAT Calculator (UK/EU)
+                  Reverse VAT Calculator
                 </Link>
               </li>
               <li>
@@ -48,7 +48,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/reverse-hst-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Reverse HST Calculator (Canada)
+                  Reverse HST Calculator
                 </Link>
               </li>
               <li>
@@ -71,10 +71,10 @@ export function Footer() {
 
           {/* Col 3: Popular State & Region Pages */}
           <div>
-            <h3 className="text-slate-900 font-bold text-xs uppercase tracking-wider mb-4">
+            <h3 className="text-slate-900 font-extrabold text-[11px] uppercase tracking-wider mb-3.5">
               State & Regional
             </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
+            <ul className="space-y-2 text-xs font-medium">
               {REGIONS.slice(0, 7).map((r) => (
                 <li key={r.slug}>
                   <Link
@@ -90,10 +90,10 @@ export function Footer() {
 
           {/* Col 4: Guides & Articles (SEPARATE HEADER) */}
           <div>
-            <h3 className="text-slate-900 font-bold text-xs uppercase tracking-wider mb-4">
+            <h3 className="text-slate-900 font-extrabold text-[11px] uppercase tracking-wider mb-3.5">
               Guides & Articles
             </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
+            <ul className="space-y-2 text-xs font-medium">
               <li>
                 <Link href="/reverse-tax-formula" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
                   Reverse Tax Formula & Math
@@ -124,10 +124,10 @@ export function Footer() {
 
           {/* Col 5: Company & Legal (SEPARATE HEADER) */}
           <div>
-            <h3 className="text-slate-900 font-bold text-xs uppercase tracking-wider mb-4">
+            <h3 className="text-slate-900 font-extrabold text-[11px] uppercase tracking-wider mb-3.5">
               Company & Legal
             </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
+            <ul className="space-y-2 text-xs font-medium">
               <li>
                 <Link href="/about" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
                   About Us & Accuracy
@@ -159,7 +159,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-normal">
+        <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-normal">
           <p className="m-0 text-slate-500">© {new Date().getFullYear()} reversetaxcalculator.pro. Free online financial tax calculators. No signup required.</p>
           <div className="flex items-center gap-5 font-medium">
             <Link href="/privacy-policy" className="text-slate-500 hover:text-slate-900 transition-colors">Privacy</Link>

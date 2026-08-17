@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export function Logo({ className = '' }: { className?: string }) {
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
+    <div className={`flex items-center gap-2.5 shrink-0 ${className}`}>
       {/* Official Brand Logo Icon */}
       <div className="relative w-8 h-8 rounded-xl flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
         <Image
@@ -17,7 +17,7 @@ export function Logo({ className = '' }: { className?: string }) {
       </div>
 
       {/* Distinct Typography */}
-      <div className="flex items-center text-lg sm:text-xl font-black tracking-tight font-sans">
+      <div className="flex items-center text-base sm:text-lg md:text-xl font-black tracking-tight font-sans whitespace-nowrap">
         <span className="text-slate-900 font-extrabold">Reverse Tax</span>
         <span className="text-brand-600 font-bold ml-1">Calculator</span>
       </div>
