@@ -32,9 +32,12 @@ export const metadata: Metadata = {
   creator: 'Reverse Tax Calculator',
   publisher: 'Reverse Tax Calculator',
   icons: {
-    icon: '/icon.svg',
-    shortcut: '/icon.svg',
-    apple: '/icon.svg',
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
+    ],
+    shortcut: '/icon.png',
+    apple: '/apple-touch-icon.png',
   },
   formatDetection: {
     email: false,
