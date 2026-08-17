@@ -31,6 +31,11 @@ export const metadata: Metadata = {
   authors: [{ name: 'Reverse Tax Calculator Team', url: 'https://reversetaxcalculator.pro/about' }],
   creator: 'Reverse Tax Calculator',
   publisher: 'Reverse Tax Calculator',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   formatDetection: {
     email: false,
     address: false,
