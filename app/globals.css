@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-100 selection:text-brand-900;
+  }
+
+  h1 {
+    @apply text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight mb-2;
+  }
+
+  h2 {
+    @apply text-xl sm:text-2xl font-bold tracking-tight text-slate-900 mt-8 mb-3;
+  }
+
+  h3 {
+    @apply text-lg font-semibold text-slate-900 mt-6 mb-2;
+  }
+
+  p {
+    @apply text-slate-700 leading-relaxed text-base mb-4;
+  }
+}
+
+@layer utilities {
+  .max-w-calc-col {
+    max-width: 80rem; /* 1280px spacious width */
+  }
+}

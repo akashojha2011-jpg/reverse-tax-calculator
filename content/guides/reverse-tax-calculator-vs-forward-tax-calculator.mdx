@@ -1,0 +1,43 @@
+# Reverse Tax Calculator vs. Forward Tax Calculator Comparison
+
+Financial tax calculators fall into two distinct mathematical categories: **Forward Tax Calculators** and **Reverse Tax Calculators**. 
+
+Understanding when and how to use each tool ensures accuracy when calculating retail prices, preparing commercial invoices, or auditing expense receipts.
+
+---
+
+## 1. What is the Difference Between Forward and Reverse Tax?
+
+- **Forward Tax Calculator**: Computes sales tax or VAT by applying the tax percentage to a known pre-tax net subtotal to determine the final tax-inclusive gross price (`Gross = Net × (1 + r)`).
+- **Reverse Tax Calculator**: Extracts the original pre-tax net subtotal and tax paid backwards from a known tax-inclusive gross total (`Net = Gross ÷ (1 + r)`).
+
+---
+
+## 2. Comparison Summary Table
+
+| Comparison Metric | Forward Tax Calculator | Reverse Tax Calculator |
+| :--- | :--- | :--- |
+| **Starting Known Value** | Pre-Tax Net Subtotal ($N$) | Tax-Inclusive Gross Total ($G$) |
+| **Primary Formula** | `Gross = Net × (1 + r)` | `Net = Gross ÷ (1 + r)` |
+| **Tax Calculation** | `Tax = Net × r` | `Tax = Gross - Net` |
+| **Common Use Cases** | POS cash registers, setting retail prices, e-commerce checkout | Expense reports, receipt audits, VAT reclaims, credit card splits |
+| **Common Mistake** | N/A | Subtracting tax percentage directly from gross total (`Gross - (Gross × r)`) |
+
+---
+
+## 3. Why Direct Percentage Subtraction Fails in Reverse Tax
+
+A common error when attempting manual reverse tax calculation is subtracting the tax percentage directly from the gross total.
+
+For example, on a **$107.00 total bill** with a **7% sales tax rate**:
+- **Incorrect Direct Subtraction**: $107.00 - ($107.00 × 0.07) = $107.00 - $7.49 = **$99.51**
+- **Correct Reverse Division**: $107.00 ÷ 1.07 = **$100.00 Net price** and **$7.00 Tax paid**
+
+Direct percentage subtraction overstates tax paid by **$0.49** because 7% is calculated on the higher post-tax amount ($107) rather than the original pre-tax base ($100).
+
+---
+
+## 4. Summary Recommendation
+
+- Use a **Forward Tax Calculator** when pricing items for retail sale before tax.
+- Use a **Reverse Tax Calculator** whenever reviewing post-tax receipts, invoices, or credit card records to extract exact net subtotals and tax components.

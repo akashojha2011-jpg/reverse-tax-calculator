@@ -1,0 +1,39 @@
+# Reverse Tax Calculator (reversetaxcalculator.pro)
+
+> Free, fast, client-side financial web calculators to find pre-tax net prices, tax paid, and tax rates backwards from gross totals.
+
+## Core Purpose & Utility
+Reverse Tax Calculator provides instant mathematical answers for users asking "how do I calculate tax backwards from a total." All calculations are performed in client-side JavaScript with zero latency and zero data collection.
+
+## Key Formulas
+- **Reverse Tax Formula**: Net Amount = Gross Total ÷ (1 + Tax Rate Decimal)
+- **Tax Amount Paid**: Tax Paid = Gross Total - Net Amount
+- **Tax Rate Solver**: Tax Rate % = [(Gross Total ÷ Net Amount) - 1] × 100
+- **Quebec GST + QST (Additive)**: Net Amount = Gross Total ÷ (1 + 0.05 GST + 0.09975 QST)
+- **Reverse Tax & Tip**: Subtotal Net = Total Paid ÷ (1 + Tax Rate + Tip Rate)
+- **Net to Gross Paycheck**: Estimated Gross = Target Net ÷ (1 - Effective Tax Rate)
+
+## Key Pages & Index
+- Homepage: https://reversetaxcalculator.pro/
+- Reverse Sales Tax Calculator: https://reversetaxcalculator.pro/reverse-sales-tax-calculator
+- Reverse Tax Formula & Math Guide: https://reversetaxcalculator.pro/reverse-tax-formula
+- Reverse Tax Rate Solver: https://reversetaxcalculator.pro/reverse-tax-rate-calculator
+- Reverse VAT Calculator (UK/EU): https://reversetaxcalculator.pro/reverse-vat-calculator
+- Reverse GST Calculator: https://reversetaxcalculator.pro/reverse-gst-calculator
+- Reverse HST Calculator (Canada): https://reversetaxcalculator.pro/reverse-hst-calculator
+- Net to Gross Income Tax Estimator: https://reversetaxcalculator.pro/reverse-income-tax-calculator
+- Reverse Tax & Tip Calculator: https://reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator
+
+## Programmatic Regional Calculators
+- California: https://reversetaxcalculator.pro/california-reverse-sales-tax-calculator
+- Texas: https://reversetaxcalculator.pro/texas-reverse-sales-tax-calculator
+- New York: https://reversetaxcalculator.pro/new-york-reverse-sales-tax-calculator
+- Ohio: https://reversetaxcalculator.pro/ohio-reverse-sales-tax-calculator
+- Minnesota: https://reversetaxcalculator.pro/minnesota-reverse-sales-tax-calculator
+- Quebec: https://reversetaxcalculator.pro/quebec-reverse-sales-tax-calculator
+- Ontario: https://reversetaxcalculator.pro/ontario-reverse-sales-tax-calculator
+- British Columbia: https://reversetaxcalculator.pro/british-columbia-reverse-sales-tax-calculator
+- Alberta: https://reversetaxcalculator.pro/alberta-reverse-sales-tax-calculator
+
+## Maintainer & Accuracy
+Maintained by the Reverse Tax Calculator team. Tax rates last verified: August 2026.
