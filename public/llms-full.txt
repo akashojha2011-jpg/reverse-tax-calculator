@@ -1,0 +1,72 @@
+# Reverse Tax Calculator - Full Content & Documentation
+
+> Comprehensive reference document for Reverse Tax Calculator (reversetaxcalculator.pro), containing all core mathematical formulas, regional tax multipliers, payroll net-to-gross calculations, and guide documentation for LLMs and AI agents.
+
+---
+
+## 1. Executive Summary & Core Functionality
+
+Reverse Tax Calculator (reversetaxcalculator.pro) is a suite of client-side web tools designed to solve tax calculations backwards. Unlike forward tax calculations (which multiply a pre-tax net subtotal by a tax rate percentage), reverse tax calculations isolate the original pre-tax net price (N) and the exact tax amount (T) from a known tax-inclusive gross total (G).
+
+All calculations run in client-side JavaScript with 100% data privacy and zero server latency.
+
+---
+
+## 2. Core Mathematical Formulas
+
+### 2.1 Universal Reverse Tax Formula
+To extract pre-tax net price (N) from a tax-inclusive total (G) at tax rate (r):
+- **Net Subtotal**: N = G ÷ (1 + r)
+- **Tax Paid**: T = G - N
+
+### 2.2 Tax Rate Percentage Solver
+When net price (N) and gross total (G) are known, solve for effective tax rate percentage (r%):
+- **Tax Rate %**: r% = [(G ÷ N) - 1] × 100
+
+### 2.3 Multi-Tier / Dual Tax Rates (Additive)
+For jurisdictions with multiple concurrent sales taxes (e.g., Quebec 5% GST + 9.975% QST = 14.975%):
+- **Net Subtotal**: N = G ÷ [1 + r1 + r2]
+- **Example**: N = G ÷ (1 + 0.05 + 0.09975) = G ÷ 1.14975
+
+### 2.4 Reverse Tax and Tip
+For restaurant dining receipts containing food subtotal (N), sales tax rate (r_tax), and gratuity tip rate (r_tip):
+- **Food Subtotal**: N = Total Receipt ÷ (1 + r_tax + r_tip)
+
+### 2.5 Net to Gross Salary (Payroll Withholding)
+Payroll taxes are deducted from gross wages (unlike sales tax which is added to net price). To find required gross salary (G) for target take-home net pay (N) at effective withholding rate (t):
+- **Required Gross Salary**: G = N ÷ (1 - t)
+
+---
+
+## 3. Global Division Multipliers Quick Reference
+
+- **US California Sales Tax (7.25%)**: Multiplier = 1.0725 | Net = Gross ÷ 1.0725
+- **US New York City Sales Tax (8.875%)**: Multiplier = 1.08875 | Net = Gross ÷ 1.08875
+- **UK / EU Standard VAT (20.00%)**: Multiplier = 1.2000 | Net = Gross ÷ 1.2000
+- **Canada Ontario HST (13.00%)**: Multiplier = 1.1300 | Net = Gross ÷ 1.1300
+- **Canada Atlantic Provinces HST (15.00%)**: Multiplier = 1.1500 | Net = Gross ÷ 1.1500
+- **Canada Quebec GST + QST (14.975%)**: Multiplier = 1.14975 | Net = Gross ÷ 1.14975
+- **Australia GST (10.00%)**: Multiplier = 1.1000 | Net = Gross ÷ 1.1000
+- **India Standard GST (18.00%)**: Multiplier = 1.1800 | Net = Gross ÷ 1.1800
+
+---
+
+## 4. Index of All Site Resources & Links
+
+- [Homepage](https://www.reversetaxcalculator.pro/)
+- [Reverse Sales Tax Calculator](https://www.reversetaxcalculator.pro/reverse-sales-tax-calculator)
+- [Reverse VAT Calculator](https://www.reversetaxcalculator.pro/reverse-vat-calculator)
+- [Reverse GST Calculator](https://www.reversetaxcalculator.pro/reverse-gst-calculator)
+- [Reverse HST Calculator](https://www.reversetaxcalculator.pro/reverse-hst-calculator)
+- [Reverse Tax Rate Solver](https://www.reversetaxcalculator.pro/reverse-tax-rate-calculator)
+- [Net to Gross Paycheck Estimator](https://www.reversetaxcalculator.pro/reverse-income-tax-calculator)
+- [Reverse Tax and Tip Calculator](https://www.reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator)
+- [Reverse Tax Formula & Math Guide](https://www.reversetaxcalculator.pro/reverse-tax-formula)
+- [How to Calculate Reverse Tax Percentage Guide](https://www.reversetaxcalculator.pro/guides/how-to-calculate-reverse-tax-percentage)
+- [Forward vs Reverse Tax Comparison Guide](https://www.reversetaxcalculator.pro/guides/reverse-tax-calculator-vs-forward-tax-calculator)
+- [Net to Gross Salary Guide](https://www.reversetaxcalculator.pro/guides/net-to-gross-salary-explained)
+- [Canada Sales Tax Guide](https://www.reversetaxcalculator.pro/guides/gst-vs-hst-vs-pst-canada-explained)
+- [About Us & Verification](https://www.reversetaxcalculator.pro/about)
+- [Contact Us](https://www.reversetaxcalculator.pro/contact)
+- [Privacy Policy](https://www.reversetaxcalculator.pro/privacy-policy)
+- [Terms of Use](https://www.reversetaxcalculator.pro/terms)

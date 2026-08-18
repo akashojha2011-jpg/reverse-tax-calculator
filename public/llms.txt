@@ -1,39 +1,35 @@
-# Reverse Tax Calculator (reversetaxcalculator.pro)
+# Reverse Tax Calculator
 
-> Free, fast, client-side financial web calculators to find pre-tax net prices, tax paid, and tax rates backwards from gross totals.
+> Free, fast, client-side web application for calculating sales tax, VAT, GST, HST, and payroll tax backwards from gross totals.
 
-## Core Purpose & Utility
-Reverse Tax Calculator provides instant mathematical answers for users asking "how do I calculate tax backwards from a total." All calculations are performed in client-side JavaScript with zero latency and zero data collection.
+Reverse Tax Calculator provides instant mathematical tools and verified regional tax breakdowns to extract pre-tax net subtotals, tax paid, and tax rates backwards from inclusive totals.
 
-## Key Formulas
-- **Reverse Tax Formula**: Net Amount = Gross Total ÷ (1 + Tax Rate Decimal)
-- **Tax Amount Paid**: Tax Paid = Gross Total - Net Amount
-- **Tax Rate Solver**: Tax Rate % = [(Gross Total ÷ Net Amount) - 1] × 100
-- **Quebec GST + QST (Additive)**: Net Amount = Gross Total ÷ (1 + 0.05 GST + 0.09975 QST)
-- **Reverse Tax & Tip**: Subtotal Net = Total Paid ÷ (1 + Tax Rate + Tip Rate)
-- **Net to Gross Paycheck**: Estimated Gross = Target Net ÷ (1 - Effective Tax Rate)
+## Core Calculators
 
-## Key Pages & Index
-- Homepage: https://reversetaxcalculator.pro/
-- Reverse Sales Tax Calculator: https://reversetaxcalculator.pro/reverse-sales-tax-calculator
-- Reverse Tax Formula & Math Guide: https://reversetaxcalculator.pro/reverse-tax-formula
-- Reverse Tax Rate Solver: https://reversetaxcalculator.pro/reverse-tax-rate-calculator
-- Reverse VAT Calculator (UK/EU): https://reversetaxcalculator.pro/reverse-vat-calculator
-- Reverse GST Calculator: https://reversetaxcalculator.pro/reverse-gst-calculator
-- Reverse HST Calculator (Canada): https://reversetaxcalculator.pro/reverse-hst-calculator
-- Net to Gross Income Tax Estimator: https://reversetaxcalculator.pro/reverse-income-tax-calculator
-- Reverse Tax & Tip Calculator: https://reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator
+- [Reverse Sales Tax Calculator](https://www.reversetaxcalculator.pro/reverse-sales-tax-calculator): Back-calculate sales tax and net price from inclusive total.
+- [Reverse VAT Calculator](https://www.reversetaxcalculator.pro/reverse-vat-calculator): Calculate pre-VAT subtotal and VAT paid for UK, EU, and global business invoices.
+- [Reverse GST Calculator](https://www.reversetaxcalculator.pro/reverse-gst-calculator): Calculate pre-GST net amount and GST tax paid.
+- [Reverse HST Calculator](https://www.reversetaxcalculator.pro/reverse-hst-calculator): Back-calculate Canadian Harmonized Sales Tax for Ontario, Atlantic Canada, and provinces.
+- [Reverse Tax Rate Solver](https://www.reversetaxcalculator.pro/reverse-tax-rate-calculator): Solve for exact tax rate percentage when only net and gross prices are known.
+- [Net to Gross Paycheck Estimator](https://www.reversetaxcalculator.pro/reverse-income-tax-calculator): Estimate required gross salary based on desired take-home pay.
+- [Reverse Tax and Tip Calculator](https://www.reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator): Separate subtotal, sales tax, and restaurant gratuity from total receipt.
 
-## Programmatic Regional Calculators
-- California: https://reversetaxcalculator.pro/california-reverse-sales-tax-calculator
-- Texas: https://reversetaxcalculator.pro/texas-reverse-sales-tax-calculator
-- New York: https://reversetaxcalculator.pro/new-york-reverse-sales-tax-calculator
-- Ohio: https://reversetaxcalculator.pro/ohio-reverse-sales-tax-calculator
-- Minnesota: https://reversetaxcalculator.pro/minnesota-reverse-sales-tax-calculator
-- Quebec: https://reversetaxcalculator.pro/quebec-reverse-sales-tax-calculator
-- Ontario: https://reversetaxcalculator.pro/ontario-reverse-sales-tax-calculator
-- British Columbia: https://reversetaxcalculator.pro/british-columbia-reverse-sales-tax-calculator
-- Alberta: https://reversetaxcalculator.pro/alberta-reverse-sales-tax-calculator
+## Guides & Documentation
 
-## Maintainer & Accuracy
-Maintained by the Reverse Tax Calculator team. Tax rates last verified: August 2026.
+- [Reverse Tax Formula & Math Guide](https://www.reversetaxcalculator.pro/reverse-tax-formula): Mathematical proofs, division shortcuts, and step-by-step reverse tax equations.
+- [How to Calculate Reverse Tax Percentage](https://www.reversetaxcalculator.pro/guides/how-to-calculate-reverse-tax-percentage): 2,000+ word guide covering basic division factors to multi-tier tax rates.
+- [Reverse Tax vs Forward Tax Comparison](https://www.reversetaxcalculator.pro/guides/reverse-tax-calculator-vs-forward-tax-calculator): Detailed comparison of forward POS pricing versus reverse accounting math.
+- [Net to Gross Salary Guide](https://www.reversetaxcalculator.pro/guides/net-to-gross-salary-explained): Comprehensive payroll guide covering FICA deductions, effective tax rates, and paycheck math.
+- [Canada Sales Tax Guide (GST vs HST vs PST)](https://www.reversetaxcalculator.pro/guides/gst-vs-hst-vs-pst-canada-explained): Provincial tax rate matrix, CRA Input Tax Credit (ITC) rules, and place of supply.
+
+## Regional Tax Calculators
+
+- [California Reverse Sales Tax](https://www.reversetaxcalculator.pro/california-reverse-sales-tax-calculator): Reverse sales tax calculations for California (7.25% base rate).
+- [Texas Reverse Sales Tax](https://www.reversetaxcalculator.pro/texas-reverse-sales-tax-calculator): Reverse sales tax calculations for Texas (6.25% base rate).
+- [New York Reverse Sales Tax](https://www.reversetaxcalculator.pro/new-york-reverse-sales-tax-calculator): Reverse sales tax calculations for New York (4.00% state + local rate).
+- [Ontario Reverse HST](https://www.reversetaxcalculator.pro/ontario-reverse-sales-tax-calculator): Reverse HST calculations for Ontario (13% blended rate).
+- [Quebec Reverse Sales Tax](https://www.reversetaxcalculator.pro/quebec-reverse-sales-tax-calculator): Reverse additive GST + QST (14.975% combined rate).
+
+## Optional
+
+- [Full Content Version](https://www.reversetaxcalculator.pro/llms-full.txt): Complete text, formulas, regional rates, and documentation for AI agent consumption.
