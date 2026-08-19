@@ -7,6 +7,7 @@ import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
 import { AuthorByline } from '@/components/AuthorByline'
 import { AccuracyVerificationBox } from '@/components/AccuracyVerificationBox'
+import { CompactOmniHeader } from '@/components/CompactOmniHeader'
 
 export const metadata: Metadata = {
   title: 'Reverse Tax Calculator | Reverse Sales Tax Calculator',
@@ -222,8 +223,13 @@ export default function HomePage() {
             Calculate the pre-tax price and sales tax from any tax-inclusive total. Enter your total amount and tax rate to instantly find the original price and tax paid.
           </p>
 
+          {/* Omni-Style Compact Metadata, Sources & Interactive Like/Share Action Bar */}
+          <div className="max-w-2xl mx-auto text-left pt-1">
+            <CompactOmniHeader lastUpdated="August 2026" initialLikes={1248} />
+          </div>
+
           {/* Centered Interactive Calculator */}
-          <div className="max-w-2xl mx-auto pt-4 text-left">
+          <div className="max-w-2xl mx-auto pt-2 text-left">
             <CalculatorCard
               initialMode="sales-tax"
               defaultGross={107}
@@ -246,17 +252,6 @@ export default function HomePage() {
             <span>Supports US Sales Tax, VAT, GST, HST & Payroll Net-to-Gross</span>
           </div>
         </section>
-
-        {/* Author Byline */}
-        <AuthorByline
-          authorName="Reverse Tax Calculator Editorial Team"
-          authorRole="Financial Calculation & Tax Research Team"
-          lastUpdated="August 2026"
-          verificationCode="Standard Rate Data Checked"
-        />
-
-        {/* Accuracy Verification & Methodology Box */}
-        <AccuracyVerificationBox />
 
         {/* 4-Column State & Region Directory Grid */}
         <RegionGridDirectory />
@@ -331,6 +326,9 @@ export default function HomePage() {
             </li>
           </ul>
         </article>
+
+        {/* Calculation Methodology & Rate Verification Box */}
+        <AccuracyVerificationBox />
 
         {/* 18 Prioritized FAQs with Machine-Readable FAQPage JSON-LD Schema */}
         <FAQAccordion items={homeFaqs} title="Frequently Asked Questions (Reverse Tax & Sales Tax)" />

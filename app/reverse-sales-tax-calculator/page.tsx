@@ -8,6 +8,7 @@ import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
 import { AuthorByline } from '@/components/AuthorByline'
 import { AccuracyVerificationBox } from '@/components/AccuracyVerificationBox'
+import { CompactOmniHeader } from '@/components/CompactOmniHeader'
 
 export const metadata: Metadata = {
   title: 'Free Reverse Sales Tax Calculator — Calculate Pre-Tax Price & Tax Paid',
@@ -224,18 +225,17 @@ export default function ReverseSalesTaxPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Comprehensive Detailed Article & Guide */}
         <div className="lg:col-span-7 space-y-6">
-          <header className="border-b border-slate-200 pb-4">
-            <div className="text-xs text-slate-500 font-semibold mb-1">
-              Last updated: <strong>August 2026</strong> | 50 US States & Global Verified
-            </div>
-            
+          <header className="pb-2 border-b border-slate-100">
             {/* H1 Tag */}
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
               Reverse Sales Tax Calculator
             </h1>
-            <p className="text-slate-600 text-lg font-medium">
+            <p className="text-slate-600 text-base sm:text-lg font-medium mb-3">
               Calculate pre-tax subtotal and sales tax paid backwards from any total price.
             </p>
+
+            {/* Omni-Style Compact Creator & Action Bar (Likes / Dislikes / Share) */}
+            <CompactOmniHeader lastUpdated="August 2026" initialLikes={1248} />
           </header>
 
           {/* Mobile Calculator Placement (Immediately below Header) */}
@@ -258,16 +258,6 @@ export default function ReverseSalesTaxPage() {
               <li><a href="#faqs" className="hover:underline">Frequently Asked Questions (FAQs)</a></li>
             </ol>
           </nav>
-
-          {/* Author Byline & Accuracy Verification */}
-          <AuthorByline
-            authorName="Reverse Tax Calculator Editorial Team"
-            authorRole="Financial Calculation & Tax Research Team"
-            lastUpdated="August 2026"
-            verificationCode="Standard Rate Data Checked"
-          />
-
-          <AccuracyVerificationBox />
 
           {/* Summary Box */}
           <section className="bg-slate-100/80 border border-slate-200 rounded-2xl p-5 md:p-6">
@@ -487,6 +477,9 @@ export default function ReverseSalesTaxPage() {
               </li>
             </ul>
           </section>
+
+          {/* Rate Verification & Methodology Section */}
+          <AccuracyVerificationBox />
 
           {/* Internal Link Grid */}
           <RelatedCalculatorsGrid title="US State Sales Tax Calculators" />
