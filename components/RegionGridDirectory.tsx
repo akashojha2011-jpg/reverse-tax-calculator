@@ -107,16 +107,16 @@ export function RegionGridDirectory() {
           <Link
             key={r.slug}
             href={`/${r.slug}-reverse-sales-tax-calculator`}
-            className="group px-3.5 py-3 rounded-xl bg-slate-50 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all flex items-center gap-3 cursor-pointer"
+            className="group px-3 py-2.5 rounded-xl bg-slate-50 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all flex items-center gap-2.5 cursor-pointer"
           >
-            <div className="p-2 rounded-lg bg-brand-50 group-hover:bg-white/20 text-brand-600 group-hover:text-white transition-colors shrink-0 flex items-center justify-center">
-              <StateMapIcon slug={r.slug} className="w-5 h-5 transition-transform group-hover:scale-110" />
+            <div className="px-2 py-1 rounded-lg bg-brand-50 border border-brand-200/60 group-hover:bg-white/20 group-hover:border-white/30 transition-colors shrink-0 flex items-center justify-center min-w-[34px]">
+              <StateMapIcon slug={r.slug} />
             </div>
             <div className="flex-1 min-w-0 text-left">
               <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-white transition-colors truncate block">
                 {r.name}
               </span>
-              <span className="text-[10px] font-semibold text-slate-500 group-hover:text-brand-100 transition-colors mt-0.5 block truncate">
+              <span className="text-[10px] font-semibold text-slate-500 group-hover:text-brand-100 transition-colors block truncate">
                 {r.taxName} ({r.rate}%{r.secondRate ? ` + ${r.secondRate}%` : ''})
               </span>
             </div>
