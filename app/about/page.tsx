@@ -2,12 +2,12 @@ import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BreadcrumbNav } from '@/components/BreadcrumbNav'
-import { ShieldCheck, RefreshCw, Lock, Zap, UserCheck, Award, FileCheck } from 'lucide-react'
+import { ShieldCheck, RefreshCw, Lock, Zap, FileText, AlertTriangle, Globe } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Us, Team Credentials & Tax Data Accuracy',
+  title: 'Calculation Methodology, Rate Sourcing & Legal Disclaimer',
   description:
-    'Meet the CPAs and tax specialists behind Reverse Tax Calculator Pro. Learn about our calculation verification methodology against IRS 26 USC, CRA, and HMRC databases.',
+    'Learn how Reverse Tax Calculator sources rate data, our calculation methodology, jurisdiction coverage, and important disclaimers for tax filings.',
   alternates: {
     canonical: 'https://reversetaxcalculator.pro/about',
   },
@@ -21,9 +21,9 @@ export default function AboutPage() {
         '@type': 'AboutPage',
         '@id': 'https://reversetaxcalculator.pro/about#webpage',
         url: 'https://reversetaxcalculator.pro/about',
-        name: 'About Reverse Tax Calculator Pro & Team Credentials',
+        name: 'Calculation Methodology & Rate Verification',
         description:
-          'Expert tax accounting team credentials, editorial policy, and official tax authority verification methodology.',
+          'Comprehensive breakdown of rate sourcing, calculation methodology, covered jurisdictions, and legal disclaimers.',
       },
       {
         '@type': 'Organization',
@@ -31,34 +31,12 @@ export default function AboutPage() {
         name: 'Reverse Tax Calculator',
         url: 'https://reversetaxcalculator.pro',
         logo: 'https://reversetaxcalculator.pro/icon.png',
-        description: 'Free online financial reverse tax calculators for sales tax, VAT, GST, HST, and payroll.',
-        sameAs: [
-          'https://twitter.com/reversetaxcalc',
-          'https://www.linkedin.com/company/reversetaxcalculator',
-        ],
+        description: 'Free online financial reverse tax tools for sales tax, VAT, GST, HST, and payroll.',
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'Customer Support',
           url: 'https://reversetaxcalculator.pro/contact',
         },
-      },
-      {
-        '@type': 'Person',
-        '@id': 'https://reversetaxcalculator.pro/about#marcus-vance',
-        name: 'Marcus Vance, CPA, CFE',
-        jobTitle: 'Lead Financial & Sales Tax Accounting Editor',
-        worksFor: { '@id': 'https://reversetaxcalculator.pro/#organization' },
-        description: 'Certified Public Accountant with 15+ years experience in corporate tax accounting and retail sales tax compliance.',
-        knowsAbout: ['US Sales Tax Codes (IRS 26 USC)', 'Reverse Tax Algebra', 'Input Tax Credits', 'Payroll Withholding Math'],
-      },
-      {
-        '@type': 'Person',
-        '@id': 'https://reversetaxcalculator.pro/about#sarah-lin',
-        name: 'Sarah Lin, EA',
-        jobTitle: 'International VAT & GST Compliance Specialist',
-        worksFor: { '@id': 'https://reversetaxcalculator.pro/#organization' },
-        description: 'Enrolled Agent specializing in European VAT compliance, Canadian GST/HST place of supply rules, and cross-border e-commerce tax.',
-        knowsAbout: ['European VAT Directives', 'Canada CRA GST/HST Policies', 'ATO Australia GST', 'E-Commerce Tax Architecture'],
       },
     ],
   }
@@ -75,119 +53,113 @@ export default function AboutPage() {
       <article className="max-w-4xl mx-auto space-y-8">
         {/* Header Hero */}
         <header className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-xs">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-3">
-            🛡️ Official E-E-A-T Trust & Editorial Policy
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider mb-3">
+            📋 Methodology & Rate Sourcing Standards
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-            About Reverse Tax Calculator Pro
+            Calculation Methodology & Rate Verification
           </h1>
           <p className="text-lg text-slate-700 leading-relaxed m-0">
-            <strong>reversetaxcalculator.pro</strong> is a specialized financial utility platform built to eliminate mathematical errors when calculating pre-tax net prices, tax amounts paid, and tax percentages backwards from tax-inclusive totals.
+            <strong>reversetaxcalculator.pro</strong> is an independent financial web tool designed to simplify reverse tax math. We provide clear, transparent explanations of how tax rates are sourced, how formulas operate, and where the boundaries of automated calculation tools lie.
           </p>
         </header>
 
-        {/* 4 Trust Columns */}
+        {/* 5 Key Transparency Pillar Cards */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+          <h2 className="text-2xl font-extrabold text-slate-900 mt-0 mb-2 flex items-center gap-2">
+            <FileText className="w-6 h-6 text-blue-600" />
+            1. How Tax Rates Are Sourced
+          </h2>
+          <p className="text-sm text-slate-700 leading-relaxed m-0">
+            Our standard sales tax rates, VAT percentages, and GST thresholds are retrieved from public government tax authority rate schedules:
+          </p>
+          <ul className="list-disc pl-5 text-xs sm:text-sm text-slate-600 space-y-2 leading-relaxed">
+            <li><strong>United States</strong>: State Departments of Revenue (e.g. CDTFA in California, Texas Comptroller, NY Department of Taxation and Finance).</li>
+            <li><strong>Canada</strong>: Canada Revenue Agency (CRA) official GST/HST schedules and provincial tax authorities (Revenu Québec, BC Ministry of Finance).</li>
+            <li><strong>United Kingdom & Europe</strong>: HM Revenue & Customs (HMRC) and European Commission VAT databases.</li>
+            <li><strong>Australia & International</strong>: Australian Taxation Office (ATO) and national tax departments.</li>
+          </ul>
+
+          <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-2 flex items-center gap-2">
+            <RefreshCw className="w-6 h-6 text-blue-600" />
+            2. When Rates Are Updated
+          </h2>
+          <p className="text-sm text-slate-700 leading-relaxed m-0">
+            Tax rates are periodically reviewed against published state and national tax schedule updates. Our rate data was last checked in <strong>August 2026</strong>. When state legislatures or tax authorities adjust base rates, our single-source rate database is updated accordingly.
+          </p>
+
+          <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-2 flex items-center gap-2">
+            <ShieldCheck className="w-6 h-6 text-blue-600" />
+            3. Who Reviews & Tests the Tools
+          </h2>
+          <p className="text-sm text-slate-700 leading-relaxed m-0">
+            Calculations are maintained and tested by our financial software research team. Formulas are verified using standard accounting mathematics ($Net = Gross \div (1 + TaxRate)$) and checked against synthetic receipt samples to prevent floating-point rounding errors.
+          </p>
+
+          <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-2 flex items-center gap-2">
+            <Globe className="w-6 h-6 text-blue-600" />
+            4. Supported Jurisdictions
+          </h2>
+          <p className="text-sm text-slate-700 leading-relaxed m-0">
+            Our calculator database supports state-level and standard rates for:
+          </p>
+          <ul className="list-disc pl-5 text-xs sm:text-sm text-slate-600 space-y-1.5 leading-relaxed">
+            <li>All 50 US States + District of Columbia</li>
+            <li>Canadian Provinces & Territories (GST, HST, PST, QST)</li>
+            <li>United Kingdom (20% Standard VAT, 5% Reduced VAT)</li>
+            <li>European Union Member States</li>
+            <li>Australia, New Zealand, India, and Singapore GST</li>
+          </ul>
+        </section>
+
+        {/* 5. When the Calculator Should NOT Be Relied Upon (Disclaimers) */}
+        <section className="bg-amber-50/80 border border-amber-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-4 text-amber-950">
+          <h2 className="text-2xl font-extrabold text-amber-900 mt-0 mb-2 flex items-center gap-2">
+            <AlertTriangle className="w-6 h-6 text-amber-600" />
+            5. When This Calculator Should NOT Be Relied Upon
+          </h2>
+          <p className="text-sm leading-relaxed font-medium">
+            While our tools strive for mathematical precision, automated web calculators have inherent limitations and should <strong>NOT</strong> be relied upon in the following situations:
+          </p>
+
+          <ul className="list-disc pl-5 text-xs sm:text-sm space-y-2 leading-relaxed text-amber-900">
+            <li>
+              <strong>Official Tax Filings & Tax Return Submissions</strong>: Do not use web estimates as sole documentation for filing state tax returns or corporate IRS tax filings without professional verification.
+            </li>
+            <li>
+              <strong>Complex Special Local Tax Districts</strong>: Certain municipalities impose special district taxes (e.g. stadium taxes, tourism surcharges, local transit fees) that may vary by street address or business category.
+            </li>
+            <li>
+              <strong>Product Tax Exemptions & Reduced Tiers</strong>: Certain items (groceries, prescription drugs, agricultural equipment) enjoy tax-exempt status or reduced rates that require specialized tax engine rules.
+            </li>
+            <li>
+              <strong>Legal Compliance Audits</strong>: For formal tax advice, binding legal rulings, or audit representation, always consult a licensed Certified Public Accountant (CPA), Enrolled Agent (EA), or qualified Tax Attorney.
+            </li>
+          </ul>
+
+          <div className="pt-2 text-xs font-semibold text-amber-800 border-t border-amber-200">
+            Notice a rate schedule change in your county or city? Submit data updates to our team via our <Link href="/contact" className="underline font-bold">Contact Page</Link>.
+          </div>
+        </section>
+
+        {/* 4 Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <ShieldCheck className="w-7 h-7 text-brand-600 mb-2" />
-            <h3 className="text-base font-bold text-slate-900 mt-0 mb-1">Financial Precision</h3>
-            <p className="text-xs text-slate-600 m-0 leading-relaxed">
-              Every formula complies strictly with legal definitions set by the IRS (26 USC), Canada Revenue Agency (CRA), HM Revenue & Customs (HMRC), and state departments of revenue.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <RefreshCw className="w-7 h-7 text-brand-600 mb-2" />
-            <h3 className="text-base font-bold text-slate-900 mt-0 mb-1">Monthly Rate Audits</h3>
-            <p className="text-xs text-slate-600 m-0 leading-relaxed">
-              State, municipal, and regional sales tax rates are audited on the 1st of every month. Tax rates verified: <strong>August 2026</strong>.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <Lock className="w-7 h-7 text-brand-600 mb-2" />
+            <Lock className="w-6 h-6 text-brand-600 mb-2" />
             <h3 className="text-base font-bold text-slate-900 mt-0 mb-1">100% Client-Side Privacy</h3>
             <p className="text-xs text-slate-600 m-0 leading-relaxed">
-              All mathematical calculations run client-side in your web browser. Zero financial data, dollar amounts, or receipt figures are transmitted or stored on any server.
+              All calculations run client-side in your web browser. Zero financial data or receipt entries are transmitted or saved.
             </p>
           </div>
 
           <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <Zap className="w-7 h-7 text-brand-600 mb-2" />
-            <h3 className="text-base font-bold text-slate-900 mt-0 mb-1">Ad-Free & Frictionless</h3>
+            <Zap className="w-6 h-6 text-brand-600 mb-2" />
+            <h3 className="text-base font-bold text-slate-900 mt-0 mb-1">Free & Accessible</h3>
             <p className="text-xs text-slate-600 m-0 leading-relaxed">
-              Designed for working accounting professionals. No mandatory account signups, no paywalls, and no popups interrupting calculation workflow.
+              Built to provide instant financial utility with no registration requirements, no paywalls, and no login barriers.
             </p>
           </div>
         </div>
-
-        {/* Editorial Team Credentials (E-E-A-T Signals) */}
-        <section id="editorial-team" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-          <div>
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-0 mb-2 flex items-center gap-2">
-              <UserCheck className="w-6 h-6 text-blue-600" />
-              Editorial Team & Financial Expertise
-            </h2>
-            <p className="text-sm text-slate-600 leading-relaxed m-0">
-              Our content, mathematical algorithms, and guide articles are authored and verified by licensed accounting professionals and tax specialists.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-brand-600 shrink-0" />
-                <h3 className="text-base font-bold text-slate-900 m-0">Marcus Vance, CPA, CFE</h3>
-              </div>
-              <div className="text-xs font-bold text-brand-700 uppercase tracking-wider">
-                Lead Financial & Sales Tax Accounting Editor
-              </div>
-              <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Certified Public Accountant with over 15 years of experience in corporate financial auditing, retail sales tax compliance, and payroll accounting. Marcus oversees all algebraic derivations and state sales tax rate verification routines.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-brand-600 shrink-0" />
-                <h3 className="text-base font-bold text-slate-900 m-0">Sarah Lin, EA</h3>
-              </div>
-              <div className="text-xs font-bold text-brand-700 uppercase tracking-wider">
-                International VAT & GST Compliance Specialist
-              </div>
-              <p className="text-xs text-slate-600 leading-relaxed m-0">
-                IRS Enrolled Agent specializing in international value-added taxes (VAT), Canadian Goods and Services Tax (GST/HST), and cross-border e-commerce taxation. Sarah manages our global regional rate database and place-of-supply rules.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Verification Methodology */}
-        <section id="verification-policy" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-4">
-          <h2 className="text-2xl font-extrabold text-slate-900 mt-0 mb-2 flex items-center gap-2">
-            <FileCheck className="w-6 h-6 text-blue-600" />
-            Rate Verification & Editorial Sourcing Methodology
-          </h2>
-          <p className="text-sm text-slate-700 leading-relaxed">
-            Tax rates change frequently across state, county, and municipal jurisdictions. To ensure absolute data integrity for our users, Reverse Tax Calculator Pro enforces a strict three-tier verification policy:
-          </p>
-
-          <ol className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-2 leading-relaxed">
-            <li>
-              <strong>Primary Source Sourcing</strong>: All sales tax rates, VAT percentages, and GST thresholds are retrieved directly from official government tax authority databases (e.g., California Department of Tax and Fee Administration, Texas Comptroller, IRS Code 26 USC, Canada Revenue Agency, and UK HMRC).
-            </li>
-            <li>
-              <strong>Algorithmic Validation</strong>: Standard division multipliers ($1 + r$) and additive multi-tier tax multipliers (such as Quebec's 5% GST + 9.975% QST) are tested against synthetic benchmark transaction sets to prevent rounding errors.
-            </li>
-            <li>
-              <strong>Monthly Peer Review</strong>: On the first calendar day of every month, our editorial team audits legislative updates across all 50 US states, 13 Canadian provinces, and major European jurisdictions.
-            </li>
-          </ol>
-
-          <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 font-medium mt-4">
-            Notice a rate update in your local city or county? Please submit rate change documentation to our team via our <Link href="/contact" className="font-bold underline">Contact Page</Link> for immediate single-source database updates.
-          </div>
-        </section>
       </article>
     </>
   )

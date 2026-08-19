@@ -1142,10 +1142,9 @@ export default function GuidePage({ params }: GuidePageProps) {
     description: guide.metaDesc,
     url: `https://reversetaxcalculator.pro/guides/${params.slug}`,
     author: {
-      '@type': 'Person',
-      name: 'Marcus Vance, CPA, CFE',
-      jobTitle: 'Lead Financial & Sales Tax Accounting Editor',
-      url: 'https://reversetaxcalculator.pro/about#marcus-vance',
+      '@type': 'Organization',
+      name: 'Reverse Tax Calculator Editorial Team',
+      url: 'https://reversetaxcalculator.pro/about',
     },
     publisher: {
       '@type': 'Organization',
@@ -1183,12 +1182,12 @@ export default function GuidePage({ params }: GuidePageProps) {
             </h1>
           </header>
 
-          {/* E-E-A-T Author Byline */}
+          {/* Author Byline */}
           <AuthorByline
-            authorName="Marcus Vance, CPA, CFE"
-            authorRole="Lead Financial & Sales Tax Editor (15+ Yrs Exp)"
+            authorName="Reverse Tax Calculator Editorial Team"
+            authorRole="Financial Calculation & Tax Research Team"
             lastUpdated="August 2026"
-            verificationCode="IRS 26 USC & State DOR Database Verified"
+            verificationCode="Standard Rate Data Checked"
           />
 
           {/* Table of Contents */}

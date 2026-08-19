@@ -181,9 +181,9 @@ export default function ReverseSalesTaxPage() {
         datePublished: '2026-01-15',
         dateModified: '2026-08-19',
         author: {
-          '@type': 'Person',
-          name: 'Marcus Vance, CPA, CFE',
-          url: 'https://reversetaxcalculator.pro/about#marcus-vance',
+          '@type': 'Organization',
+          name: 'Reverse Tax Calculator Editorial Team',
+          url: 'https://reversetaxcalculator.pro/about',
         },
         publisher: {
           '@type': 'Organization',
@@ -238,12 +238,12 @@ export default function ReverseSalesTaxPage() {
             </p>
           </header>
 
-          {/* E-E-A-T Author Byline */}
+          {/* Author Byline */}
           <AuthorByline
-            authorName="Marcus Vance, CPA, CFE"
-            authorRole="Lead Financial & Sales Tax Editor (15+ Yrs Exp)"
+            authorName="Reverse Tax Calculator Editorial Team"
+            authorRole="Financial Calculation & Tax Research Team"
             lastUpdated="August 2026"
-            verificationCode="IRS 26 USC & State DOR Database Verified"
+            verificationCode="Standard Rate Data Checked"
           />
 
           {/* E-E-A-T Accuracy Verification Box */}

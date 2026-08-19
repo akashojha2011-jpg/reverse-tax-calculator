@@ -168,12 +168,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* E-E-A-T Author Byline */}
+        {/* Author Byline */}
         <AuthorByline
-          authorName="Marcus Vance, CPA, CFE"
-          authorRole="Lead Financial & Sales Tax Editor (15+ Yrs Exp)"
+          authorName="Reverse Tax Calculator Editorial Team"
+          authorRole="Financial Calculation & Tax Research Team"
           lastUpdated="August 2026"
-          verificationCode="Verified against IRS 26 USC & State DOR Databases"
+          verificationCode="Standard Rate Data Checked"
         />
 
         {/* E-E-A-T Transparency & Accuracy Verification Trust Box */}

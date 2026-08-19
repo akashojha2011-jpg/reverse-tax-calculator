@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { UserCheck, ShieldAlert } from 'lucide-react'
+import { UserCheck, ShieldCheck } from 'lucide-react'
 
 interface AuthorBylineProps {
   authorName?: string
@@ -10,23 +10,16 @@ interface AuthorBylineProps {
 }
 
 export function AuthorByline({
-  authorName = 'Marcus Vance, CPA, CFE',
-  authorRole = 'Lead Financial & Sales Tax Editor (15+ Yrs Exp)',
+  authorName = 'Reverse Tax Calculator Editorial Team',
+  authorRole = 'Financial Calculation & Tax Research Team',
   lastUpdated = 'August 2026',
-  verificationCode = 'IRS 26 USC & State DOR Database Verified',
+  verificationCode = 'Standard Rate Data Checked',
 }: AuthorBylineProps) {
   const authorSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: authorName,
-    jobTitle: 'Certified Public Accountant (CPA)',
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Reverse Tax Calculator',
-      url: 'https://reversetaxcalculator.pro',
-    },
-    url: 'https://reversetaxcalculator.pro/about#editorial-team',
-    knowsAbout: ['Sales Tax Accounting', 'VAT Compliance', 'GST/HST Calculations', 'Payroll Tax Math'],
+    '@type': 'Organization',
+    name: 'Reverse Tax Calculator Editorial Team',
+    url: 'https://reversetaxcalculator.pro/about',
   }
 
   return (
@@ -43,8 +36,8 @@ export function AuthorByline({
           </div>
           <div>
             <div className="font-bold text-slate-900 flex items-center gap-1.5">
-              <span>Written & Verified by</span>
-              <Link href="/about#editorial-team" className="text-brand-600 hover:underline">
+              <span>Prepared & Reviewed by</span>
+              <Link href="/about" className="text-brand-600 hover:underline font-semibold">
                 {authorName}
               </Link>
             </div>
@@ -53,11 +46,11 @@ export function AuthorByline({
         </div>
 
         <div className="flex items-center gap-3 text-[11px] text-slate-500 font-medium">
-          <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 font-semibold">
-            <ShieldAlert className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1 text-slate-700 bg-white px-2 py-0.5 rounded-md border border-slate-200 font-semibold">
+            <ShieldCheck className="w-3 h-3 text-blue-600" />
             {verificationCode}
           </span>
-          <span>Updated: <strong>{lastUpdated}</strong></span>
+          <span>Last Rate Review: <strong>{lastUpdated}</strong></span>
         </div>
       </div>
     </>
