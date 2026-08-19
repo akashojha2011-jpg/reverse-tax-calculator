@@ -146,7 +146,7 @@ export default function HomePage() {
         {/* Homepage Hero Section */}
         <section className="text-center space-y-4 pt-2 pb-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-1">
-            ⚡ 100% Free & Client-Side Reverse Tax Utility
+            ⚡ 100% Free Reverse Sales Tax Calculator
           </div>
           
           {/* Strengthened H1 Tag with Primary Keywords */}
