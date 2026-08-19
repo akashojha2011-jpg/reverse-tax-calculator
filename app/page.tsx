@@ -233,21 +233,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Author Byline */}
-        <AuthorByline
-          authorName="Reverse Tax Calculator Editorial Team"
-          authorRole="Financial Calculation & Tax Research Team"
-          lastUpdated="August 2026"
-          verificationCode="Standard Rate Data Checked"
-        />
-
-        {/* Accuracy Verification & Transparency Box */}
-        <AccuracyVerificationBox />
-
-        {/* 4-Column State & Region Directory Grid */}
-        <RegionGridDirectory />
-
-        {/* AI Answer-First Summary */}
+        {/* How Reverse Calculation of Tax Works */}
         <section className="bg-slate-100/80 border border-slate-200 rounded-2xl p-6 md:p-7 shadow-xs">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 mt-0">
             How Reverse Calculation of Tax Works
@@ -260,6 +246,20 @@ export default function HomePage() {
             <span>Supports US Sales Tax, VAT, GST, HST & Payroll Net-to-Gross</span>
           </div>
         </section>
+
+        {/* Author Byline */}
+        <AuthorByline
+          authorName="Reverse Tax Calculator Editorial Team"
+          authorRole="Financial Calculation & Tax Research Team"
+          lastUpdated="August 2026"
+          verificationCode="Standard Rate Data Checked"
+        />
+
+        {/* Accuracy Verification & Methodology Box */}
+        <AccuracyVerificationBox />
+
+        {/* 4-Column State & Region Directory Grid */}
+        <RegionGridDirectory />
 
         {/* Comprehensive Deep-Dive SEO Content */}
         <article className="prose prose-slate max-w-none bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs">

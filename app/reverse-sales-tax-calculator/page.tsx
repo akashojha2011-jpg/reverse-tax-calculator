@@ -238,19 +238,8 @@ export default function ReverseSalesTaxPage() {
             </p>
           </header>
 
-          {/* Author Byline */}
-          <AuthorByline
-            authorName="Reverse Tax Calculator Editorial Team"
-            authorRole="Financial Calculation & Tax Research Team"
-            lastUpdated="August 2026"
-            verificationCode="Standard Rate Data Checked"
-          />
-
-          {/* E-E-A-T Accuracy Verification Box */}
-          <AccuracyVerificationBox />
-
-          {/* Mobile Calculator Placement */}
-          <div className="block lg:hidden my-6">
+          {/* Mobile Calculator Placement (Immediately below Header) */}
+          <div className="block lg:hidden my-4">
             <CalculatorCard initialMode="sales-tax" defaultGross={107} defaultTaxRate={7} taxName="Sales Tax" />
           </div>
 
@@ -269,6 +258,16 @@ export default function ReverseSalesTaxPage() {
               <li><a href="#faqs" className="hover:underline">Frequently Asked Questions (FAQs)</a></li>
             </ol>
           </nav>
+
+          {/* Author Byline & Accuracy Verification */}
+          <AuthorByline
+            authorName="Reverse Tax Calculator Editorial Team"
+            authorRole="Financial Calculation & Tax Research Team"
+            lastUpdated="August 2026"
+            verificationCode="Standard Rate Data Checked"
+          />
+
+          <AccuracyVerificationBox />
 
           {/* Summary Box */}
           <section className="bg-slate-100/80 border border-slate-200 rounded-2xl p-5 md:p-6">
