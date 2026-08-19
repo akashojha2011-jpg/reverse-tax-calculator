@@ -34,7 +34,7 @@ export function RelatedCalculatorsGrid({
               href={`/${r.slug}-reverse-sales-tax-calculator`}
               className="group p-4 rounded-xl border border-slate-200 hover:border-brand-300 bg-white hover:bg-brand-50/40 transition-all flex items-start gap-3 shadow-xs"
             >
-              <div className="px-2 py-1 rounded-lg bg-brand-50 border border-brand-200/60 group-hover:bg-brand-600 group-hover:border-brand-600 transition-colors shrink-0 mt-0.5 flex items-center justify-center min-w-[34px]">
+              <div className="px-2 py-1 rounded-lg bg-brand-50 border border-brand-200/60 group-hover:bg-brand-600 group-hover:border-brand-600 transition-colors shrink-0 mt-0.5 flex items-center justify-center min-w-[36px]">
                 <StateMapIcon slug={r.slug} />
               </div>
               <div className="flex-1 min-w-0">

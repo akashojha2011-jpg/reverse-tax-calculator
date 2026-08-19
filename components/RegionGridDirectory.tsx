@@ -109,7 +109,7 @@ export function RegionGridDirectory() {
             href={`/${r.slug}-reverse-sales-tax-calculator`}
             className="group px-3 py-2.5 rounded-xl bg-slate-50 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all flex items-center gap-2.5 cursor-pointer"
           >
-            <div className="px-2 py-1 rounded-lg bg-brand-50 border border-brand-200/60 group-hover:bg-white/20 group-hover:border-white/30 transition-colors shrink-0 flex items-center justify-center min-w-[34px]">
+            <div className="px-2 py-1 rounded-lg bg-brand-50 border border-brand-200/60 group-hover:bg-white group-hover:border-white group-hover:shadow-2xs transition-all shrink-0 flex items-center justify-center min-w-[36px]">
               <StateMapIcon slug={r.slug} />
             </div>
             <div className="flex-1 min-w-0 text-left">
