@@ -9,25 +9,25 @@ import { AuthorByline } from '@/components/AuthorByline'
 import { AccuracyVerificationBox } from '@/components/AccuracyVerificationBox'
 
 export const metadata: Metadata = {
-  title: 'Free Reverse Tax Calculator — Calculate Pre-Tax Price & Tax Paid',
+  title: 'Reverse Tax Calculator | Reverse Sales Tax Calculator',
   description:
-    'Free reverse tax calculator for 50+ US states, Canada, UK & more. Instantly calculate pre-tax prices & tax paid from receipts. No signup required.',
+    'Use our free reverse tax calculator to calculate the pre-tax price and tax amount from a tax-inclusive total. Try our reverse sales tax calculator for fast, accurate results.',
   alternates: {
     canonical: 'https://reversetaxcalculator.pro',
   },
   openGraph: {
     type: 'website',
     url: 'https://reversetaxcalculator.pro',
-    title: 'Free Reverse Tax Calculator — Calculate Pre-Tax Prices Instantly',
+    title: 'Reverse Tax Calculator | Reverse Sales Tax Calculator',
     description:
-      'Instantly calculate pre-tax price & tax paid backwards from gross totals. 100% free, client-side, verified August 2026 rates.',
+      'Use our free reverse tax calculator to calculate the pre-tax price and tax amount from a tax-inclusive total. Try our reverse sales tax calculator for fast, accurate results.',
     siteName: 'Reverse Tax Calculator',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Reverse Tax Calculator — Calculate Tax Backwards from Total',
+    title: 'Reverse Tax Calculator | Reverse Sales Tax Calculator',
     description:
-      'Free reverse tax calculator for sales tax, VAT, GST, HST, and payroll net-to-gross.',
+      'Use our free reverse tax calculator to calculate the pre-tax price and tax amount from a tax-inclusive total.',
   },
 }
 
@@ -151,10 +151,10 @@ export default function HomePage() {
           
           {/* Strengthened H1 Tag with Primary Keywords */}
           <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
-            Free Reverse Tax Calculator — Calculate Pre-Tax Amounts Instantly
+            Reverse Tax Calculator - Calculate Sales Tax Backwards
           </h1>
-          <p className="text-slate-600 text-lg sm:text-xl font-medium max-w-2xl mx-auto">
-            Instantly calculate pre-tax net prices and exact tax paid backwards from any receipt or total amount.
+          <p className="text-slate-600 text-lg sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+            Calculate the pre-tax price and sales tax from any tax-inclusive total. Enter your total amount and tax rate to instantly find the original price and tax paid.
           </p>
 
           {/* Centered Interactive Calculator */}
