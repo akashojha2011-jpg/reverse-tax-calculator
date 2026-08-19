@@ -89,7 +89,7 @@ export function StateMapIcon({ slug, className }: StateMapIconProps) {
   const badge = regionBadges[cleanSlug] || { code: cleanSlug.slice(0, 2).toUpperCase() }
 
   return (
-    <span className={`inline-flex items-center justify-center font-extrabold text-xs tracking-wide select-none transition-colors ${className || 'text-brand-700'}`}>
+    <span className={`inline-flex items-center justify-center font-extrabold text-xs tracking-wide select-none transition-colors ${className ? className : 'text-brand-700'}`}>
       {badge.flag ? `${badge.flag} ${badge.code}` : badge.code}
     </span>
   )
