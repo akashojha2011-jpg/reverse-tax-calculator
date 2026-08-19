@@ -5,6 +5,7 @@ import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
+import { CompactOmniHeader } from '@/components/CompactOmniHeader'
 
 export const metadata: Metadata = {
   title: 'Reverse Tax Rate Calculator — Solve Tax Percentage',
@@ -68,16 +69,15 @@ export default function ReverseTaxRateCalculatorPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-7 space-y-6">
-          <header className="border-b border-slate-200 pb-4">
-            <div className="text-xs text-slate-500 font-semibold mb-1">
-              Last updated: <strong>August 2026</strong> | Universal Math Verified
-            </div>
+          <header className="pb-2 border-b border-slate-100">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
               Reverse Tax Rate Calculator
             </h1>
-            <p className="text-slate-600 text-lg font-medium">
-              Calculate the exact tax rate percentage charged when you know pre-tax and gross amounts.
+            <p className="text-slate-600 text-base sm:text-lg font-medium mb-3">
+              Solve the exact unknown tax percentage from Gross total price and Net pre-tax subtotal.
             </p>
+
+            <CompactOmniHeader lastUpdated="August 2026" initialLikes={543} />
           </header>
 
           <div className="block lg:hidden my-6">

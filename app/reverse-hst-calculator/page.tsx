@@ -5,6 +5,7 @@ import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
+import { CompactOmniHeader } from '@/components/CompactOmniHeader'
 
 export const metadata: Metadata = {
   title: 'Reverse HST Calculator — Canada 13% & 15% HST Backwards',
@@ -72,16 +73,15 @@ export default function ReverseHSTPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-7 space-y-6">
-          <header className="border-b border-slate-200 pb-4">
-            <div className="text-xs text-slate-500 font-semibold mb-1">
-              Last updated: <strong>August 2026</strong> | Canada Revenue Agency (CRA) Verified
-            </div>
+          <header className="pb-2 border-b border-slate-100">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
               Reverse HST Calculator (Canada)
             </h1>
-            <p className="text-slate-600 text-lg font-medium">
+            <p className="text-slate-600 text-base sm:text-lg font-medium mb-3">
               Calculate pre-tax price and HST paid backwards for Canadian Harmonized Sales Tax provinces.
             </p>
+
+            <CompactOmniHeader lastUpdated="August 2026" initialLikes={762} />
           </header>
 
           <div className="block lg:hidden my-6">

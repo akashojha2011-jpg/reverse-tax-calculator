@@ -223,13 +223,8 @@ export default function HomePage() {
             Calculate the pre-tax price and sales tax from any tax-inclusive total. Enter your total amount and tax rate to instantly find the original price and tax paid.
           </p>
 
-          {/* Omni-Style Compact Metadata, Sources & Interactive Like/Share Action Bar */}
-          <div className="max-w-2xl mx-auto text-left pt-1">
-            <CompactOmniHeader lastUpdated="August 2026" initialLikes={1248} />
-          </div>
-
           {/* Centered Interactive Calculator */}
-          <div className="max-w-2xl mx-auto pt-2 text-left">
+          <div className="max-w-2xl mx-auto pt-4 text-left">
             <CalculatorCard
               initialMode="sales-tax"
               defaultGross={107}

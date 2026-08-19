@@ -7,6 +7,7 @@ import { CalculatorCard } from '@/components/CalculatorCard'
 import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
+import { CompactOmniHeader } from '@/components/CompactOmniHeader'
 
 interface PageProps {
   params: {
@@ -107,13 +108,15 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
         
         {/* Left Column: Title, Unique Region Text & SEO Article */}
         <div className="lg:col-span-7 space-y-6">
-          <header className="border-b border-slate-200 pb-4">
+          <header className="pb-2 border-b border-slate-100">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
               {region.name} Reverse {region.taxName} Calculator
             </h1>
-            <p className="text-slate-600 text-lg font-medium">
+            <p className="text-slate-600 text-base sm:text-lg font-medium mb-3">
               {region.headline}
             </p>
+
+            <CompactOmniHeader lastUpdated={region.lastVerified} initialLikes={1120} />
           </header>
 
           {/* Mobile Calculator Placement */}
