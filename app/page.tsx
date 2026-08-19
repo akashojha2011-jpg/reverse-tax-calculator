@@ -34,33 +34,98 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const homeFaqs = [
     {
-      question: 'How do you perform a reverse calculation of tax from a total price?',
+      question: 'What is a reverse tax calculator?',
       answer:
-        'To perform a reverse calculation of tax, divide the total gross amount by 1 plus the tax rate in decimal format. For example, with a $107 total and 7% sales tax rate, divide $107 by 1.07 to get the pre-tax net price of $100.00. The tax amount is $107 minus $100, which equals $7.00.',
+        'A reverse tax calculator is a financial tool that computes the original pre-tax price and exact tax amount from a tax-inclusive total price. Unlike standard calculators that add tax to a net subtotal, a reverse tax calculator works backwards by dividing the gross total by (1 + tax rate).',
     },
     {
-      question: 'What is the exact formula for a reverse sales tax calculator?',
+      question: 'What is a reverse sales tax calculator?',
       answer:
-        'The mathematical reverse tax formula is: Pre-Tax Net Amount = Gross Total ÷ (1 + Tax Rate). Tax Amount Paid = Gross Total - Net Amount. For instance, if total gross is $120 and VAT rate is 20%, Net = $120 ÷ 1.20 = $100, and Tax = $20.',
+        'A reverse sales tax calculator is a specialized tool designed to isolate the pre-tax item price and sales tax paid from a total retail receipt amount. It uses state and local sales tax percentages to back-calculate the base price before sales tax was added at checkout.',
     },
     {
-      question: 'Why can’t I just subtract the tax percentage from the total price?',
+      question: 'How do I calculate sales tax backwards?',
       answer:
-        'Subtracting 7% from $107 gives $99.51, which is mathematically incorrect. Sales tax is added to the pre-tax net price ($100 × 1.07 = $107). To reverse the calculation accurately, you must divide by (1 + tax rate) rather than multiplying or subtracting directly.',
+        'To calculate sales tax backwards, convert the sales tax percentage into a decimal (e.g., 7% = 0.07), add 1 to get the division factor (1.07), and divide your total gross price by 1.07. The result is your pre-tax net subtotal. Subtract the net subtotal from your total gross price to find the exact sales tax amount.',
     },
     {
-      question: 'Does this online reverse tax calculator work for VAT, GST, and HST?',
+      question: 'How do I remove sales tax from a total?',
       answer:
-        'Yes! The reverse calculation formula Net = Gross ÷ (1 + Tax Rate) is mathematically identical across US Sales Tax, European VAT, Australian/Indian GST, and Canadian HST/QST.',
+        'To remove sales tax from a total price, divide the total tax-inclusive amount by 1 plus the sales tax rate in decimal form (Total ÷ 1.XX). Do not subtract the tax percentage directly, as sales tax is levied on the original pre-tax base price, not the post-tax total.',
     },
     {
-      question: 'Is this free reverse sales tax calculator private and secure?',
+      question: 'What is the reverse sales tax formula?',
       answer:
-        'Yes. All calculation logic runs 100% client-side in your web browser. No financial numbers or entries are sent to any external server or stored anywhere.',
+        'The mathematical reverse sales tax formula is: Pre-Tax Net Price = Gross Total Price ÷ (1 + Tax Rate Decimal). The sales tax amount is calculated as Sales Tax Paid = Gross Total Price - Pre-Tax Net Price.',
+    },
+    {
+      question: 'How do I find the original price before tax?',
+      answer:
+        'To find the original price before tax, divide your total gross bill by 1 + (Tax Rate ÷ 100). For example, if a receipt total is $107.00 and sales tax is 7%, dividing $107.00 by 1.07 reveals the original pre-tax price of $100.00.',
+    },
+    {
+      question: 'How do I calculate the tax included in a total?',
+      answer:
+        'To calculate the tax included in a total price, first calculate the pre-tax net amount by dividing the total price by (1 + tax rate decimal). Then, subtract the pre-tax net amount from the total price. The remaining difference is the exact tax included in the total.',
+    },
+    {
+      question: 'How does a reverse tax calculator work?',
+      answer:
+        'A reverse tax calculator works by reversing the algebraic forward tax equation (Gross = Net × [1 + Tax Rate]). By applying inverse division (Net = Gross ÷ [1 + Tax Rate]), the tool instantly separates the tax component from the net item value in client-side JavaScript.',
+    },
+    {
+      question: 'What is the difference between a regular tax calculator and a reverse tax calculator?',
+      answer:
+        'A regular (forward) tax calculator starts with a known pre-tax net subtotal and multiplies it by (1 + tax rate) to determine the final gross price. A reverse tax calculator starts with a known tax-inclusive gross total and divides by (1 + tax rate) to isolate the original pre-tax subtotal and tax paid.',
+    },
+    {
+      question: 'Can I calculate sales tax from a tax-inclusive price?',
+      answer:
+        'Yes. You can calculate sales tax from any tax-inclusive price by entering the total gross charge and the applicable tax rate percentage into a reverse tax calculator, which automatically divides by (1 + tax rate) to extract both net price and sales tax paid.',
+    },
+    {
+      question: 'What is the reverse tax multiplier?',
+      answer:
+        'The reverse tax multiplier (or division factor) is 1 + (Tax Rate ÷ 100). For example, for a 7% tax rate, the multiplier is 1.07; for a 20% VAT rate, it is 1.20; for an 8.875% NYC tax rate, it is 1.08875. Dividing a gross price by this multiplier yields the pre-tax net price.',
+    },
+    {
+      question: 'Can I calculate reverse sales tax for any tax rate?',
+      answer:
+        'Yes! The reverse tax formula Net = Gross ÷ (1 + Tax Rate) works universally for any valid sales tax rate percentage from 0.01% to over 50%, regardless of jurisdiction or tax type.',
+    },
+    {
+      question: 'Why doesn’t simply subtracting the tax rate from the total work?',
+      answer:
+        'Subtracting the tax rate percentage directly from a total price fails because tax rates are calculated as a percentage of the lower pre-tax base, not the higher post-tax total. Subtracting 7% from $107 yields $99.51 instead of $100.00, overcalculating the tax amount by $0.49 per transaction.',
+    },
+    {
+      question: 'Can I use a reverse sales tax calculator for US sales tax?',
+      answer:
+        'Yes. Reverse sales tax calculators are widely used across the US for business expense logging, auditing retail receipts, reporting itemized tax deductions on IRS Schedule A, and bookkeeping when vendor receipts display lump-sum totals.',
+    },
+    {
+      question: 'Can I calculate reverse sales tax by state?',
+      answer:
+        'Yes. You can calculate reverse sales tax for all 50 US states + Washington D.C. by using the specific state sales tax rate (e.g., California 7.25%, Texas 6.25%, Florida 6.00%) plus any local county or city sales tax surcharges.',
+    },
+    {
+      question: 'Why is my reverse tax calculation different from my receipt?',
+      answer:
+        'Discrepancies between reverse tax calculations and printed receipts usually occur due to local district tax surcharges, tax-exempt line items (such as groceries or prescription drugs), or receipt rounding methods (such as half-up vs. half-even rounding).',
+    },
+    {
+      question: 'Is a reverse tax calculator accurate?',
+      answer:
+        'Yes. Reverse tax calculators are 100% mathematically exact because they use standard algebraic inverse division (Net = Gross ÷ [1 + r]). When the correct combined tax rate is entered, the calculated net and tax amounts match official accounting standards.',
+    },
+    {
+      question: 'Can I calculate reverse tax from a receipt?',
+      answer:
+        'Yes. You can calculate reverse tax from any receipt by locating the total gross amount charged and entering the local sales tax percentage displayed on the receipt or mandated by your city/state into the reverse tax calculator.',
     },
   ]
 
-  // Machine-Readable FAQPage Schema for SERP Featured Snippets
+  // Machine-Readable FAQPage Schema for SERP Featured Snippets (All 18 FAQs)
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -149,7 +214,7 @@ export default function HomePage() {
             ⚡ 100% Free Reverse Sales Tax Calculator
           </div>
           
-          {/* Strengthened H1 Tag with Primary Keywords */}
+          {/* H1 Tag */}
           <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
             Reverse Tax Calculator - Calculate Sales Tax Backwards
           </h1>
@@ -176,13 +241,13 @@ export default function HomePage() {
           verificationCode="Standard Rate Data Checked"
         />
 
-        {/* E-E-A-T Transparency & Accuracy Verification Trust Box */}
+        {/* Accuracy Verification & Transparency Box */}
         <AccuracyVerificationBox />
 
         {/* 4-Column State & Region Directory Grid */}
         <RegionGridDirectory />
 
-        {/* AI Answer-First Summary targeting exact high-volume keyword in H2 */}
+        {/* AI Answer-First Summary */}
         <section className="bg-slate-100/80 border border-slate-200 rounded-2xl p-6 md:p-7 shadow-xs">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 mt-0">
             How Reverse Calculation of Tax Works
@@ -267,8 +332,8 @@ export default function HomePage() {
           </ul>
         </article>
 
-        {/* Machine-Readable FAQ Accordion */}
-        <FAQAccordion items={homeFaqs} title="Frequently Asked Questions" />
+        {/* 18 Prioritized FAQs with Machine-Readable FAQPage JSON-LD Schema */}
+        <FAQAccordion items={homeFaqs} title="Frequently Asked Questions (Reverse Tax & Sales Tax)" />
 
         {/* Related Grid */}
         <RelatedCalculatorsGrid title="Popular Regional Calculators" />
