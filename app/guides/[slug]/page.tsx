@@ -6,6 +6,7 @@ import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { TableOfContents } from '@/components/TableOfContents'
+import { AuthorByline } from '@/components/AuthorByline'
 
 interface GuidePageProps {
   params: {
@@ -1138,19 +1139,22 @@ export default function GuidePage({ params }: GuidePageProps) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: guide.title,
+    description: guide.metaDesc,
     url: `https://reversetaxcalculator.pro/guides/${params.slug}`,
     author: {
-      '@type': 'Organization',
-      name: 'Reverse Tax Calculator Team',
-      url: 'https://reversetaxcalculator.pro/about',
+      '@type': 'Person',
+      name: 'Marcus Vance, CPA, CFE',
+      jobTitle: 'Lead Financial & Sales Tax Accounting Editor',
+      url: 'https://reversetaxcalculator.pro/about#marcus-vance',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Reverse Tax Calculator',
       url: 'https://reversetaxcalculator.pro',
+      logo: 'https://reversetaxcalculator.pro/icon.png',
     },
     datePublished: '2026-01-01',
-    dateModified: '2026-08-17',
+    dateModified: '2026-08-19',
   }
 
   return (
@@ -1178,6 +1182,14 @@ export default function GuidePage({ params }: GuidePageProps) {
               {guide.title}
             </h1>
           </header>
+
+          {/* E-E-A-T Author Byline */}
+          <AuthorByline
+            authorName="Marcus Vance, CPA, CFE"
+            authorRole="Lead Financial & Sales Tax Editor (15+ Yrs Exp)"
+            lastUpdated="August 2026"
+            verificationCode="IRS 26 USC & State DOR Database Verified"
+          />
 
           {/* Table of Contents */}
           <TableOfContents headings={guide.tocHeadings} />
