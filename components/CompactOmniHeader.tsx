@@ -18,23 +18,42 @@ export function CompactOmniHeader({
   const [showSources, setShowSources] = useState<boolean>(false)
 
   useEffect(() => {
-    const savedVote = localStorage.getItem('rtc_user_vote')
+    // Scoped key per page path to prevent vote leaking across tool pages
+    const pageKey = `rtc_user_vote_${window.location.pathname}`
+    const savedVote = localStorage.getItem(pageKey)
     if (savedVote === 'up' || savedVote === 'down') {
-      setHasVoted(savedVote)
-      if (savedVote === 'up') setLikes(initialLikes + 1)
+      setHasVoted(savedVote as 'up' | 'down')
+      if (savedVote === 'up') {
+        setLikes(initialLikes + 1)
+      }
     }
   }, [initialLikes])
 
   const handleVote = (type: 'up' | 'down') => {
-    if (hasVoted === type) return
+    const pageKey = `rtc_user_vote_${window.location.pathname}`
+
+    // 1. Clicking an already active vote button UNLIKES / UNDISLIKES back to normal
+    if (hasVoted === type) {
+      if (type === 'up') {
+        setLikes(initialLikes)
+      }
+      setHasVoted(null)
+      localStorage.removeItem(pageKey)
+      return
+    }
+
+    // 2. Voting UP
     if (type === 'up') {
-      setLikes((prev) => prev + 1)
+      setLikes(initialLikes + 1)
       setHasVoted('up')
-      localStorage.setItem('rtc_user_vote', 'up')
+      localStorage.setItem(pageKey, 'up')
     } else {
-      if (hasVoted === 'up') setLikes((prev) => prev - 1)
+      // Voting DOWN
+      if (hasVoted === 'up') {
+        setLikes(initialLikes)
+      }
       setHasVoted('down')
-      localStorage.setItem('rtc_user_vote', 'down')
+      localStorage.setItem(pageKey, 'down')
     }
   }
 
@@ -119,7 +138,7 @@ export function CompactOmniHeader({
                 ? 'bg-emerald-600 text-white shadow-2xs'
                 : 'text-slate-700 hover:bg-white hover:text-slate-900'
             }`}
-            title="Mark as helpful"
+            title={hasVoted === 'up' ? 'Click to unlike' : 'Mark as helpful'}
           >
             <ThumbsUp className="w-3.5 h-3.5" />
             <span>{likes.toLocaleString()}</span>
@@ -134,7 +153,7 @@ export function CompactOmniHeader({
                 ? 'bg-rose-600 text-white shadow-2xs'
                 : 'text-slate-500 hover:bg-white hover:text-rose-600'
             }`}
-            title="Mark as unhelpful"
+            title={hasVoted === 'down' ? 'Click to remove dislike' : 'Mark as unhelpful'}
           >
             <ThumbsDown className="w-3.5 h-3.5" />
           </button>

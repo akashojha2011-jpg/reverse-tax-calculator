@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { MapPin, Globe, Flag, Search } from 'lucide-react'
 import { REGIONS, RegionData } from '@/data/regions'
+import { StateMapIcon } from '@/components/StateMapIcon'
 
 export function RegionGridDirectory() {
   const [activeTab, setActiveTab] = useState<'us' | 'ca' | 'global'>('us')
@@ -106,14 +107,19 @@ export function RegionGridDirectory() {
           <Link
             key={r.slug}
             href={`/${r.slug}-reverse-sales-tax-calculator`}
-            className="group px-3.5 py-3 rounded-xl bg-slate-100 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all text-center flex flex-col items-center justify-center cursor-pointer"
+            className="group px-3.5 py-3 rounded-xl bg-slate-50 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all flex items-center gap-3 cursor-pointer"
           >
-            <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-white transition-colors truncate w-full">
-              {r.name}
-            </span>
-            <span className="text-[10px] font-semibold text-slate-500 group-hover:text-brand-100 transition-colors mt-0.5">
-              {r.taxName} {r.rate}%{r.secondRate ? ` + ${r.secondRate}%` : ''}
-            </span>
+            <div className="p-2 rounded-lg bg-brand-50 group-hover:bg-white/20 text-brand-600 group-hover:text-white transition-colors shrink-0 flex items-center justify-center">
+              <StateMapIcon slug={r.slug} className="w-5 h-5 transition-transform group-hover:scale-110" />
+            </div>
+            <div className="flex-1 min-w-0 text-left">
+              <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-white transition-colors truncate block">
+                {r.name}
+              </span>
+              <span className="text-[10px] font-semibold text-slate-500 group-hover:text-brand-100 transition-colors mt-0.5 block truncate">
+                {r.taxName} ({r.rate}%{r.secondRate ? ` + ${r.secondRate}%` : ''})
+              </span>
+            </div>
           </Link>
         ))}
       </div>
