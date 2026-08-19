@@ -327,9 +327,6 @@ export default function HomePage() {
           </ul>
         </article>
 
-        {/* Calculation Methodology & Rate Verification Box */}
-        <AccuracyVerificationBox />
-
         {/* 18 Prioritized FAQs with Machine-Readable FAQPage JSON-LD Schema */}
         <FAQAccordion items={homeFaqs} title="Frequently Asked Questions (Reverse Tax & Sales Tax)" />
 

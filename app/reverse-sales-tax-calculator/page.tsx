@@ -478,9 +478,6 @@ export default function ReverseSalesTaxPage() {
             </ul>
           </section>
 
-          {/* Rate Verification & Methodology Section */}
-          <AccuracyVerificationBox />
-
           {/* Internal Link Grid */}
           <RelatedCalculatorsGrid title="US State Sales Tax Calculators" />
         </div>
