@@ -61,6 +61,144 @@ function renderRegionIntroParagraph(region: RegionData) {
   )
 }
 
+function renderNewYorkArticleSections() {
+  return (
+    <div className="space-y-6 mt-6">
+      <section>
+        <h2 id="ny-out-of-state-nexus" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          Does New York Charge Sales Tax on Out-of-State Purchases & Remote Sales?
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          Under New York State tax law (NYS Tax Law Section 1105), sales tax applies to all retail sales of tangible personal property delivered within New York State unless specifically exempted. For out-of-state transactions:
+        </p>
+        <ul className="list-disc pl-5 space-y-2 text-slate-700 text-sm mt-2">
+          <li><strong>Out-of-State Buyers:</strong> If a New York vendor ships merchandise directly to a customer located outside NYS (where the vendor lacks physical or economic nexus), NY sales tax is not charged. However, if an out-of-state customer picks up items in-person at a NY storefront, local sales tax applies at the point of pickup.</li>
+          <li><strong>Economic Nexus Rules:</strong> Out-of-state remote sellers must collect and remit NYS sales tax if they generate over <strong>$500,000</strong> in gross revenue AND complete <strong>100 or more separate transactions</strong> delivered into New York State over the trailing 4 quarters.</li>
+          <li><strong>Sales Tax vs. Use Tax in NYS:</strong> Sales tax is collected at the register by vendors. <em>Use tax</em> is a complementary tax owed directly by New York residents and businesses when purchasing taxable goods online or from out-of-state retailers who did not collect NY sales tax at checkout. The tax rates for sales tax and use tax in New York are identical.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="ny-tourist-tax-refunds" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          Can Tourists & Foreign Visitors Claim Sales Tax Refunds in New York?
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          A frequent point of confusion for international travelers visiting New York City or New York State is whether they can claim a VAT-style sales tax refund at JFK, Newark, or LaGuardia airports upon departure.
+        </p>
+        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm my-3 font-medium">
+          <strong>Important Clarification for Tourists:</strong> Neither New York State nor the US Federal Government provides sales tax refunds or airport duty-free tax-back schemes for international tourists. Unlike the European Union (EU) or Australia, US sales taxes are collected at state and local levels with no airport refund counters.
+        </div>
+        <p className="text-slate-700 leading-relaxed">
+          However, tourists in New York City can take advantage of <strong>tax-free shopping categories</strong>:
+        </p>
+        <ul className="list-disc pl-5 space-y-2 text-slate-700 text-sm mt-2">
+          <li><strong>Clothing & Footwear Exemption:</strong> In New York City (and several NY counties), any individual item of clothing or footwear costing <strong>under $110</strong> is 100% exempt from both the 4.00% NYS sales tax and local NYC sales tax.</li>
+          <li><strong>Items $110 or Over:</strong> If an item of clothing costs $110.00 or more, the entire purchase price is subject to the full combined 8.875% NYC sales tax rate.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="ny-reverse-tax-methodology" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          What is a Reverse Tax Calculator & How Does It Work for New York Receipts?
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          A reverse sales tax calculator allows bookkeepers, small business owners, and shoppers to work backwards from a tax-inclusive total price to extract the original pre-tax item cost and the exact sales tax paid.
+        </p>
+        <p className="text-slate-700 leading-relaxed mt-2">
+          Because sales tax is legally applied to the lower pre-tax subtotal rather than the final gross bill, simply subtracting 8.875% from a total receipt produces an inaccurate number.
+        </p>
+        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-3 space-y-1 font-semibold text-brand-700">
+          <div>Pre-Tax Subtotal = Gross Invoice Total ÷ 1.08875 (for NYC 8.875%)</div>
+          <div>NYS Sales Tax Paid = Gross Invoice Total - Pre-Tax Subtotal</div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="ny-tax-rates-2026" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          What is New York State Sales Tax Rate in 2026?
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          For 2026, New York State maintains its base sales tax rate of <strong>4.00%</strong>. Local county taxes and the Metropolitan Commuter Transportation District (MCTD) surcharge bring combined sales tax rates between <strong>7.00% and 8.875%</strong> depending on the location:
+        </p>
+        <div className="overflow-x-auto my-4">
+          <table className="w-full text-left text-xs sm:text-sm text-slate-700 border-collapse border border-slate-200">
+            <thead>
+              <tr className="bg-slate-100 text-slate-900">
+                <th className="p-2.5 border border-slate-200 font-bold">New York Location / County</th>
+                <th className="p-2.5 border border-slate-200 font-bold">NYS Base</th>
+                <th className="p-2.5 border border-slate-200 font-bold">Local County Rate</th>
+                <th className="p-2.5 border border-slate-200 font-bold">MCTD Surcharge</th>
+                <th className="p-2.5 border border-slate-200 font-bold">Combined 2026 Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-2.5 border border-slate-200 font-bold">New York City (5 Boroughs)</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.50%</td>
+                <td className="p-2.5 border border-slate-200">0.375%</td>
+                <td className="p-2.5 border border-slate-200 font-bold text-brand-700">8.875%</td>
+              </tr>
+              <tr className="bg-slate-50">
+                <td className="p-2.5 border border-slate-200 font-bold">Nassau County / Long Island</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.25%</td>
+                <td className="p-2.5 border border-slate-200">0.375%</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.625%</td>
+              </tr>
+              <tr>
+                <td className="p-2.5 border border-slate-200 font-bold">Suffolk County / Long Island</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.25%</td>
+                <td className="p-2.5 border border-slate-200">0.375%</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.625%</td>
+              </tr>
+              <tr className="bg-slate-50">
+                <td className="p-2.5 border border-slate-200 font-bold">Erie County (Buffalo)</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.75%</td>
+                <td className="p-2.5 border border-slate-200">—</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.75%</td>
+              </tr>
+              <tr>
+                <td className="p-2.5 border border-slate-200 font-bold">Westchester County (Yonkers)</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.50%</td>
+                <td className="p-2.5 border border-slate-200">0.375%</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.875%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-4 mb-2">
+          Worked Calculation Example: $100 Purchase in New York
+        </h3>
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 my-3 space-y-2 text-xs sm:text-sm text-slate-800">
+          <div>
+            <strong>Forward Tax ($100 Pre-Tax Purchase in NYC at 8.875%):</strong>
+            <br />
+            • Pre-Tax Net Amount: $100.00
+            <br />
+            • Sales Tax Charged ($100 × 0.08875): $8.88
+            <br />
+            • Total Receipt Charged: <strong>$108.88</strong>
+          </div>
+          <div className="pt-2 border-t border-slate-200">
+            <strong>Reverse Tax ($100 Total Receipt in NYC at 8.875%):</strong>
+            <br />
+            • Total Receipt Amount: $100.00
+            <br />
+            • Calculated Pre-Tax Net Subtotal ($100 ÷ 1.08875): <strong>$91.85</strong>
+            <br />
+            • Sales Tax Paid ($100 - $91.85): <strong>$8.15</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
 interface PageProps {
   params: {
     region: string
@@ -141,12 +279,32 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
     },
   }
 
+  // Structured Data FAQPage schema for Google PAA inclusion
+  const faqSchema = region.faqs && region.faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: region.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  } : null
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <BreadcrumbNav
         items={[
@@ -259,6 +417,8 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
               <li>Review the instant calculation breakdown displaying net price and tax paid.</li>
               <li>Click <strong>Copy</strong> to copy the breakdown into your accounting ledger.</li>
             </ol>
+
+            {region.slug === 'new-york' && renderNewYorkArticleSections()}
           </article>
 
           {/* Region FAQs */}

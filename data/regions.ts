@@ -588,10 +588,114 @@ export const REGIONS: RegionData[] = [
     currency: 'USD',
     currencySymbol: '$',
     lastVerified: 'August 2026',
-    headline: 'Calculate New York state and NYC sales tax backwards.',
-    description: 'New York State base sales tax rate is 4.00%. Local city/county taxes add 3.00% to 4.875%, bringing total sales tax in NYC to 8.875%.',
+    headline: 'Calculate New York state and NYC sales tax backwards (4.00% to 8.875%).',
+    description: 'New York State base sales tax rate is 4.00%. Local city/county taxes add 3.00% to 4.875%, bringing total sales tax in NYC to 8.875%. Clothing under $110 is tax-exempt.',
     workedExample: { total: 108.88, net: 100.0, tax: 8.88 },
-    faqs: [{ question: 'What is NYC sales tax rate?', answer: 'The combined sales tax rate in NYC is 8.875%.' }],
+    faqs: [
+      // Cluster 1: Out-of-State Purchases & Sales vs. Use Tax
+      {
+        question: 'Do I charge NY sales tax for out of state customers?',
+        answer: 'No, if you ship goods directly to a customer outside New York State where you have no physical or economic sales tax nexus, NYS sales tax does not apply. However, if an out-of-state customer picks up items in New York or if you have nexus in the destination state, local sales tax rules apply.',
+      },
+      {
+        question: 'What purchases are exempt from NYS sales tax?',
+        answer: 'New York State exempts most unprepared grocery food, prescription drugs, medical devices, prosthetic appliances, and clothing or footwear sold for under $110 per item or pair. Additionally, machinery used in manufacturing and sales to 501(c)(3) tax-exempt organizations are exempt with a valid certificate.',
+      },
+      {
+        question: 'How do I charge sales tax for out of state customers?',
+        answer: 'For out-of-state customers who pick up goods in New York State, you must charge the local NY sales tax rate of the pickup location. For items shipped out-of-state, you only collect sales tax if you meet economic nexus thresholds ($500,000 in gross revenue AND 100 separate transactions in NY over trailing 4 quarters) in the buyer’s state.',
+      },
+      {
+        question: 'How does sales tax work in New York State?',
+        answer: 'New York operates a destination-based sales tax system combining a 4.00% state base rate with county and municipal surcharges (such as the 4.50% NYC local tax and 0.375% Metropolitan Commuter Transportation District surcharge, totaling 8.875% in NYC). Vendors collect sales tax at point of sale and remit it to the NYS Department of Taxation and Finance.',
+      },
+      {
+        question: 'What items are not taxed in NY?',
+        answer: 'Non-taxable items in New York State include unprepared groceries, prescription and over-the-counter medications, feminine hygiene products, residential energy (reduced or zero rate depending on county), and clothing and footwear priced below $110 per item.',
+      },
+      {
+        question: 'Is there a difference between sales tax and use tax in New York State?',
+        answer: 'Yes. Sales tax is collected by vendors on taxable purchases made within New York. Use tax is a complementary tax owed directly by the buyer when purchasing taxable goods or services from out-of-state vendors who did not collect NY sales tax at checkout. Tax rates for sales tax and use tax in NYS are identical.',
+      },
+
+      // Cluster 2: Tourist Refunds & Tax-Free Shopping
+      {
+        question: 'Can tourists claim tax back in New York?',
+        answer: 'No. Unlike the European Union and VAT-levying countries, New York State and the United States federal government do not provide sales tax refunds or VAT-style tax-back schemes for international tourists upon departure at airports.',
+      },
+      {
+        question: 'How do I claim a sales tax refund in New York?',
+        answer: 'Sales tax refunds in NYS are only available to registered businesses, exempt organizations, or consumers mistakenly overcharged tax on exempt purchases (such as clothing under $110). Claims must be filed using NYS Form AU-11 with proof of purchase. Tourists cannot claim refunds on retail purchases.',
+      },
+      {
+        question: 'Can you claim tax back on US purchases?',
+        answer: 'Generally no. The US federal government does not collect a national sales tax and does not operate a national duty-free refund program for departing foreign travelers. Only Louisiana and Texas offer limited sales tax refund programs at select international airports.',
+      },
+      {
+        question: 'Can I get a tax refund in the USA as a tourist?',
+        answer: 'International tourists cannot get sales tax refunds in New York or most US states. Sales tax is a state and local tax levied at point-of-sale with no federal tax-back mechanism at airport customs.',
+      },
+      {
+        question: 'Can foreigners get a sales tax refund in the USA?',
+        answer: 'Foreign visitors cannot claim sales tax back in New York State. Travelers can take advantage of tax-free shopping categories instead, such as buying clothing and footwear under $110 per item in NYC.',
+      },
+      {
+        question: 'Can I shop tax-free in New York City?',
+        answer: 'Yes, but only on eligible items. In New York City, any item of clothing or footwear costing less than $110 is 100% exempt from the combined 8.875% state and local sales tax. Items costing $110 or more are subject to the full 8.875% rate.',
+      },
+
+      // Cluster 3: Reverse Tax Calculation Methodology & Formulas
+      {
+        question: 'How to calculate reverse tax?',
+        answer: 'To calculate reverse sales tax, divide the total tax-inclusive receipt price by (1 + tax rate in decimal form). Subtract the resulting pre-tax net subtotal from the total price to find the exact tax amount paid.',
+      },
+      {
+        question: 'How to calculate reverse tax formula?',
+        answer: 'The universal reverse tax formula is: Pre-Tax Subtotal = Total Price ÷ (1 + (Sales Tax Rate ÷ 100)). Tax Amount = Total Price - Pre-Tax Subtotal.',
+      },
+      {
+        question: 'What is the meaning of reverse tax?',
+        answer: 'Reverse tax calculation is the process of working backwards from a tax-inclusive total price to determine the original pre-tax item price and the exact amount of sales tax charged on the transaction.',
+      },
+      {
+        question: 'How do you calculate reverse sales tax?',
+        answer: 'To reverse calculate New York sales tax at 8.875% (NYC rate), divide your total receipt price by 1.08875. For example, a $108.88 total receipt divided by 1.08875 equals a $100.00 pre-tax subtotal and $8.88 in sales tax.',
+      },
+      {
+        question: 'How do you do a reverse calculation?',
+        answer: 'Enter your final tax-inclusive invoice amount into our reverse sales tax calculator, select or enter your effective NY tax rate (e.g. 4.00% to 8.875%), and the tool instantly extracts the net price and tax paid.',
+      },
+      {
+        question: 'How to calculate the tax formula?',
+        answer: 'For forward tax, multiply Net Price × Tax Rate. For reverse tax, divide Gross Total ÷ (1 + Tax Rate). Reverse tax division accounts for the fact that sales tax was originally calculated on the lower pre-tax base.',
+      },
+
+      // Cluster 4: Current 2026 NY Tax Rates & Worked Examples
+      {
+        question: 'What is NYS sales tax rate 2026?',
+        answer: 'In 2026, the New York State base sales tax rate remains 4.00%. Local city, county, and transit district (MCTD) surcharges add 3.00% to 4.875%, creating combined rates ranging from 7.00% to 8.875% across NY counties.',
+      },
+      {
+        question: 'How to calculate NY state sales tax?',
+        answer: 'Multiply your pre-tax purchase price by your local combined NY sales tax rate (e.g., $100 × 0.08875 = $8.88 tax in NYC). To extract tax backwards from a total bill, divide the total by 1 + the decimal rate (e.g., $108.88 ÷ 1.08875 = $100 pre-tax).',
+      },
+      {
+        question: 'What is the New York sales tax on a $100 purchase?',
+        answer: 'On a $100.00 pre-tax purchase in NYC (8.875% rate), sales tax is $8.88, for a total of $108.88. Conversely, if your total receipt is $100.00 tax-inclusive, the pre-tax price is $91.85 ($100 ÷ 1.08875) and sales tax paid is $8.15.',
+      },
+      {
+        question: 'What are the New York State tax rates for 2026?',
+        answer: 'New York State sales tax rates for 2026 consist of a 4.00% state rate plus local county rates: NYC (8.875%), Nassau County (8.625%), Suffolk County (8.625%), Erie County (8.75%), Westchester County (8.375%–8.875%), and Monroe County (8.00%).',
+      },
+      {
+        question: 'Is NY sales tax 8%?',
+        answer: 'While the NYS state portion is 4.00%, most New York counties add local taxes resulting in combined rates near 8.00% to 8.875%. For example, NYC is 8.875%, Albany County is 8.00%, and Onondaga County (Syracuse) is 8.00%.',
+      },
+      {
+        question: 'What is the new tax rate in 2026?',
+        answer: 'For 2026, New York State maintains its 4.00% base sales tax rate. Combined rates in major cities like New York City (8.875%), Yonkers (8.875%), and Buffalo (8.75%) remain fully updated and verified for 2026 accounting reconciliation.',
+      },
+    ],
     relatedRegionSlugs: ['new-jersey', 'pennsylvania', 'connecticut', 'massachusetts'],
   },
   {
