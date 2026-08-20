@@ -174,9 +174,6 @@ export function CalculatorCard({
         <span className="text-xs font-extrabold uppercase tracking-wider text-brand-700 bg-brand-50 border border-brand-200 px-2.5 py-1 rounded-md">
           {regionName ? `${regionName} Reverse ${taxName} Calculator` : 'Reverse Sales Tax Calculator'}
         </span>
-        <span className="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
-          ⚡ Instant Client-Side Tool
-        </span>
       </div>
 
       {/* Mode Switcher Tabs */}

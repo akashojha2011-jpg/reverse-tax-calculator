@@ -19,6 +19,7 @@ export interface RegionData {
   lastVerified: string
   headline: string
   description: string
+  intro?: string
   workedExample: {
     total: number
     net: number

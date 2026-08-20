@@ -2,12 +2,64 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { REGIONS, getRegionBySlug } from '@/data/regions'
+import { REGIONS, getRegionBySlug, type RegionData } from '@/data/regions'
 import { CalculatorCard } from '@/components/CalculatorCard'
 import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
 import { CompactOmniHeader } from '@/components/CompactOmniHeader'
+
+function renderRegionIntroParagraph(region: RegionData) {
+  if (region.intro) {
+    return <p>{region.intro}</p>
+  }
+
+  // 1. Dual Tax (e.g. Canadian provinces with GST + PST/QST)
+  if (region.secondRate && region.secondRate > 0) {
+    const combinedRate = (region.rate + region.secondRate).toFixed(3).replace(/\.?0+$/, '')
+    const divisor = (1 + (region.rate + region.secondRate) / 100).toFixed(4).replace(/\.?0+$/, '')
+    return (
+      <p>
+        In <strong>{region.name}</strong>, purchases carry both <strong>{region.rate}% {region.taxName}</strong> and <strong>{region.secondRate}% {region.secondTaxName}</strong>, bringing the total effective tax rate to <strong>{combinedRate}%</strong>. To reverse calculate any tax-inclusive receipt in {region.name}, divide the total bill by <strong>{divisor}</strong> to isolate the pre-tax item cost from both tax components.
+      </p>
+    )
+  }
+
+  // 2. Zero State Sales Tax (rate === 0)
+  if (region.rate === 0) {
+    if (region.maxCombinedRate && region.maxCombinedRate > 0) {
+      return (
+        <p>
+          While <strong>{region.name}</strong> has no statewide sales tax (<strong>0.00%</strong>), local municipalities and boroughs levy local sales tax rates up to <strong>{region.maxCombinedRate}%</strong>. To calculate the pre-tax net price from a tax-inclusive bill in {region.name}, divide your total by <strong>1 + your local tax rate</strong> (e.g., divide by <strong>1.05</strong> for a 5% local borough tax).
+        </p>
+      )
+    }
+    return (
+      <p>
+        <strong>{region.name}</strong> levies no retail sales tax (<strong>0.00%</strong>). For purchases made in {region.name}, the total amount charged equals 100% of the net pre-tax price with zero sales tax added.
+      </p>
+    )
+  }
+
+  // 3. States with variable local district / city / county tax additions
+  if (region.maxCombinedRate && region.maxCombinedRate > region.rate) {
+    const baseDivisor = (1 + region.rate / 100).toFixed(4).replace(/\.?0+$/, '')
+    const maxDivisor = (1 + region.maxCombinedRate / 100).toFixed(4).replace(/\.?0+$/, '')
+    return (
+      <p>
+        In <strong>{region.name}</strong>, sales tax starts at a statewide base rate of <strong>{region.rate}%</strong> and reaches up to <strong>{region.maxCombinedRate}%</strong> with local city, county, and district tax surcharges. To calculate the pre-tax price from a total receipt in {region.name}, divide your gross total by <strong>1 + your local tax rate</strong> (e.g., divide by <strong>{baseDivisor}</strong> for the state base rate or up to <strong>{maxDivisor}</strong> for maximum combined district rates).
+      </p>
+    )
+  }
+
+  // 4. Uniform statewide flat rate (no local taxes) or VAT / HST / GST
+  const divisor = (1 + region.rate / 100).toFixed(4).replace(/\.?0+$/, '')
+  return (
+    <p>
+      <strong>{region.name}</strong> enforces a standard <strong>{region.rate}% {region.taxName}</strong>. To calculate the pre-tax net price and isolate the exact <strong>{region.rate}%</strong> {region.taxName} paid from any gross bill in {region.name}, divide the final receipt total by <strong>{divisor}</strong>.
+    </p>
+  )
+}
 
 interface PageProps {
   params: {
@@ -157,9 +209,7 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
               Comprehensive Guide to Reverse {region.taxName} in {region.name}
             </h2>
 
-            <p>
-              Calculating reverse {region.taxName} for transactions in <strong>{region.name}</strong> is an essential step for small business bookkeeping, accounting expense reconciliation, and verifying invoice tax amounts. When you receive a tax-inclusive receipt in {region.name}, the total charge reflects 100% of the pre-tax item cost plus the applicable {region.name} {region.taxName} percentage ({region.rate}%{region.secondRate ? ` + ${region.secondRate}% ${region.secondTaxName}` : ''}).
-            </p>
+            {renderRegionIntroParagraph(region)}
 
             <h3 className="text-xl font-bold text-slate-900 mt-6 mb-3">
               The Mathematics of {region.name} Reverse Tax
