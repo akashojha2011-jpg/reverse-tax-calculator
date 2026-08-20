@@ -1021,10 +1021,102 @@ export const REGIONS: RegionData[] = [
     currency: 'CAD',
     currencySymbol: '$',
     lastVerified: 'August 2026',
-    headline: 'Calculate Quebec GST (5%) and QST (9.975%) backwards from total CAD.',
-    description: 'Quebec uses a dual sales tax structure: federal Goods and Services Tax (GST) of 5% and Quebec Sales Tax (QST) of 9.975% (14.975% total).',
+    headline: 'Calculate Quebec GST (5%) and QST (9.975%) backwards from total CAD (14.975% combined).',
+    description: 'Quebec uses a dual sales tax structure: federal Goods and Services Tax (GST) of 5% and Quebec Sales Tax (QST) of 9.975% (14.975% total combined). Both taxes are calculated on the pre-tax subtotal.',
     workedExample: { total: 114.98, net: 100.0, tax: 14.98 },
-    faqs: [{ question: 'What is Quebec sales tax rate?', answer: 'Combined GST (5%) + QST (9.975%) is 14.975%.' }],
+    faqs: [
+      // Cluster 1: How do I reverse calculate sales tax in Quebec?
+      {
+        question: 'How do I calculate Quebec sales tax (QST) backwards?',
+        answer: 'To calculate Quebec sales tax (QST) backwards from a total invoice, divide the gross total price by 1.14975 to find the pre-tax subtotal. Then multiply the pre-tax subtotal by 0.09975 (9.975%) to isolate the exact QST paid.',
+      },
+      {
+        question: 'How to calculate tax backwards?',
+        answer: 'To calculate sales tax backwards, divide your total tax-inclusive receipt by 1 plus the combined decimal tax rate. For Quebec (14.975% combined tax), divide the total bill by 1.14975 to determine the net price before tax.',
+      },
+      {
+        question: 'How to calculate reverse tax formula?',
+        answer: 'The reverse tax formula for Quebec is: Pre-Tax Subtotal = Gross Total ÷ 1.14975. Federal GST (5%) = Pre-Tax Subtotal × 0.05. Quebec QST (9.975%) = Pre-Tax Subtotal × 0.09975. Total Tax = GST + QST.',
+      },
+      {
+        question: 'How do I work out GST backwards?',
+        answer: 'In Quebec, work out federal GST (5%) backwards by first dividing the gross receipt by 1.14975 to find the net subtotal. Multiply the net subtotal by 0.05 (5.00%) to calculate the federal GST portion.',
+      },
+      {
+        question: 'How do I reverse calculate GST from a total amount?',
+        answer: 'To isolate GST from a tax-inclusive Quebec bill, divide the final gross total by 1.14975 to get the net subtotal, then multiply by 0.05. For example, on a $114.98 gross receipt, the net amount is $100.00 and federal GST is $5.00.',
+      },
+
+      // Cluster 2: How do I calculate reverse sales tax in Canada?
+      {
+        question: 'What is the formula to reverse tax?',
+        answer: 'The universal Canadian reverse tax formula is: Net Amount = Gross Total ÷ (1 + Tax Rate). For HST provinces (e.g. Ontario 13%), divide by 1.13. For Quebec (14.975% GST+QST), divide by 1.14975.',
+      },
+      {
+        question: 'How to calculate reverse tax amount?',
+        answer: 'Calculate the reverse tax amount by subtracting the calculated pre-tax net subtotal from the total gross invoice. Total Tax Paid = Gross Total Amount - Pre-Tax Net Amount.',
+      },
+      {
+        question: 'How do I calculate GST and PST backwards in Canada?',
+        answer: 'For dual-tax Canadian provinces (Quebec, BC, Saskatchewan, Manitoba), add the GST rate (5%) and provincial rate (QST 9.975% in QC, PST 7% in BC) to get the combined rate. Divide the total receipt by 1 + combined decimal rate to get pre-tax cost, then multiply by each tax rate individually.',
+      },
+      {
+        question: 'How can I calculate reverse GST online?',
+        answer: 'You can use our free online reverse sales tax calculator pre-filled with Quebec’s 14.975% rate (5% GST + 9.975% QST). Enter your gross total amount to instantly view the pre-tax subtotal, federal GST, and provincial QST breakdown.',
+      },
+
+      // Cluster 3: What are the two sales taxes in Quebec?
+      {
+        question: 'What are the GST and QST taxes in Quebec?',
+        answer: 'Quebec levies two sales taxes: the federal Goods and Services Tax (GST/TPS) of 5.00% administered by the CRA, and the provincial Quebec Sales Tax (QST/TVQ) of 9.975% administered by Revenu Québec, totaling 14.975%.',
+      },
+      {
+        question: 'Does Quebec have GST and PST?',
+        answer: 'Yes. Quebec has the federal GST (5.00%) and its own provincial sales tax called QST (Quebec Sales Tax or TVQ in French) at 9.975%. Unlike other provinces where PST is separate, Revenu Québec jointly administers both GST and QST in the province.',
+      },
+      {
+        question: 'What sales tax do you pay in Quebec?',
+        answer: 'Consumers in Quebec pay a combined sales tax rate of 14.975% on most retail goods and services, consisting of 5.00% federal GST plus 9.975% provincial QST.',
+      },
+      {
+        question: 'What is GST, HST, and PST QST?',
+        answer: 'GST (Goods and Services Tax) is Canada’s 5% federal sales tax. HST (Harmonized Sales Tax) combines federal GST and provincial tax into one blended rate (e.g. 13% in ON). PST (Provincial Sales Tax) is provincial tax in BC, SK, and MB. QST (Quebec Sales Tax) is Quebec’s specific 9.975% provincial tax.',
+      },
+      {
+        question: 'What is the most heavily taxed province in Canada?',
+        answer: 'The Atlantic provinces (Nova Scotia, New Brunswick, PEI, Newfoundland & Labrador) have the highest combined sales tax rate in Canada at 15.00% HST. Quebec is second at 14.975% combined GST + QST.',
+      },
+      {
+        question: 'Are HST and QST the same?',
+        answer: 'No. HST is a single harmonized federal-provincial tax administered directly by the CRA in participating provinces. QST is Quebec’s independent provincial sales tax (9.975%) administered alongside GST by Revenu Québec.',
+      },
+
+      // Cluster 4: How do I calculate reverse GST?
+      {
+        question: 'How to calculate reverse GST amount?',
+        answer: 'To calculate the reverse GST amount on a purchase, divide the total tax-inclusive price by (1 + total tax rate) to find the net price, then multiply the net price by 0.05 (the 5% federal GST rate).',
+      },
+      {
+        question: 'How do I reverse GST from total amount?',
+        answer: 'In Quebec, extract GST from a total bill by dividing the gross price by 1.14975 to isolate the pre-tax price, then multiplying the pre-tax price by 5%. For a $200 gross invoice, net subtotal is $173.95 and GST is $8.70.',
+      },
+      {
+        question: 'What is the formula for calculating the reverse charge of GST?',
+        answer: 'Reverse Charge GST = Gross Total Price - (Gross Total Price ÷ 1.14975). For GST alone in Quebec: GST Amount = (Gross Total Price ÷ 1.14975) × 0.05.',
+      },
+      {
+        question: 'What is the formula for reverse calculation?',
+        answer: 'The universal reverse calculation formula is: Original Base Price = Final Total Amount ÷ (1 + Tax Rate). Tax Paid = Final Total Amount - Original Base Price.',
+      },
+      {
+        question: 'How to use a reverse calculation?',
+        answer: 'Bookkeepers and business owners use reverse calculations when recording tax-inclusive receipts into accounting software (like QuickBooks or Xero) to accurately separate expense subtotals from recoverable input tax credits (ITCs and ITRs).',
+      },
+      {
+        question: 'How do I calculate the revised GST amount?',
+        answer: 'Calculate revised GST by taking the revised pre-tax net subtotal and multiplying it by 5.00%. If adjusting a tax-inclusive total, re-apply the reverse formula (Gross ÷ 1.14975 × 0.05) on the updated gross figure.',
+      },
+    ],
     relatedRegionSlugs: ['ontario', 'british-columbia', 'alberta'],
   },
   {

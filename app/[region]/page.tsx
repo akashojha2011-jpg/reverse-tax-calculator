@@ -199,6 +199,89 @@ function renderNewYorkArticleSections() {
   )
 }
 
+function renderQuebecArticleSections() {
+  return (
+    <div className="space-y-6 mt-6">
+      <section>
+        <h2 id="qc-reverse-calculation" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          How to Reverse Calculate Sales Tax in Quebec (GST & QST)
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          In Quebec, commercial invoices and consumer receipts display a tax-inclusive total combining <strong>5.00% federal Goods and Services Tax (GST/TPS)</strong> and <strong>9.975% Quebec Sales Tax (QST/TVQ)</strong>, resulting in a total effective rate of <strong>14.975%</strong>.
+        </p>
+        <p className="text-slate-700 leading-relaxed mt-2">
+          To extract the pre-tax item cost and isolate both tax components backwards from a Quebec receipt total:
+        </p>
+        <ol className="list-decimal pl-5 space-y-2 text-slate-700 text-sm mt-2">
+          <li><strong>Find Pre-Tax Subtotal:</strong> Divide the total receipt amount by <strong>1.14975</strong>.</li>
+          <li><strong>Calculate Federal GST (5%):</strong> Multiply the pre-tax subtotal by <strong>0.05</strong>.</li>
+          <li><strong>Calculate Quebec QST (9.975%):</strong> Multiply the pre-tax subtotal by <strong>0.09975</strong>.</li>
+          <li><strong>Verify Total Tax:</strong> Add GST + QST to equal your total tax paid.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2 id="qc-canada-sales-tax" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          How to Calculate Reverse Sales Tax Across Canadian Provinces (GST, PST & HST)
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          Canada uses three distinct sales tax models depending on the province or territory:
+        </p>
+        <ul className="list-disc pl-5 space-y-2 text-slate-700 text-sm mt-2">
+          <li><strong>Dual GST + QST / PST Provinces (Quebec, BC, SK, MB):</strong> Federal GST (5%) is collected alongside a separate provincial sales tax. In Quebec, QST is 9.975% (total 14.975%, divisor 1.14975). In British Columbia, PST is 7% (total 12%, divisor 1.12).</li>
+          <li><strong>Harmonized Sales Tax (HST) Provinces (ON, NS, NB, PE, NL):</strong> Federal and provincial taxes are blended into a single HST rate (13% in Ontario, divisor 1.13; 15% in Atlantic Canada, divisor 1.15).</li>
+          <li><strong>GST-Only Territories & Alberta:</strong> Alberta, Northwest Territories, Nunavut, and Yukon charge only the 5% federal GST (divisor 1.05) with zero provincial sales tax.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="qc-gst-qst-explained" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          What Are the Two Sales Taxes in Quebec? (GST vs. QST Explained)
+        </h2>
+        <p className="text-slate-700 leading-relaxed">
+          Quebec is unique in Canadian tax administration. While the Canada Revenue Agency (CRA) administers sales tax in most provinces, <strong>Revenu Québec</strong> jointly administers both federal GST/TPS (5%) and provincial QST/TVQ (9.975%) within Quebec borders.
+        </p>
+        <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-sm my-3 font-medium">
+          <strong>Non-Compounding Rule (Since 2013):</strong> Prior to January 1, 2013, QST was calculated on top of the GST-inclusive price. Since 2013, QST (9.975%) and GST (5.00%) are calculated independently on the exact same pre-tax net subtotal.
+        </div>
+      </section>
+
+      <section>
+        <h2 id="qc-formula-worked-example" className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-6 mb-3 scroll-mt-24">
+          Formula & Worked Examples for Quebec Reverse GST & QST
+        </h2>
+        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-3 space-y-1 font-semibold text-brand-700">
+          <div>Pre-Tax Net Subtotal = Gross Invoice Total ÷ 1.14975</div>
+          <div>Federal GST (5%) = Net Subtotal × 0.05</div>
+          <div>Quebec QST (9.975%) = Net Subtotal × 0.09975</div>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-4 mb-2">
+          Worked Example 1: $114.98 Receipt Total in Quebec
+        </h3>
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 my-3 space-y-1 text-xs sm:text-sm text-slate-800">
+          <div>• Gross Invoice Total: <strong>$114.98 CAD</strong></div>
+          <div>• Pre-Tax Net Subtotal ($114.98 ÷ 1.14975): <strong>$100.00 CAD</strong></div>
+          <div>• Federal GST (5% of $100.00): <strong>$5.00 CAD</strong></div>
+          <div>• Quebec QST (9.975% of $100.00): <strong>$9.98 CAD</strong></div>
+          <div>• Total Tax Paid ($5.00 + $9.98): <strong>$14.98 CAD</strong></div>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-4 mb-2">
+          Worked Example 2: Even $100.00 Total Receipt in Quebec
+        </h3>
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 my-3 space-y-1 text-xs sm:text-sm text-slate-800">
+          <div>• Gross Invoice Total: <strong>$100.00 CAD</strong></div>
+          <div>• Pre-Tax Net Subtotal ($100.00 ÷ 1.14975): <strong>$86.98 CAD</strong></div>
+          <div>• Federal GST Paid ($86.98 × 0.05): <strong>$4.35 CAD</strong></div>
+          <div>• Quebec QST Paid ($86.98 × 0.09975): <strong>$8.67 CAD</strong></div>
+          <div>• Total Tax Paid ($4.35 + $8.67): <strong>$13.02 CAD</strong></div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
 interface PageProps {
   params: {
     region: string
@@ -419,6 +502,7 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
             </ol>
 
             {region.slug === 'new-york' && renderNewYorkArticleSections()}
+            {region.slug === 'quebec' && renderQuebecArticleSections()}
           </article>
 
           {/* Region FAQs */}
