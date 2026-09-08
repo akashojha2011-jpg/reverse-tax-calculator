@@ -14,26 +14,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: '/:region-reverse-sales-tax-calculator',
-        destination: '/:region',
-      },
-      {
-        source: '/reverse-sales-tax-calculator-:region',
-        destination: '/:region',
-      },
-      {
-        source: '/:region-sales-tax-calculator',
-        destination: '/:region',
-      },
-      {
-        source: '/:region-sales-tax',
-        destination: '/:region',
-      },
-    ]
-  },
 }
 
 module.exports = withMDX(nextConfig)

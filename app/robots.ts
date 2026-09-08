@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://reversetaxcalculator.pro/sitemap.xml',
+    sitemap: 'https://www.reversetaxcalculator.pro/sitemap.xml',
   }
 }

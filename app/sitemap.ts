@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { REGIONS } from '@/data/regions'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://reversetaxcalculator.pro'
+  const baseUrl = 'https://www.reversetaxcalculator.pro'
   const currentDate = new Date().toISOString().split('T')[0]
 
   // Core static pages

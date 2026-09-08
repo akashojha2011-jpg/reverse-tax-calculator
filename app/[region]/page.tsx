@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import { REGIONS, getRegionBySlug, type RegionData } from '@/data/regions'
 import { CalculatorCard } from '@/components/CalculatorCard'
@@ -154,18 +154,32 @@ function renderNewYorkArticleSections() {
                 <td className="p-2.5 border border-slate-200 font-bold">8.625%</td>
               </tr>
               <tr className="bg-slate-50">
+                <td className="p-2.5 border border-slate-200 font-bold">Westchester County</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">0.375%</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.375%</td>
+              </tr>
+              <tr>
                 <td className="p-2.5 border border-slate-200 font-bold">Erie County (Buffalo)</td>
                 <td className="p-2.5 border border-slate-200">4.00%</td>
                 <td className="p-2.5 border border-slate-200">4.75%</td>
-                <td className="p-2.5 border border-slate-200">—</td>
+                <td className="p-2.5 border border-slate-200">N/A</td>
                 <td className="p-2.5 border border-slate-200 font-bold">8.75%</td>
               </tr>
-              <tr>
-                <td className="p-2.5 border border-slate-200 font-bold">Westchester County (Yonkers)</td>
+              <tr className="bg-slate-50">
+                <td className="p-2.5 border border-slate-200 font-bold">Monroe County (Rochester)</td>
                 <td className="p-2.5 border border-slate-200">4.00%</td>
-                <td className="p-2.5 border border-slate-200">4.50%</td>
-                <td className="p-2.5 border border-slate-200">0.375%</td>
-                <td className="p-2.5 border border-slate-200 font-bold">8.875%</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">N/A</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.00%</td>
+              </tr>
+              <tr>
+                <td className="p-2.5 border border-slate-200 font-bold">Albany County (Capital)</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">4.00%</td>
+                <td className="p-2.5 border border-slate-200">N/A</td>
+                <td className="p-2.5 border border-slate-200 font-bold">8.00%</td>
               </tr>
             </tbody>
           </table>
@@ -282,6 +296,34 @@ function renderQuebecArticleSections() {
   )
 }
 
+function renderRegionalAuthorityAndExemptions(region: RegionData) {
+  let authorityName = `${region.name} Department of Revenue`
+  if (region.country === 'CA') authorityName = 'Canada Revenue Agency (CRA)'
+  if (region.slug === 'quebec') authorityName = 'Revenu Québec & CRA'
+  if (region.country === 'UK') authorityName = 'HM Revenue & Customs (HMRC)'
+  if (region.slug === 'australia') authorityName = 'Australian Taxation Office (ATO)'
+  if (region.slug === 'new-zealand') authorityName = 'Inland Revenue Department (IRD)'
+  if (region.slug === 'singapore') authorityName = 'Inland Revenue Authority of Singapore (IRAS)'
+
+  return (
+    <div className="space-y-4 mt-8 pt-6 border-t border-slate-200">
+      <h3 className="text-xl font-bold text-slate-900 mt-0 mb-3">
+        Compliance & Tax Authority Oversight in {region.name}
+      </h3>
+      <p className="text-slate-700 text-sm leading-relaxed">
+        Sales tax compliance, audits, and business remittance in <strong>{region.name}</strong> fall under the official jurisdiction of the <strong>{authorityName}</strong>. 
+        When issuing invoices, filing monthly tax returns, or claiming input tax credits, bookkeepers and business owners must accurately separate the net pre-tax item price from the total {region.taxName} collected.
+      </p>
+      {region.maxCombinedRate && region.maxCombinedRate > region.rate ? (
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 space-y-1">
+          <div className="font-bold text-slate-900">Local Surcharges & District Tax Note:</div>
+          <div>While the statewide base rate is <strong>{region.rate}%</strong>, local city, county, and transit district surcharges can bring the total combined sales tax up to <strong>{region.maxCombinedRate}%</strong> in certain municipal zip codes. Adjust the tax rate percentage box in our calculator above if your local municipality charges an additional district surcharge.</div>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 interface PageProps {
   params: {
     region: string
@@ -289,15 +331,10 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const paths: { region: string }[] = []
-  for (const r of REGIONS) {
-    paths.push({ region: r.slug })
-    paths.push({ region: `${r.slug}-reverse-sales-tax-calculator` })
-    paths.push({ region: `reverse-sales-tax-calculator-${r.slug}` })
-    paths.push({ region: `${r.slug}-sales-tax-calculator` })
-    paths.push({ region: `${r.slug}-sales-tax` })
-  }
-  return paths
+  // Generate ONLY 1 canonical path per region to prevent duplicate URL doorway penalties
+  return REGIONS.map((r) => ({
+    region: `${r.slug}-reverse-sales-tax-calculator`,
+  }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -305,6 +342,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const region = slug ? getRegionBySlug(slug) : undefined
   if (!region) return {}
 
+  const canonicalUrl = `https://www.reversetaxcalculator.pro/${region.slug}-reverse-sales-tax-calculator`
   const title = `${region.name} Reverse Sales Tax Calculator (${region.rate}% ${region.taxName})`
   const description = `Calculate ${region.name} pre-tax price and tax paid backwards. Pre-filled with ${region.name}'s current ${region.rate}% ${region.taxName} rate.`
 
@@ -312,11 +350,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://reversetaxcalculator.pro/${region.slug}-reverse-sales-tax-calculator`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       type: 'website',
-      url: `https://reversetaxcalculator.pro/${region.slug}-reverse-sales-tax-calculator`,
+      url: canonicalUrl,
       title: `${region.name} Reverse Sales Tax Calculator — Pre-Tax Price Finder`,
       description: `Free online reverse calculator pre-filled for ${region.name} (${region.rate}% ${region.taxName}). Instantly extract pre-tax subtotal and tax paid.`,
       siteName: 'Reverse Tax Calculator',
@@ -334,6 +372,12 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
   const region = slug ? getRegionBySlug(slug) : undefined
   if (!region) {
     notFound()
+  }
+
+  // Canonical URL Enforcement: 301 Permanent Redirect any legacy/alternate URL variations to the canonical slug
+  const canonicalSlug = `${region.slug}-reverse-sales-tax-calculator`
+  if (slug !== canonicalSlug) {
+    permanentRedirect(`/${canonicalSlug}`)
   }
 
   // Determine hub link
@@ -503,6 +547,8 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
 
             {region.slug === 'new-york' && renderNewYorkArticleSections()}
             {region.slug === 'quebec' && renderQuebecArticleSections()}
+
+            {renderRegionalAuthorityAndExemptions(region)}
           </article>
 
           {/* Region FAQs */}

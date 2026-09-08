@@ -4,7 +4,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://reversetaxcalculator.pro'),
+  metadataBase: new URL('https://www.reversetaxcalculator.pro'),
   title: {
     default: 'Reverse Tax Calculator — Calculate Tax Included Price Backwards (Free Online Tool)',
     template: '%s | Reverse Tax Calculator',
