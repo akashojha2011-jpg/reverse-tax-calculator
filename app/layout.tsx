@@ -94,6 +94,11 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content="QlwCi5811ZlbI4jdi6S56_8vF-8QBSH3VoOHgGyfeW8" />
         <link rel="alternate" type="text/plain" href="https://www.reversetaxcalculator.pro/llms.txt" title="LLMs.txt" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6119304743747461"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="flex flex-col min-h-screen">
         <Header />
