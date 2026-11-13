@@ -1,13 +1,21 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+  weight: ['400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
@@ -80,7 +88,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
+    <html lang="en" className={`scroll-smooth ${jakarta.variable} ${jetbrainsMono.variable}`}>
       <head>
         <meta name="google-site-verification" content="QlwCi5811ZlbI4jdi6S56_8vF-8QBSH3VoOHgGyfeW8" />
         <link rel="alternate" type="text/plain" href="https://www.reversetaxcalculator.pro/llms.txt" title="LLMs.txt" />
@@ -90,7 +98,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-100 selection:text-brand-900">
+      <body className={`flex flex-col min-h-screen bg-[#f8fafc] text-slate-900 ${jakarta.className} antialiased selection:bg-blue-100 selection:text-blue-900`}>
         <Header />
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-10">
           {children}

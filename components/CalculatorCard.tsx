@@ -9,7 +9,7 @@ import {
   calculateNetToGrossEstimate,
 } from '@/lib/tax-math'
 import { ResultDisplay } from './ResultDisplay'
-import { DismissibleNudge } from './DismissibleNudge'
+import { RotateCcw, Percent, DollarSign, Sparkles } from 'lucide-react'
 
 export type CalcMode =
   | 'sales-tax'
@@ -59,6 +59,26 @@ export function CalculatorCard({
   const [hasCalculated, setHasCalculated] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
+  // Quick presets for fast tactile interaction
+  const popularAmounts = [50, 100, 107, 250, 500]
+  const popularUsRates = [
+    { label: 'NY 4%', rate: 4 },
+    { label: 'FL 6%', rate: 6 },
+    { label: 'TX 6.25%', rate: 6.25 },
+    { label: 'CA 7.25%', rate: 7.25 },
+    { label: 'NYC 8.875%', rate: 8.875 },
+    { label: '10%', rate: 10 },
+  ]
+
+  const handleReset = () => {
+    setGrossInput(defaultGross.toString())
+    setTaxRateInput(defaultTaxRate.toString())
+    setNetInput('100')
+    setTipRateInput('15')
+    setEffectivePayrollRate('22')
+    setErrorMsg(null)
+  }
+
   // Computed results state
   const [calcResult, setCalcResult] = useState<{
     netAmount: number
@@ -102,7 +122,7 @@ export function CalculatorCard({
           secondTaxAmount: res.tax2Amount,
           secondTaxName: defaultSecondTaxName,
           grossAmount: res.grossAmount,
-          formulaNote: `Net = ${currencySymbol}${res.grossAmount} ÷ (1 + ${rateVal}% GST + ${secondRateVal}% ${defaultSecondTaxName}) = ${currencySymbol}${res.netAmount}`,
+          formulaNote: `Net = ${currencySymbol}${res.grossAmount} ÷ (1 + ${rateVal}% + ${secondRateVal}%) = ${currencySymbol}${res.netAmount}`,
         })
       } else if (mode === 'solve-rate') {
         if (isNaN(grossVal) || isNaN(netVal) || netVal <= 0 || grossVal < netVal) {
@@ -114,7 +134,7 @@ export function CalculatorCard({
           netAmount: res.netAmount,
           taxAmount: res.taxAmount,
           grossAmount: res.grossAmount,
-          formulaNote: `Solved Tax Rate = (${currencySymbol}${grossVal} ÷ ${currencySymbol}${netVal}) - 1 = ${res.taxRatePercentage}%`,
+          formulaNote: `Tax Rate = (${currencySymbol}${grossVal} ÷ ${currencySymbol}${netVal}) - 1 = ${res.taxRatePercentage}%`,
         })
       } else if (mode === 'tax-and-tip') {
         if (isNaN(grossVal) || isNaN(rateVal) || isNaN(tipRateVal)) return
@@ -124,7 +144,7 @@ export function CalculatorCard({
           taxAmount: res.taxAmount,
           tipAmount: res.tipAmount,
           grossAmount: res.totalPaid,
-          formulaNote: `Subtotal Net = ${currencySymbol}${grossVal} ÷ (1 + ${rateVal}% tax + ${tipRateVal}% tip) = ${currencySymbol}${res.netAmount}`,
+          formulaNote: `Subtotal = ${currencySymbol}${grossVal} ÷ (1 + ${rateVal}% tax + ${tipRateVal}% tip) = ${currencySymbol}${res.netAmount}`,
         })
       } else if (mode === 'income-tax') {
         if (isNaN(netVal) || isNaN(payrollRateVal)) return
@@ -135,7 +155,7 @@ export function CalculatorCard({
           grossAmount: res.estimatedGross,
           isPayroll: true,
           payrollDisclaimer: res.disclaimer,
-          formulaNote: `Estimated Gross = ${currencySymbol}${netVal} ÷ (1 - ${payrollRateVal}%) = ${currencySymbol}${res.estimatedGross}`,
+          formulaNote: `Required Gross = ${currencySymbol}${netVal} ÷ (1 - ${payrollRateVal}%) = ${currencySymbol}${res.estimatedGross}`,
         })
       } else {
         // Standard single tax
@@ -145,7 +165,7 @@ export function CalculatorCard({
           netAmount: res.netAmount,
           taxAmount: res.taxAmount,
           grossAmount: res.grossAmount,
-          formulaNote: `Pre-tax Net = ${currencySymbol}${res.grossAmount} ÷ (1 + ${rateVal}%) = ${currencySymbol}${res.netAmount}`,
+          formulaNote: `Pre-Tax Net = ${currencySymbol}${res.grossAmount} ÷ (1 + ${rateVal}%) = ${currencySymbol}${res.netAmount}`,
         })
       }
       setHasCalculated(true)
@@ -168,87 +188,86 @@ export function CalculatorCard({
   ])
 
   return (
-    <div className="w-full bg-white rounded-2xl border border-slate-200 shadow-md p-5 md:p-6 transition-all">
-      {/* Header badge */}
-      <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
-        <span className="text-xs font-extrabold uppercase tracking-wider text-brand-700 bg-brand-50 border border-brand-200 px-2.5 py-1 rounded-md">
-          {regionName ? `${regionName} Reverse ${taxName} Calculator` : 'Reverse Sales Tax Calculator'}
-        </span>
+    <div className="w-full bg-white rounded-2xl border border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.06),0_1px_3px_rgba(15,23,42,0.04)] p-5 sm:p-7 transition-all">
+      {/* Top Header Status & Reset */}
+      <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+          <span className="text-xs font-bold tracking-tight text-slate-800">
+            {regionName ? `${regionName} Reverse ${taxName}` : 'Reverse Sales Tax Engine'}
+          </span>
+        </div>
+
+        <button
+          onClick={handleReset}
+          className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/80 transition-all cursor-pointer"
+          title="Reset to defaults"
+        >
+          <RotateCcw className="w-3 h-3" />
+          <span>Reset</span>
+        </button>
       </div>
 
-      {/* Mode Switcher Tabs */}
+      {/* Mode Switcher Tabs (Linear / Stripe style segmented control) */}
       {!hideModeSwitcher && (
-        <div className="space-y-1.5 border-b border-slate-100 pb-3.5 mb-5">
-          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-            Select Calculator:
-          </div>
-          <div className="flex flex-wrap items-center gap-1.5">
+        <div className="mb-6">
+          <div className="bg-slate-100/80 p-1 rounded-xl flex items-center gap-1 overflow-x-auto no-scrollbar border border-slate-200/60">
             <button
               onClick={() => setMode('sales-tax')}
-              className={`px-3 py-1.5 text-xs font-extrabold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'sales-tax'
-                  ? 'bg-brand-600 text-white shadow-xs ring-2 ring-brand-600/20'
-                  : 'bg-brand-50 text-brand-700 hover:bg-brand-100 font-bold border border-brand-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              ★ Reverse Sales Tax
+              Reverse Tax
             </button>
             <button
               onClick={() => setMode('vat')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'vat'
-                  ? 'bg-brand-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              VAT
+              VAT (20%)
             </button>
             <button
               onClick={() => setMode('gst')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'gst'
-                  ? 'bg-brand-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              GST
-            </button>
-            <button
-              onClick={() => setMode('hst')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
-                mode === 'hst'
-                  ? 'bg-brand-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              HST
+              GST / HST
             </button>
             <button
               onClick={() => setMode('solve-rate')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'solve-rate'
-                  ? 'bg-brand-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Solve Rate %
             </button>
             <button
               onClick={() => setMode('tax-and-tip')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'tax-and-tip'
-                  ? 'bg-brand-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Tax + Tip
             </button>
             <button
               onClick={() => setMode('income-tax')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'income-tax'
-                  ? 'bg-brand-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Net to Gross
@@ -258,15 +277,21 @@ export function CalculatorCard({
       )}
 
       {/* Input Rows */}
-      <div className="space-y-4">
+      <div className="space-y-5">
         {mode === 'solve-rate' ? (
           <>
             <div>
-              <label htmlFor="gross-amount-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Total Price (Gross)
-              </label>
-              <div className="relative rounded-lg">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 font-semibold text-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="gross-amount-input-card"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                >
+                  Total Receipt Price (Gross)
+                </label>
+                <span className="text-[11px] text-slate-400">Tax Included</span>
+              </div>
+              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500 font-bold font-mono text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -275,17 +300,24 @@ export function CalculatorCard({
                   step="any"
                   value={grossInput}
                   onChange={(e) => setGrossInput(e.target.value)}
-                  className="block w-full rounded-lg border border-slate-300 pl-8 pr-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all"
+                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="107.00"
                 />
               </div>
             </div>
+
             <div>
-              <label htmlFor="net-amount-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Pre-Tax Subtotal (Net)
-              </label>
-              <div className="relative rounded-lg">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 font-semibold text-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="net-amount-input-card"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                >
+                  Pre-Tax Subtotal (Net)
+                </label>
+                <span className="text-[11px] text-slate-400">Before Tax</span>
+              </div>
+              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500 font-bold font-mono text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -294,7 +326,7 @@ export function CalculatorCard({
                   step="any"
                   value={netInput}
                   onChange={(e) => setNetInput(e.target.value)}
-                  className="block w-full rounded-lg border border-slate-300 pl-8 pr-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all"
+                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="100.00"
                 />
               </div>
@@ -303,11 +335,17 @@ export function CalculatorCard({
         ) : mode === 'income-tax' ? (
           <>
             <div>
-              <label htmlFor="target-net-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Target Net Pay
-              </label>
-              <div className="relative rounded-lg">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 font-semibold text-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="target-net-input-card"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                >
+                  Target Take-Home Pay (Net)
+                </label>
+                <span className="text-[11px] text-slate-400">Cash Received</span>
+              </div>
+              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500 font-bold font-mono text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -316,26 +354,33 @@ export function CalculatorCard({
                   step="any"
                   value={netInput}
                   onChange={(e) => setNetInput(e.target.value)}
-                  className="block w-full rounded-lg border border-slate-300 pl-8 pr-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all"
+                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="4000.00"
                 />
               </div>
             </div>
+
             <div>
-              <label htmlFor="effective-rate-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Effective Income Tax Rate (%)
-              </label>
-              <div className="relative rounded-lg">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="effective-rate-input-card"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                >
+                  Effective Withholding Rate (%)
+                </label>
+                <span className="text-[11px] text-slate-400">Fed + State Est.</span>
+              </div>
+              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
                 <input
                   id="effective-rate-input-card"
                   type="number"
                   step="any"
                   value={effectivePayrollRate}
                   onChange={(e) => setEffectivePayrollRate(e.target.value)}
-                  className="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all pr-8"
+                  className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="22"
                 />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 font-semibold text-sm">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 font-bold font-mono text-lg">
                   %
                 </div>
               </div>
@@ -343,12 +388,19 @@ export function CalculatorCard({
           </>
         ) : (
           <>
+            {/* Primary Gross Input */}
             <div>
-              <label htmlFor="total-price-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Total Tax-Inclusive Amount (Gross Total)
-              </label>
-              <div className="relative rounded-lg">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 font-semibold text-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="total-price-input-card"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                >
+                  Total Amount Paid (Tax Inclusive)
+                </label>
+                <span className="text-[11px] text-slate-400">Gross Receipt Total</span>
+              </div>
+              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 font-bold font-mono text-xl">
                   {currencySymbol}
                 </div>
                 <input
@@ -357,48 +409,99 @@ export function CalculatorCard({
                   step="any"
                   value={grossInput}
                   onChange={(e) => setGrossInput(e.target.value)}
-                  className="block w-full rounded-lg border border-slate-300 pl-8 pr-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all"
+                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="107.00"
                 />
               </div>
+
+              {/* Quick Amount Preset Chips */}
+              <div className="flex items-center gap-1.5 mt-2 overflow-x-auto no-scrollbar">
+                <span className="text-[11px] text-slate-400 font-medium mr-0.5">Quick:</span>
+                {popularAmounts.map((amt) => (
+                  <button
+                    key={amt}
+                    type="button"
+                    onClick={() => setGrossInput(amt.toString())}
+                    className={`px-2 py-0.5 text-xs font-mono rounded-md border transition-all cursor-pointer ${
+                      grossInput === amt.toString()
+                        ? 'bg-blue-50 border-blue-300 text-blue-700 font-bold'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                    }`}
+                  >
+                    ${amt}
+                  </button>
+                ))}
+              </div>
             </div>
 
+            {/* Tax Rate Input */}
             <div>
-              <label htmlFor="tax-rate-percentage-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                {regionName ? `${regionName} ${taxName} Rate (%)` : `Sales Tax Rate (%)`}
-              </label>
-              <div className="relative rounded-lg">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="tax-rate-percentage-input-card"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                >
+                  {regionName ? `${regionName} ${taxName} Rate (%)` : `Combined Sales Tax Rate (%)`}
+                </label>
+                <span className="text-[11px] text-slate-400">State + Local</span>
+              </div>
+              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
                 <input
                   id="tax-rate-percentage-input-card"
                   type="number"
                   step="any"
                   value={taxRateInput}
                   onChange={(e) => setTaxRateInput(e.target.value)}
-                  className="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all pr-8"
+                  className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="7"
                 />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 font-semibold text-sm">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 font-bold font-mono text-xl">
                   %
                 </div>
+              </div>
+
+              {/* Quick Rate Preset Chips */}
+              <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+                <span className="text-[11px] text-slate-400 font-medium mr-0.5">Rates:</span>
+                {popularUsRates.map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => setTaxRateInput(item.rate.toString())}
+                    className={`px-2 py-0.5 text-xs font-medium rounded-md border transition-all cursor-pointer ${
+                      taxRateInput === item.rate.toString()
+                        ? 'bg-blue-50 border-blue-300 text-blue-700 font-bold'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
               </div>
             </div>
 
             {(mode === 'dual-tax' || defaultSecondTaxRate !== undefined) && (
               <div>
-                <label htmlFor="second-tax-rate-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  {defaultSecondTaxName} Rate (%)
-                </label>
-                <div className="relative rounded-lg">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label
+                    htmlFor="second-tax-rate-input-card"
+                    className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                  >
+                    {defaultSecondTaxName} Rate (%)
+                  </label>
+                  <span className="text-[11px] text-slate-400">Secondary Tax</span>
+                </div>
+                <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
                   <input
                     id="second-tax-rate-input-card"
                     type="number"
                     step="any"
                     value={secondTaxRateInput}
                     onChange={(e) => setSecondTaxRateInput(e.target.value)}
-                    className="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all pr-8"
+                    className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                     placeholder="7"
                   />
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 font-semibold text-sm">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 font-bold font-mono text-xl">
                     %
                   </div>
                 </div>
@@ -407,20 +510,26 @@ export function CalculatorCard({
 
             {mode === 'tax-and-tip' && (
               <div>
-                <label htmlFor="tip-rate-input-card" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  Tip Rate (%)
-                </label>
-                <div className="relative rounded-lg">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label
+                    htmlFor="tip-rate-input-card"
+                    className="text-xs font-bold uppercase tracking-wider text-slate-700"
+                  >
+                    Tip Percentage (%)
+                  </label>
+                  <span className="text-[11px] text-slate-400">Gratuity</span>
+                </div>
+                <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
                   <input
                     id="tip-rate-input-card"
                     type="number"
                     step="any"
                     value={tipRateInput}
                     onChange={(e) => setTipRateInput(e.target.value)}
-                    className="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-base font-bold text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all pr-8"
+                    className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
                     placeholder="15"
                   />
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 font-semibold text-sm">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 font-bold font-mono text-xl">
                     %
                   </div>
                 </div>
@@ -430,9 +539,9 @@ export function CalculatorCard({
         )}
       </div>
 
-      {/* Error display */}
+      {/* Error Message */}
       {errorMsg && (
-        <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-xs font-medium text-red-700">
+        <div className="mt-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-700">
           {errorMsg}
         </div>
       )}
@@ -453,8 +562,6 @@ export function CalculatorCard({
           payrollDisclaimer={calcResult.payrollDisclaimer}
         />
       )}
-
-      {hasCalculated && <DismissibleNudge />}
     </div>
   )
 }

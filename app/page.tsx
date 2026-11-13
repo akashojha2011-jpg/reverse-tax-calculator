@@ -171,21 +171,22 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
       />
 
-      <div className="space-y-10 max-w-7xl mx-auto">
+      <div className="space-y-12 max-w-7xl mx-auto">
         {/* Hero Section */}
         <section className="text-center space-y-4 pt-2 pb-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-1">
-            Free Online Financial Tool • Updated 2026
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-slate-700 text-xs font-semibold tracking-tight shadow-2xs mb-1">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-blue-600" />
+            <span>US Sales Tax Platform • 2026 Engine</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-[1.1]">
             Reverse Tax Calculator
           </h1>
-          <p className="text-slate-600 text-base sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto leading-relaxed">
             Calculate the original pre-tax price and sales tax from any tax-inclusive total. Enter your total amount and tax rate to instantly see the price before tax and the tax paid.
           </p>
 
-          {/* Centered Interactive Calculator */}
+          {/* Centered Interactive Calculator Card */}
           <div className="max-w-2xl mx-auto pt-4 text-left">
             <CalculatorCard
               initialMode="sales-tax"
@@ -193,6 +194,22 @@ export default function HomePage() {
               defaultTaxRate={7}
               taxName="Sales Tax"
             />
+          </div>
+
+          {/* Value Badges */}
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-slate-500">
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-blue-600" />
+              <span>Exact Line-Item & Reverse Math</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-blue-600" />
+              <span>No Sign-Up or App Required</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-blue-600" />
+              <span>Updated for 2026 State & Local Rates</span>
+            </div>
           </div>
         </section>
 
