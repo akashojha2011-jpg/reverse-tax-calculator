@@ -22,12 +22,18 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-600 whitespace-nowrap">
-          <Link href="/reverse-sales-tax-calculator" className="hover:text-blue-600 transition-colors">
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 whitespace-nowrap">
+          <Link
+            href="/reverse-sales-tax-calculator"
+            className="hover:text-blue-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
+          >
             Sales Tax
           </Link>
 
-          <Link href="/us-sales-tax-by-zip-code" className="hover:text-blue-600 transition-colors">
+          <Link
+            href="/us-sales-tax-by-zip-code"
+            className="hover:text-blue-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
+          >
             ZIP Code Lookup
           </Link>
 
@@ -39,7 +45,7 @@ export function Header() {
           >
             <button
               type="button"
-              className="flex items-center gap-1 hover:text-blue-600 transition-colors py-2 focus:outline-hidden"
+              className="flex items-center gap-1 hover:text-blue-600 transition-colors py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md cursor-pointer"
               aria-expanded={toolsDropdownOpen}
             >
               <span>Tax Tools</span>
@@ -107,24 +113,30 @@ export function Header() {
             )}
           </div>
 
-          <Link href="/reverse-tax-formula" className="hover:text-blue-600 transition-colors">
+          <Link
+            href="/reverse-tax-formula"
+            className="hover:text-blue-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
+          >
             Formula
           </Link>
 
-          <Link href="/data-sources" className="hover:text-blue-600 transition-colors">
+          <Link
+            href="/data-sources"
+            className="hover:text-blue-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
+          >
             Tax Rate Data
           </Link>
 
           <Link
             href="/reverse-vat-calculator"
-            className="hover:text-blue-600 transition-colors text-slate-500"
+            className="hover:text-blue-600 transition-colors text-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
           >
             VAT
           </Link>
 
           <Link
             href="/reverse-gst-calculator"
-            className="hover:text-blue-600 transition-colors text-slate-500"
+            className="hover:text-blue-600 transition-colors text-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
           >
             GST/HST
           </Link>

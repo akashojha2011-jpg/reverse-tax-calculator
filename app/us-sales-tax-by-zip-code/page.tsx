@@ -2,54 +2,51 @@ import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ZipTaxLookupTool } from '@/components/ZipTaxLookupTool'
-import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { FAQAccordion } from '@/components/FAQAccordion'
-import { MapPin, Info, ShieldCheck, ArrowRight, Building2, HelpCircle } from 'lucide-react'
+import { BreadcrumbNav } from '@/components/BreadcrumbNav'
+import { MapPin, Info, ArrowRight, ShieldCheck, CheckCircle2, Building, Scale, Calculator } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'US Sales Tax by ZIP Code Calculator | Lookup Combined Rates (2026)',
+  title: 'US Sales Tax by ZIP Code Calculator (2026) — State, County & City Rates',
   description:
-    'Look up accurate combined sales tax rates by 5-digit US ZIP code. Calculate state, county, city, and special district sales tax forward and in reverse.',
+    'Free US sales tax rate lookup by 5-digit ZIP code. Calculate sales tax to add or reverse calculate pre-tax amounts from receipts with combined state, county, and local rates.',
   alternates: {
     canonical: 'https://www.reversetaxcalculator.pro/us-sales-tax-by-zip-code',
-  },
-  openGraph: {
-    type: 'website',
-    url: 'https://www.reversetaxcalculator.pro/us-sales-tax-by-zip-code',
-    title: 'US Sales Tax by ZIP Code Calculator | Lookup Combined Rates (2026)',
-    description:
-      'Look up accurate combined sales tax rates by 5-digit US ZIP code. Calculate state, county, city, and special district sales tax forward and in reverse.',
-    siteName: 'Reverse Tax Calculator',
   },
 }
 
 const ZIP_FAQS = [
   {
-    question: 'How are sales taxes determined by ZIP code in the United States?',
+    question: 'How do I calculate sales tax using a 5-digit ZIP code?',
     answer:
-      'In the United States, retail sales tax is rarely a single number. Instead, it is an aggregate total composed of the statewide base tax, plus county surcharges, municipal city taxes, and special local district taxes (such as regional transportation authorities, emergency services, or stadium districts). Entering a ZIP code aggregates all active overlapping jurisdictions.',
+      'To calculate sales tax with a ZIP code, determine the combined tax rate (state baseline + county surtax + city municipal tax + special transit/district assessments). For forward calculations, multiply your pre-tax subtotal by the combined decimal rate (e.g., $100 × 0.08875 = $8.88 in NYC 10001). For reverse calculations from a receipt total, divide the total bill by (1 + tax rate decimal) (e.g., $108.88 ÷ 1.08875 = $100.00).',
   },
   {
-    question: 'Can a single 5-digit ZIP code have multiple sales tax rates?',
+    question: 'Why do tax rates differ within the same ZIP code?',
     answer:
-      'Yes. ZIP codes were designed by the United States Postal Service (USPS) strictly for mail delivery routes, not taxing jurisdictions. A single ZIP code can cross municipal borders, school districts, and even county lines. In boundary areas, exact address-level rooftop geolocation is recommended for complex corporate invoicing.',
+      'Postal ZIP codes were created by the USPS in 1963 solely to optimize mail delivery routes and do not follow municipal or county borders. An estimated 18% to 22% of US ZIP codes are "split ZIP codes" that span multiple county borders or cross incorporated city limits. Addresses on opposite sides of a street in the same 5-digit ZIP code can have different local tax rates.',
   },
   {
-    question: 'How do I remove sales tax from a receipt using my local ZIP rate?',
+    question: 'What is the difference between origin-based and destination-based sales tax?',
     answer:
-      'To reverse-calculate the pre-tax price from a tax-inclusive receipt, divide the total receipt amount by (1 + Combined Tax Rate / 100). For example, with an 8.875% combined rate in New York City (10001), divide your total by 1.08875. The difference is the tax paid.',
+      'In destination-based states (the majority of US states, including New York, Florida, and Georgia), sales tax is calculated based on where the buyer takes possession or where the item is shipped. In origin-based states (such as Texas, Pennsylvania, Ohio, and Virginia), sales tax on intrastate orders is calculated based on the seller’s location, office, or warehouse.',
   },
   {
-    question: 'Which states have zero local sales taxes?',
+    question: 'What are Special Purpose Districts (SPDs) in sales tax rates?',
     answer:
-      'Five states (Alaska, Delaware, Montana, New Hampshire, and Oregon) have zero statewide sales tax. Furthermore, several states with a state sales tax prohibit local county or city taxes altogether, maintaining a completely uniform statewide rate: Connecticut, Kentucky, Indiana, Maryland, Massachusetts, Michigan, and the District of Columbia.',
+      'Special Purpose Districts (also known as Special District Taxes or SPDs) are local authorities approved by voters to fund dedicated public services—such as mass transit (e.g., MTA in New York, BART in San Francisco, RTA in Chicago), hospital systems, flood control, or police/fire infrastructure. SPDs typically add between 0.10% and 1.50% to the combined sales tax rate.',
+  },
+  {
+    question: 'How do businesses ensure 100% accurate sales tax compliance?',
+    answer:
+      'While 5-digit ZIP lookups provide a strong baseline estimate, enterprise e-commerce merchants and retailers rely on 9-digit ZIP codes (ZIP+4) or rooftop geocoding (matching latitude and longitude against official state Department of Revenue GIS boundary shapefiles) to verify whether an address lies inside or outside an incorporated city or special tax boundary.',
   },
 ]
 
 export default function ZipTaxLookupPage() {
   const schemaApp = {
     '@context': 'https://schema.org',
-    '@type': 'WebApplication',
+    '@type': 'SoftwareApplication',
     name: 'US Sales Tax by ZIP Code Calculator',
     url: 'https://www.reversetaxcalculator.pro/us-sales-tax-by-zip-code',
     applicationCategory: 'FinanceApplication',
@@ -59,20 +56,95 @@ export default function ZipTaxLookupPage() {
       price: '0',
       priceCurrency: 'USD',
     },
+    description:
+      'Interactive US sales tax calculator by ZIP code. Compute combined state, county, and municipal sales taxes backwards and forwards.',
   }
 
   const schemaFaq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: ZIP_FAQS.map((faq) => ({
+    mainEntity: ZIP_FAQS.map((f) => ({
       '@type': 'Question',
-      name: faq.question,
+      name: f.question,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faq.answer,
+        text: f.answer,
       },
     })),
   }
+
+  const stackingExamples = [
+    {
+      city: 'New York, NY',
+      zip: '10001',
+      state: '4.000%',
+      county: '0.000%',
+      cityRate: '4.500%',
+      district: '0.375% (MCTD)',
+      total: '8.875%',
+      taxOn100: '$8.88',
+    },
+    {
+      city: 'Beverly Hills, CA',
+      zip: '90210',
+      state: '6.000%',
+      county: '0.250%',
+      cityRate: '1.250%',
+      district: '2.000% (Transit/H)',
+      total: '9.500%',
+      taxOn100: '$9.50',
+    },
+    {
+      city: 'Chicago, IL',
+      zip: '60601',
+      state: '6.250%',
+      county: '1.750%',
+      cityRate: '1.250%',
+      district: '1.000% (RTA)',
+      total: '10.250%',
+      taxOn100: '$10.25',
+    },
+    {
+      city: 'Houston, TX',
+      zip: '77002',
+      state: '6.250%',
+      county: '0.000%',
+      cityRate: '1.000%',
+      district: '1.000% (METRO)',
+      total: '8.250%',
+      taxOn100: '$8.25',
+    },
+    {
+      city: 'Seattle, WA',
+      zip: '98101',
+      state: '6.500%',
+      county: '0.000%',
+      cityRate: '3.850%',
+      district: '0.000%',
+      total: '10.350%',
+      taxOn100: '$10.35',
+    },
+    {
+      city: 'Miami, FL',
+      zip: '33101',
+      state: '6.000%',
+      county: '1.000%',
+      cityRate: '0.000%',
+      district: '0.000%',
+      total: '7.000%',
+      taxOn100: '$7.00',
+    },
+    {
+      city: 'Portland, OR',
+      zip: '97201',
+      state: '0.000%',
+      county: '0.000%',
+      cityRate: '0.000%',
+      district: '0.000%',
+      total: '0.000%',
+      taxOn100: '$0.00',
+    },
+  ]
 
   return (
     <>
@@ -92,82 +164,156 @@ export default function ZipTaxLookupPage() {
         ]}
       />
 
-      <div className="space-y-10">
+      <div className="space-y-12">
         {/* Header Section */}
-        <header className="space-y-3 pb-2 border-b border-slate-200">
+        <header className="space-y-3 pb-4 border-b border-slate-200">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold">
               <MapPin className="w-3.5 h-3.5 text-blue-600" />
               US ZIP Code Tax Engine
             </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium">
               Updated for 2026
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
             US Sales Tax by ZIP Code Calculator
           </h1>
           <p className="text-slate-600 text-base sm:text-lg max-w-3xl leading-relaxed">
-            Find current combined sales tax rates across 5-digit US ZIP codes. Calculate sales tax to add or reverse-calculate the pre-tax price from any tax-inclusive receipt.
+            Look up current combined sales tax rates across 5-digit US ZIP codes. Calculate sales tax to add or reverse-calculate the pre-tax price from any tax-inclusive receipt.
           </p>
         </header>
 
         {/* Interactive Lookup Tool */}
         <ZipTaxLookupTool />
 
-        {/* Technical Explainer & Educational Section */}
-        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
-          <div className="max-w-3xl space-y-2">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-              Understanding Multi-Jurisdiction US Sales Taxes
+        {/* Multi-Jurisdiction Stacking Data Table */}
+        <section className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs space-y-5">
+          <div className="max-w-3xl space-y-1.5">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+              Multi-Jurisdiction Tax Stacking Across US ZIP Codes
             </h2>
             <p className="text-slate-600 text-sm leading-relaxed">
-              Unlike European and Canadian value-added tax systems where national or provincial rates are largely uniform, the United States features more than 13,000 distinct taxing jurisdictions across 50 states.
+              Unlike European and Canadian tax systems where national or provincial rates are uniform, the United States features more than 13,000 distinct taxing jurisdictions. A single purchase often triggers 3 to 5 layered taxes that combine into the final register rate.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 font-black text-sm">
-                1
+          {/* Real Data Table */}
+          <div className="overflow-x-auto border border-slate-200 rounded-xl">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead>
+                <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 text-xs uppercase tracking-wider">
+                  <th className="py-3 px-4 font-bold">Metropolitan Area (ZIP)</th>
+                  <th className="py-3 px-4 font-bold">State Base</th>
+                  <th className="py-3 px-4 font-bold">County Surtax</th>
+                  <th className="py-3 px-4 font-bold">City / Municipal</th>
+                  <th className="py-3 px-4 font-bold">Special District (SPD)</th>
+                  <th className="py-3 px-4 font-bold text-blue-700">Combined Rate</th>
+                  <th className="py-3 px-4 font-bold text-slate-900">Tax on $100</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {stackingExamples.map((item) => (
+                  <tr key={item.zip} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-slate-900">
+                      {item.city} <span className="text-slate-400 font-mono text-xs">({item.zip})</span>
+                    </td>
+                    <td className="py-3 px-4 font-mono text-slate-600">{item.state}</td>
+                    <td className="py-3 px-4 font-mono text-slate-600">{item.county}</td>
+                    <td className="py-3 px-4 font-mono text-slate-600">{item.cityRate}</td>
+                    <td className="py-3 px-4 font-mono text-slate-600">{item.district}</td>
+                    <td className="py-3 px-4 font-mono font-bold text-blue-700">{item.total}</td>
+                    <td className="py-3 px-4 font-mono font-bold text-slate-900">{item.taxOn100}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="text-xs text-slate-500 leading-relaxed">
+            * Note: Tax rates reflect baseline tangible personal property retail transactions. Certain categories (groceries, prescription drugs, apparel) may qualify for statutory state exemptions or reduced rates.
+          </div>
+        </section>
+
+        {/* In-Depth Technical Guide: The ZIP Code Boundary Problem */}
+        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
+          <div className="space-y-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+              The ZIP Code Boundary Problem: Why ZIP Codes Aren&apos;t Tax Jurisdictions
+            </h2>
+            <p className="text-slate-600 text-sm leading-relaxed max-w-4xl">
+              A common misconception in retail and e-commerce is that a 5-digit ZIP code uniquely identifies a tax rate. In reality, relying exclusively on 5-digit ZIP codes introduces compliance risk because postal delivery zones and municipal taxing districts serve completely different purposes.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white p-5 rounded-xl border border-slate-200/90 space-y-2.5">
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                <Building className="w-4 h-4 text-blue-600" />
+                <span>USPS Routes vs. Legal Municipal Charters</span>
               </div>
-              <h3 className="text-base font-bold text-slate-900">State Base Tax</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                45 states and Washington D.C. impose a statewide baseline sales tax ranging from 2.90% (Colorado) to 7.25% (California). 5 states impose 0.00%.
+              <p className="text-sm text-slate-600 leading-relaxed">
+                The United States Postal Service created 5-digit ZIP codes in 1963 purely to optimize delivery truck routes and mail sorting facilities. ZIP codes regularly cross city boundaries, school districts, and county lines. Tax authorities, by contrast, levy taxes based strictly on statutory municipal and county charter boundaries.
               </p>
             </div>
 
-            <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 font-black text-sm">
-                2
+            <div className="bg-white p-5 rounded-xl border border-slate-200/90 space-y-2.5">
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                <Scale className="w-4 h-4 text-blue-600" />
+                <span>The &ldquo;Split ZIP&rdquo; Phenomenon</span>
               </div>
-              <h3 className="text-base font-bold text-slate-900">County & Municipal Taxes</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Counties and incorporated municipalities can levy optional local surtaxes to fund local public services, roads, and municipal infrastructure.
-              </p>
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 font-black text-sm">
-                3
-              </div>
-              <h3 className="text-base font-bold text-slate-900">Special Districts (SPDs)</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Voter-approved district authorities—such as transit districts (e.g. MTA in NY, BART in CA, RTA in Chicago) or emergency response districts—add specific fractional percentages.
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Over 20% of US ZIP codes are &ldquo;split ZIPs&rdquo; that span more than one taxing jurisdiction. For example, in Colorado ZIP 80111, addresses on one side of Belleview Avenue fall inside Greenwood Village (6.75% rate), while addresses a block south belong to Centennial (7.25% to 7.75% rate). A 5-digit lookup alone cannot differentiate between them.
               </p>
             </div>
           </div>
 
-          {/* Precision Notice */}
-          <div className="p-4 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed space-y-1.5">
-            <div className="font-bold text-slate-900 flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-blue-600" />
-              <span>Important Tax Disclaimer on ZIP Boundaries</span>
+          {/* Technical Compliance Advice */}
+          <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200/90 text-sm text-blue-900 leading-relaxed flex items-start gap-3">
+            <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+            <div>
+              <strong className="font-semibold block mb-0.5">Enterprise Tax Compliance Recommendation:</strong>
+              For high-volume online businesses and accountants filing quarterly returns, use 9-digit ZIP codes (ZIP+4) or rooftop-level geocoding (matching street latitude and longitude against state GIS shapefiles) to ensure exact local tax determination.
             </div>
-            <p className="m-0">
-              Postal ZIP codes do not strictly coincide with municipal boundaries. For high-volume enterprise compliance, physical address geolocation (rooftop geocoding) is required to determine whether an address falls inside or outside an incorporated city limit.
+          </div>
+        </section>
+
+        {/* Origin-Based vs. Destination-Based Sourcing Rules */}
+        <section className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs space-y-5">
+          <div className="max-w-3xl space-y-1.5">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+              Origin vs. Destination Sourcing: Which Rate Applies?
+            </h2>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              When ordering goods online or shipping between cities, the applicable sales tax rate depends on whether the transaction takes place in an origin-based or destination-based state.
             </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-md uppercase">
+                Destination-Based Sourcing (38+ States)
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed">
+                Tax is levied based on the <strong>shipping destination</strong> where the buyer takes physical possession of the merchandise. If a customer in Buffalo, NY orders from a merchant in Manhattan, the lower Erie County tax rate applies.
+              </p>
+              <div className="text-xs text-slate-500 font-medium pt-1">
+                Examples: New York, Florida, Georgia, Washington, North Carolina, Colorado, New Jersey.
+              </div>
+            </div>
+
+            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md uppercase">
+                Origin-Based Sourcing (11 States)
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed">
+                Tax on in-state shipments is levied based on the <strong>seller&apos;s physical location</strong> (office, store, or warehouse). If a Dallas merchant ships to Austin, the Dallas local rate is collected.
+              </p>
+              <div className="text-xs text-slate-500 font-medium pt-1">
+                Examples: Texas, Ohio, Pennsylvania, Virginia, Arizona, Illinois, New Mexico, Utah.
+              </div>
+            </div>
           </div>
         </section>
 

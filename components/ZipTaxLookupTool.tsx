@@ -142,32 +142,32 @@ export function ZipTaxLookupTool() {
 
           {/* Tax Component Rate Breakdown Table */}
           <div className="space-y-3">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+            <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
               Component Tax Rate Breakdown
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
-                <div className="text-xs text-slate-500 font-medium">State Tax</div>
-                <div className="text-lg font-black text-slate-900 mt-0.5">{selectedZip.stateRate}%</div>
-                <div className="text-[11px] text-slate-400">{selectedZip.stateCode} Base</div>
+              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                <div className="text-xs text-slate-500 font-medium">State Base</div>
+                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.stateRate}%</div>
+                <div className="text-xs text-slate-400">{selectedZip.stateCode} State</div>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">County Tax</div>
-                <div className="text-lg font-black text-slate-900 mt-0.5">{selectedZip.countyRate}%</div>
-                <div className="text-[11px] text-slate-400">County Surcharge</div>
+                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.countyRate}%</div>
+                <div className="text-xs text-slate-400">County Surcharge</div>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">City Tax</div>
-                <div className="text-lg font-black text-slate-900 mt-0.5">{selectedZip.cityRate}%</div>
-                <div className="text-[11px] text-slate-400">Municipal Surcharge</div>
+                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.cityRate}%</div>
+                <div className="text-xs text-slate-400">Municipal Surcharge</div>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">Special District</div>
-                <div className="text-lg font-black text-slate-900 mt-0.5">{selectedZip.specialDistrictRate}%</div>
-                <div className="text-[11px] text-slate-400">Transit / Ballot</div>
+                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.specialDistrictRate}%</div>
+                <div className="text-xs text-slate-400">Transit / SPD</div>
               </div>
             </div>
 

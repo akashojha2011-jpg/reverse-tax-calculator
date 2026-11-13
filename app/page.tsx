@@ -256,16 +256,16 @@ export default function HomePage() {
         </section>
 
         {/* Quick Reference Formula Box */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 md:p-7 shadow-xs">
-          <h2 className="text-xl font-bold text-slate-900 mb-2 mt-0">
-            How to Calculate Tax Backwards
+        <section className="bg-white border border-slate-200/90 rounded-2xl p-6 md:p-8 shadow-xs space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
+            How to Calculate Sales Tax Backwards
           </h2>
-          <p className="text-slate-700 text-sm md:text-base leading-relaxed mb-4">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed m-0">
             To find the pre-tax net amount from a tax-inclusive receipt, divide the total gross amount by <strong>1 + the decimal tax rate</strong>. Then subtract the net amount from the total to find the tax paid.
           </p>
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs md:text-sm text-blue-900 space-y-1 font-semibold">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 font-mono text-sm text-slate-800 space-y-1.5 font-semibold">
             <div>Pre-Tax Net Price = Total Receipt ÷ (1 + Tax Rate)</div>
-            <div>Tax Paid = Total Receipt - Pre-Tax Net Price</div>
+            <div>Sales Tax Paid = Total Receipt - Pre-Tax Net Price</div>
           </div>
         </section>
 
@@ -273,18 +273,18 @@ export default function HomePage() {
         <RegionGridDirectory />
 
         {/* Helpful Explanation */}
-        <article className="prose prose-slate max-w-none bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs">
-          <h2 className="text-2xl font-bold text-slate-900 mt-0 mb-3">
+        <article className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
             Why Use a Reverse Tax Calculator?
           </h2>
-          <p className="text-slate-700 leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed m-0">
             When reviewing receipts, logging business expenses, or filing accounting records, invoices often show only the final gross charge. A reverse tax calculator allows bookkeepers, small business owners, and consumers to extract the original pre-tax price accurately without manual math errors.
           </p>
 
-          <h3 className="text-lg font-bold text-slate-900 mt-6 mb-2">
+          <h3 className="text-base font-semibold text-slate-900 tracking-tight pt-2 m-0">
             Why Simple Percentage Subtraction Fails
           </h3>
-          <p className="text-slate-700 leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed m-0">
             A common mistake when calculating tax backwards is subtracting the tax rate percentage directly from the total bill. For example, taking 7% off of a $107.00 total yields $99.51. This is incorrect because sales tax is legally calculated on the lower pre-tax subtotal ($100.00), not the final price ($107.00). Dividing by 1 + tax rate ensures mathematical and legal accuracy.
           </p>
         </article>

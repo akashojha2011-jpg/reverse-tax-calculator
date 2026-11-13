@@ -53,18 +53,18 @@ export function FAQAccordion({ items, title = 'Frequently Asked Questions' }: FA
             <div key={idx} className="py-4">
               <button
                 onClick={() => toggle(idx)}
-                className="flex w-full items-center justify-between text-left font-semibold text-slate-900 text-base md:text-lg hover:text-brand-600 transition-colors focus:outline-none"
+                className="flex w-full items-center justify-between text-left font-semibold text-slate-900 text-base hover:text-blue-600 transition-colors focus:outline-none cursor-pointer gap-4"
                 aria-expanded={isOpen}
               >
                 <span>{item.question}</span>
                 <ChevronDown
                   className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 text-brand-600' : ''
+                    isOpen ? 'rotate-180 text-blue-600' : ''
                   }`}
                 />
               </button>
               {isOpen && (
-                <div className="mt-3 text-slate-600 text-sm md:text-base leading-relaxed pr-6">
+                <div className="mt-2.5 text-slate-600 text-sm sm:text-base leading-relaxed pr-6">
                   {item.answer}
                 </div>
               )}
