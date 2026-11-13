@@ -5,6 +5,18 @@ import { CalculatorCard } from '@/components/CalculatorCard'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
+import {
+  Calculator,
+  MapPin,
+  Tag,
+  Utensils,
+  Layers,
+  Scale,
+  FileSpreadsheet,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+} from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Reverse Tax Calculator — Calculate Pre-Tax Price & Tax Paid Backwards',
@@ -99,6 +111,51 @@ export default function HomePage() {
       'Free online tool to calculate pre-tax net amounts and tax paid backwards from total prices.',
   }
 
+  const taxTools = [
+    {
+      title: 'Sales Tax Calculator',
+      description: 'Calculate sales tax to add and find final checkout total.',
+      url: '/sales-tax-calculator',
+      icon: Calculator,
+    },
+    {
+      title: 'ZIP Code Tax Lookup',
+      description: 'Lookup combined state, county, and city rates by 5-digit ZIP.',
+      url: '/us-sales-tax-by-zip-code',
+      icon: MapPin,
+    },
+    {
+      title: 'Discount & Tax',
+      description: 'Calculate sale discounts, sales tax, and total savings.',
+      url: '/discount-and-tax-calculator',
+      icon: Tag,
+    },
+    {
+      title: 'Tip & Tax Splitter',
+      description: 'Calculate restaurant tips on pre-tax vs total, split evenly.',
+      url: '/tip-and-tax-calculator',
+      icon: Utensils,
+    },
+    {
+      title: 'Tax Breakdown Tool',
+      description: 'Visualize state, county, city, and transit revenue splits.',
+      url: '/sales-tax-breakdown-calculator',
+      icon: Layers,
+    },
+    {
+      title: 'Compare States',
+      description: 'Side-by-side purchase price and sales tax comparisons.',
+      url: '/compare-sales-tax',
+      icon: Scale,
+    },
+    {
+      title: 'Bulk Invoice Tool',
+      description: 'Build multi-item invoices and export CSV reports.',
+      url: '/bulk-sales-tax-calculator',
+      icon: FileSpreadsheet,
+    },
+  ]
+
   return (
     <>
       <script
@@ -117,15 +174,15 @@ export default function HomePage() {
       <div className="space-y-10 max-w-7xl mx-auto">
         {/* Hero Section */}
         <section className="text-center space-y-4 pt-2 pb-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-1">
-            Free Online Financial Tool
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-1">
+            Free Online Financial Tool • Updated 2026
           </div>
-          
+
           <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
             Reverse Tax Calculator
           </h1>
-          <p className="text-slate-600 text-lg sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-            Calculate the pre-tax price and sales tax from any tax-inclusive total. Enter your total amount and tax rate to instantly find the original price and tax paid.
+          <p className="text-slate-600 text-base sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+            Calculate the original pre-tax price and sales tax from any tax-inclusive total. Enter your total amount and tax rate to instantly see the price before tax and the tax paid.
           </p>
 
           {/* Centered Interactive Calculator */}
@@ -139,15 +196,57 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Specialized Financial Tools Grid */}
+        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 space-y-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 m-0">Specialized Tax & Financial Tools</h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Dedicated calculators for every sales tax, invoicing, and retail shopping scenario.
+              </p>
+            </div>
+            <Link
+              href="/data-sources"
+              className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors"
+            >
+              <span>View All 50 State Tax Portals</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {taxTools.map((tool) => {
+              const Icon = tool.icon
+              return (
+                <Link
+                  key={tool.url}
+                  href={tool.url}
+                  className="group p-4 bg-white rounded-xl border border-slate-200/90 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
+                    {tool.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 m-0 leading-relaxed">
+                    {tool.description}
+                  </p>
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+
         {/* Quick Reference Formula Box */}
-        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-7 shadow-xs">
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 md:p-7 shadow-xs">
           <h2 className="text-xl font-bold text-slate-900 mb-2 mt-0">
             How to Calculate Tax Backwards
           </h2>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed mb-4">
             To find the pre-tax net amount from a tax-inclusive receipt, divide the total gross amount by <strong>1 + the decimal tax rate</strong>. Then subtract the net amount from the total to find the tax paid.
           </p>
-          <div className="p-4 rounded-xl bg-white border border-slate-200 font-mono text-xs md:text-sm text-brand-900 space-y-1 font-semibold">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs md:text-sm text-blue-900 space-y-1 font-semibold">
             <div>Pre-Tax Net Price = Total Receipt ÷ (1 + Tax Rate)</div>
             <div>Tax Paid = Total Receipt - Pre-Tax Net Price</div>
           </div>
@@ -171,27 +270,6 @@ export default function HomePage() {
           <p className="text-slate-700 leading-relaxed">
             A common mistake when calculating tax backwards is subtracting the tax rate percentage directly from the total bill. For example, taking 7% off of a $107.00 total yields $99.51. This is incorrect because sales tax is legally calculated on the lower pre-tax subtotal ($100.00), not the final price ($107.00). Dividing by 1 + tax rate ensures mathematical and legal accuracy.
           </p>
-
-          <h3 className="text-lg font-bold text-slate-900 mt-6 mb-2">
-            Explore Regional Calculators
-          </h3>
-          <p className="text-slate-700 leading-relaxed text-sm">
-            Tax rates and regulations vary by jurisdiction. Choose a specialized calculator for your region:
-          </p>
-          <ul className="text-sm space-y-1.5 text-slate-700">
-            <li>
-              <Link href="/california-reverse-sales-tax-calculator" className="text-brand-600 font-semibold hover:underline">California Reverse Sales Tax Calculator (7.25%)</Link> and <Link href="/texas-reverse-sales-tax-calculator" className="text-brand-600 font-semibold hover:underline">Texas Reverse Sales Tax (6.25%)</Link>
-            </li>
-            <li>
-              <Link href="/reverse-vat-calculator" className="text-brand-600 font-semibold hover:underline">Reverse VAT Calculator for UK & Europe (20%)</Link>
-            </li>
-            <li>
-              <Link href="/reverse-gst-calculator" className="text-brand-600 font-semibold hover:underline">Reverse GST Calculator for Canada, Australia, and New Zealand</Link>
-            </li>
-            <li>
-              <Link href="/reverse-income-tax-calculator" className="text-brand-600 font-semibold hover:underline">Net to Gross Income Tax Estimator</Link>
-            </li>
-          </ul>
         </article>
 
         {/* FAQs */}

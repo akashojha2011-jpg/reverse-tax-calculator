@@ -3,11 +3,22 @@ import type { Metadata } from 'next'
 import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import { REGIONS, getRegionBySlug, type RegionData } from '@/data/regions'
+import { getUsStateTaxRate, type StateTaxData } from '@/data/us-tax-rates'
 import { CalculatorCard } from '@/components/CalculatorCard'
 import { BreadcrumbNav } from '@/components/BreadcrumbNav'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { RelatedCalculatorsGrid } from '@/components/RelatedCalculatorsGrid'
-import { Percent, Receipt, Building2, CheckCircle2, Info } from 'lucide-react'
+import {
+  Percent,
+  Receipt,
+  Building2,
+  CheckCircle2,
+  Info,
+  ExternalLink,
+  ShieldCheck,
+  MapPin,
+  HelpCircle,
+} from 'lucide-react'
 
 interface PageProps {
   params: {
@@ -52,94 +63,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-function getTaxAuthority(region: RegionData): string {
-  if (region.country === 'CA') {
-    return region.slug === 'quebec' ? 'Revenu Québec & Canada Revenue Agency (CRA)' : 'Canada Revenue Agency (CRA)'
-  }
-  if (region.country === 'UK') return 'HM Revenue & Customs (HMRC)'
-  if (region.slug === 'australia') return 'Australian Taxation Office (ATO)'
-  if (region.slug === 'new-zealand') return 'Inland Revenue Department (IRD)'
-  if (region.slug === 'singapore') return 'Inland Revenue Authority of Singapore (IRAS)'
-
-  const usAuthorities: Record<string, string> = {
-    california: 'California Dept of Tax and Fee Administration (CDTFA)',
-    'new-york': 'New York State Dept of Taxation and Finance',
-    texas: 'Texas Comptroller of Public Accounts',
-    florida: 'Florida Department of Revenue',
-    illinois: 'Illinois Department of Revenue',
-    pennsylvania: 'Pennsylvania Department of Revenue',
-    ohio: 'Ohio Department of Taxation',
-    georgia: 'Georgia Department of Revenue',
-    'north-carolina': 'North Carolina Department of Revenue',
-    michigan: 'Michigan Department of Treasury',
-    washington: 'Washington State Department of Revenue',
-    massachusetts: 'Massachusetts Department of Revenue',
-    arizona: 'Arizona Department of Revenue',
-    tennessee: 'Tennessee Department of Revenue',
-    indiana: 'Indiana Department of Revenue',
-    missouri: 'Missouri Department of Revenue',
-    maryland: 'Maryland Comptroller of Maryland',
-    wisconsin: 'Wisconsin Department of Revenue',
-    colorado: 'Colorado Department of Revenue',
-    minnesota: 'Minnesota Department of Revenue',
-    'south-carolina': 'South Carolina Department of Revenue',
-    alabama: 'Alabama Department of Revenue',
-    louisiana: 'Louisiana Department of Revenue',
-    kentucky: 'Kentucky Department of Revenue',
-    oregon: 'Oregon Department of Revenue (No sales tax)',
-    oklahoma: 'Oklahoma Tax Commission',
-    connecticut: 'Connecticut Department of Revenue Services',
-    utah: 'Utah State Tax Commission',
-    iowa: 'Iowa Department of Revenue',
-    nevada: 'Nevada Department of Taxation',
-    arkansas: 'Arkansas Department of Finance and Administration',
-    mississippi: 'Mississippi Department of Revenue',
-    kansas: 'Kansas Department of Revenue',
-    'new-mexico': 'New Mexico Taxation and Revenue Department',
-    nebraska: 'Nebraska Department of Revenue',
-    idaho: 'Idaho State Tax Commission',
-    'west-virginia': 'West Virginia State Tax Department',
-    hawaii: 'Hawaii Department of Taxation',
-    'new-hampshire': 'New Hampshire Dept of Revenue (No sales tax)',
-    maine: 'Maine Revenue Services',
-    montana: 'Montana Department of Revenue (No sales tax)',
-    'rhode-island': 'Rhode Island Division of Taxation',
-    delaware: 'Delaware Division of Revenue (No sales tax)',
-    'south-dakota': 'South Dakota Department of Revenue',
-    'north-dakota': 'North Dakota Office of State Tax Commissioner',
-    alaska: 'Alaska Municipal League (Local Boroughs)',
-    vermont: 'Vermont Department of Taxes',
-    wyoming: 'Wyoming Department of Revenue',
-    'district-of-columbia': 'DC Office of Tax and Revenue',
-  }
-
-  return usAuthorities[region.slug] || `${region.name} Department of Revenue`
-}
-
-function getGroceryStatus(slug: string): string {
-  const groceryRules: Record<string, string> = {
-    mississippi: 'Taxable at 7.00% standard rate',
-    alabama: 'Reduced 3.00% state rate',
-    arkansas: 'Reduced 0.125% state rate',
-    hawaii: 'Taxable under 4.00% General Excise Tax',
-    idaho: 'Taxable at 6.00% (grocery tax credit applies on state income tax)',
-    illinois: 'Reduced 1.00% state rate',
-    kansas: 'Reduced 2.00% state rate',
-    missouri: 'Reduced 1.225% state rate',
-    'south-dakota': 'Taxable at 4.20%',
-    tennessee: 'Reduced 4.00% state rate',
-    utah: 'Reduced 3.00% rate',
-    virginia: 'Exempt from state tax (1.00% local tax applies)',
-    alaska: 'Exempt from state tax (local borough rates may apply)',
-    delaware: 'No sales tax',
-    montana: 'No sales tax',
-    'new-hampshire': 'No sales tax',
-    oregon: 'No sales tax',
-  }
-
-  return groceryRules[slug] || 'Exempt from state sales tax'
-}
-
 export default function RegionalCalculatorPage({ params }: PageProps) {
   const slug = params?.region
   const region = slug ? getRegionBySlug(slug) : undefined
@@ -152,6 +75,9 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
   if (slug !== canonicalSlug) {
     permanentRedirect(`/${canonicalSlug}`)
   }
+
+  // Look up authoritative state details if US state
+  const usStateData = getUsStateTaxRate(region.slug)
 
   // Determine parent hub
   let hubUrl = '/reverse-sales-tax-calculator'
@@ -167,11 +93,11 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
     hubName = 'Reverse VAT Calculator'
   }
 
-  const authorityName = getTaxAuthority(region)
-  const groceryStatus = getGroceryStatus(region.slug)
+  const authorityName = usStateData?.authorityName || `${region.name} Department of Revenue`
+  const authorityUrl = usStateData?.authorityUrl
 
-  // Pre-calculate sample lookup table rows
-  const sampleAmounts = [10, 25, 50, 100, 250, 500, 1000]
+  // Pre-calculate sample lookup table rows (12 standard tiers)
+  const sampleAmounts = [10, 25, 50, 75, 100, 150, 250, 500, 750, 1000, 2500, 5000]
   const isDual = Boolean(region.secondRate && region.secondRate > 0)
   const effectiveTotalRate = isDual ? region.rate + (region.secondRate || 0) : region.rate
   const divisor = 1 + effectiveTotalRate / 100
@@ -189,7 +115,7 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
     return { gross, net, tax: gross - net, tax1: 0, tax2: 0 }
   })
 
-  // Standard high-quality FAQs (genuine questions, no keyword stuffing)
+  // Standard high-quality FAQs
   const defaultFaqs = [
     {
       question: `How do I reverse calculate ${region.name} ${region.taxName}?`,
@@ -209,7 +135,9 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
     },
     {
       question: `Are groceries and essentials taxable in ${region.name}?`,
-      answer: `In ${region.name}, grocery items are generally ${groceryStatus.toLowerCase()}. Prescription medications are exempt from sales tax.`,
+      answer: usStateData
+        ? `In ${region.name}, groceries are ${usStateData.rules.groceries.toLowerCase()}. Prescription drugs are ${usStateData.rules.prescriptionDrugs.toLowerCase()}.`
+        : `In ${region.name}, grocery items are generally exempt or taxed at reduced rates, while prescription medications are fully exempt.`,
     },
   ]
 
@@ -265,7 +193,7 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
         {/* Page Header */}
         <header className="space-y-3 pb-2 border-b border-slate-200">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-800 text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold">
               <Percent className="w-3.5 h-3.5" />
               {region.rate}% {region.taxName}
             </span>
@@ -314,7 +242,7 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
           <div className="lg:col-span-5 space-y-4">
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 md:p-6 shadow-2xs space-y-4">
               <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 m-0">
-                <Receipt className="w-4 h-4 text-brand-600" />
+                <Receipt className="w-4 h-4 text-blue-600" />
                 <span>{region.name} Tax Summary</span>
               </h2>
 
@@ -341,17 +269,29 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
                 </div>
 
                 <div className="flex items-start justify-between pb-2 border-b border-slate-200 gap-2">
-                  <span className="text-slate-600 shrink-0">Tax Authority:</span>
-                  <span className="font-semibold text-slate-800 text-right text-xs">
-                    {authorityName}
-                  </span>
+                  <span className="text-slate-600 shrink-0">Official Authority:</span>
+                  <div className="text-right">
+                    {authorityUrl ? (
+                      <a
+                        href={authorityUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-semibold text-blue-600 hover:text-blue-800 text-xs"
+                      >
+                        <span>{authorityName}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </a>
+                    ) : (
+                      <span className="font-semibold text-slate-800 text-xs">{authorityName}</span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="pt-1">
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                     Reverse Calculation Formula
                   </div>
-                  <div className="bg-white border border-slate-200 rounded-xl p-3 font-mono text-xs text-brand-900 space-y-1">
+                  <div className="bg-white border border-slate-200 rounded-xl p-3 font-mono text-xs text-blue-900 space-y-1">
                     <div>Net Amount = Total ÷ {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')}</div>
                     <div>{region.taxName} = Total - Net Amount</div>
                   </div>
@@ -363,13 +303,53 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
             <div className="bg-blue-50/70 border border-blue-200/80 rounded-xl p-4 text-xs text-blue-900 leading-relaxed flex items-start gap-2.5">
               <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
               <div>
-                <strong>Need local city/county taxes?</strong> In municipalities with additional local surcharges, adjust the tax percentage field in the calculator to match your exact local receipt rate.
+                <strong>Need local city or county rates?</strong> If your purchase was made in a city or county with local surtaxes, simply change the tax percentage in the calculator above to match your local combined receipt rate.
               </div>
             </div>
           </div>
         </section>
 
-        {/* High-Utility Feature: Quick-Lookup Reference Table */}
+        {/* Major Localities Table (if state has local taxes) */}
+        {usStateData?.majorJurisdictions && usStateData.majorJurisdictions.length > 0 && (
+          <section className="bg-white border border-slate-200 rounded-2xl p-5 md:p-7 shadow-xs space-y-4">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-blue-600" />
+                <span>Major Municipalities & Combined Rates in {region.name}</span>
+              </h2>
+              <p className="text-slate-500 text-sm mt-1">
+                Local city and county surcharges across key jurisdictions in {region.name}:
+              </p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 text-xs uppercase tracking-wider">
+                    <th className="py-2.5 px-3 sm:px-4 font-bold">City / County Jurisdiction</th>
+                    <th className="py-2.5 px-3 sm:px-4 font-bold">Type</th>
+                    <th className="py-2.5 px-3 sm:px-4 font-bold">State Rate</th>
+                    <th className="py-2.5 px-3 sm:px-4 font-bold">Local Surcharge</th>
+                    <th className="py-2.5 px-3 sm:px-4 font-bold text-blue-700">Combined Rate</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {usStateData.majorJurisdictions.map((loc) => (
+                    <tr key={loc.name} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-2.5 px-3 sm:px-4 font-bold text-slate-900">{loc.name}</td>
+                      <td className="py-2.5 px-3 sm:px-4 text-slate-600 capitalize">{loc.type}</td>
+                      <td className="py-2.5 px-3 sm:px-4 text-slate-600">{region.rate}%</td>
+                      <td className="py-2.5 px-3 sm:px-4 text-slate-600">+{loc.rate.toFixed(3).replace(/\.?0+$/, '')}%</td>
+                      <td className="py-2.5 px-3 sm:px-4 font-bold text-blue-700">{loc.combinedRate}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {/* Quick-Lookup Reference Table (12 Tiers) */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 md:p-7 shadow-xs space-y-4">
           <div>
             <h2 className="text-xl font-bold text-slate-900 tracking-tight">
@@ -390,10 +370,10 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
                     <>
                       <th className="py-3 px-4 font-bold">{region.taxName} ({region.rate}%)</th>
                       <th className="py-3 px-4 font-bold">{region.secondTaxName} ({region.secondRate}%)</th>
-                      <th className="py-3 px-4 font-bold text-brand-700">Total Tax Paid</th>
+                      <th className="py-3 px-4 font-bold text-blue-700">Total Tax Paid</th>
                     </>
                   ) : (
-                    <th className="py-3 px-4 font-bold text-brand-700">
+                    <th className="py-3 px-4 font-bold text-blue-700">
                       {region.taxName} Paid ({region.rate}%)
                     </th>
                   )}
@@ -416,12 +396,12 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
                         <td className="py-2.5 px-4 text-slate-600">
                           {region.currencySymbol}{row.tax2.toFixed(2)}
                         </td>
-                        <td className="py-2.5 px-4 font-bold text-brand-700">
+                        <td className="py-2.5 px-4 font-bold text-blue-700">
                           {region.currencySymbol}{row.tax.toFixed(2)}
                         </td>
                       </>
                     ) : (
-                      <td className="py-2.5 px-4 font-bold text-brand-700">
+                      <td className="py-2.5 px-4 font-bold text-blue-700">
                         {region.currencySymbol}{row.tax.toFixed(2)}
                       </td>
                     )}
@@ -432,56 +412,52 @@ export default function RegionalCalculatorPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* State Tax Rules & Exemptions Overview */}
+        {/* State Tax Rules & Verified Exemptions Overview */}
         <section className="bg-slate-50/60 border border-slate-200 rounded-2xl p-5 md:p-6 space-y-4">
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Building2 className="w-5 h-5 text-brand-600" />
-            <span>Key {region.name} Sales Tax Rules & Exemptions</span>
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 m-0">
+              <Building2 className="w-5 h-5 text-blue-600" />
+              <span>Key {region.name} Sales Tax Rules & Exemptions</span>
+            </h2>
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              Verified 2026
+            </span>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-700">
             <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
               <div className="font-bold text-slate-900">Groceries & Food</div>
               <p className="text-slate-600 text-xs leading-relaxed m-0">
-                {groceryStatus}. Prepared meals and restaurant dining are subject to the standard sales tax rate.
+                {usStateData ? usStateData.rules.groceries : 'Exempt from state sales tax in most jurisdictions.'} Prepared meals and dining out remain subject to standard rates.
               </p>
             </div>
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
               <div className="font-bold text-slate-900">Prescription Drugs & Healthcare</div>
               <p className="text-slate-600 text-xs leading-relaxed m-0">
-                Prescription medications and essential medical equipment are 100% exempt from sales tax in {region.name}.
+                {usStateData ? usStateData.rules.prescriptionDrugs : 'Prescription medicines and essential healthcare supplies are exempt from sales tax.'}
               </p>
             </div>
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
-              <div className="font-bold text-slate-900">Local Surcharges & Districts</div>
+              <div className="font-bold text-slate-900">Clothing & Apparel</div>
               <p className="text-slate-600 text-xs leading-relaxed m-0">
-                {region.maxCombinedRate && region.maxCombinedRate > region.rate
-                  ? `Municipalities, counties, and transit districts may levy local taxes between ${(region.maxCombinedRate - region.rate).toFixed(2)}%, bringing total rates up to ${region.maxCombinedRate}%.`
-                  : `${region.name} maintains a flat statewide rate with no additional municipal or county sales taxes.`}
+                {usStateData ? usStateData.rules.clothing : 'Standard sales tax applies unless a specific local threshold exemption applies.'}
               </p>
             </div>
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
-              <div className="font-bold text-slate-900">Sales Tax vs. Use Tax</div>
+              <div className="font-bold text-slate-900">Digital Goods & Services</div>
               <p className="text-slate-600 text-xs leading-relaxed m-0">
-                If an online or out-of-state retailer does not collect sales tax at checkout, {region.name} residents owe a complementary use tax at the same rate.
+                {usStateData ? usStateData.rules.digitalGoods : 'Digital subscriptions and downloads may be taxable depending on state classification.'}
               </p>
             </div>
           </div>
 
-          {/* New York specific clothing note */}
-          {region.slug === 'new-york' && (
-            <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-medium">
-              <strong>New York Clothing Exemption:</strong> In New York City and select NY counties, individual clothing and footwear items priced under $110 are exempt from state and local sales tax. Items $110 and above are taxed at the full rate.
-            </div>
-          )}
-
-          {/* Quebec specific non-compounding note */}
-          {region.slug === 'quebec' && (
-            <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs font-medium">
-              <strong>Quebec GST & QST Rule:</strong> Quebec sales tax (QST 9.975%) and federal GST (5.00%) are calculated independently on the same pre-tax net subtotal. Combined, receipts carry an effective tax rate of 14.975%.
+          {usStateData?.rules.economicNexus && (
+            <div className="p-3.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 leading-relaxed">
+              <strong>Remote Sellers & Online Nexus:</strong> In {region.name}, remote out-of-state retailers must register and collect sales tax if their annual sales meet or exceed <strong>{usStateData.rules.economicNexus}</strong>.
             </div>
           )}
         </section>

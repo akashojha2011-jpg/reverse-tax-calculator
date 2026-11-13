@@ -1,34 +1,24 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.reversetaxcalculator.pro'),
   title: {
-    default: 'Reverse Tax Calculator — Calculate Tax Included Price Backwards (Free Online Tool)',
+    default: 'Reverse Tax Calculator — Accurate US Sales Tax & Pre-Tax Price Platform',
     template: '%s | Reverse Tax Calculator',
   },
   description:
-    'Free online reverse tax calculator. Instantly find pre-tax net amounts and tax paid backwards from tax-included total price for US sales tax, UK/EU VAT, Canada GST/HST, and income tax.',
-  keywords: [
-    'reverse tax calculator',
-    'reverse sales tax calculator',
-    'reverse calculation of tax',
-    'reverse tax formula',
-    'reverse tax rate calculator',
-    'calculate tax backwards',
-    'tax included calculator',
-    'reverse vat calculator',
-    'reverse gst calculator',
-    'reverse hst calculation',
-    'reverse tax calculator net to gross',
-    'reverse paycheck tax calculator',
-    'reverse sales tax and tip calculator',
-    'how to calculate reverse tax percentage',
-    'online reverse tax calculator',
-  ],
-  authors: [{ name: 'Reverse Tax Calculator Team', url: 'https://reversetaxcalculator.pro/about' }],
+    'Authoritative, fast online sales tax platform for the US. Calculate pre-tax prices backwards, compute forward sales tax, look up local rates by ZIP code, and explore state-specific rules.',
+  authors: [{ name: 'Reverse Tax Calculator Team', url: 'https://www.reversetaxcalculator.pro/about' }],
   creator: 'Reverse Tax Calculator',
   publisher: 'Reverse Tax Calculator',
   verification: {
@@ -90,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
         <meta name="google-site-verification" content="QlwCi5811ZlbI4jdi6S56_8vF-8QBSH3VoOHgGyfeW8" />
         <link rel="alternate" type="text/plain" href="https://www.reversetaxcalculator.pro/llms.txt" title="LLMs.txt" />
@@ -100,9 +90,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-100 selection:text-brand-900">
         <Header />
-        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-10">
           {children}
         </main>
         <Footer />

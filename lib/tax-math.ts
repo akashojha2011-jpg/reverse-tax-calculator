@@ -1,5 +1,9 @@
 /**
- * Shared, pure, unit-tested tax calculation logic for reversetaxcalculator.pro
+ * Centralized, pure, unit-tested sales tax calculation engine
+ * for ReverseTaxCalculator.pro
+ *
+ * Implements strict financial precision, zero-division safeguards,
+ * and transparent algebraic formulas.
  */
 
 export interface ReverseTaxResult {
@@ -8,6 +12,13 @@ export interface ReverseTaxResult {
   grossAmount: number
   taxRatePercentage: number
   effectiveRateOnGross: number
+}
+
+export interface ForwardSalesTaxResult {
+  netAmount: number
+  taxAmount: number
+  totalAmount: number
+  taxRatePercentage: number
 }
 
 export interface DualTaxResult {
@@ -47,9 +58,115 @@ export interface NetToGrossResult {
   disclaimer: string
 }
 
+export interface DiscountAndTaxResult {
+  originalPrice: number
+  discountPercentage: number
+  discountAmount: number
+  discountedPrice: number
+  taxRatePercentage: number
+  taxAmount: number
+  finalTotal: number
+  totalSavings: number
+}
+
+export interface TipAndTaxDetailedResult {
+  foodSubtotal: number
+  taxRatePercentage: number
+  taxAmount: number
+  tipPercentage: number
+  tipAmount: number
+  tipCalculatedOn: 'pre-tax' | 'post-tax'
+  finalTotal: number
+}
+
+export interface JurisdictionTaxRate {
+  stateRate: number
+  countyRate?: number
+  cityRate?: number
+  specialDistrictRate?: number
+}
+
+export interface TaxBreakdownResult {
+  baseAmount: number
+  isTaxInclusive: boolean
+  preTaxNet: number
+  stateTaxAmount: number
+  countyTaxAmount: number
+  cityTaxAmount: number
+  specialDistrictTaxAmount: number
+  totalTaxAmount: number
+  finalTotalAmount: number
+  combinedRatePercentage: number
+}
+
+export interface LocationTaxComparisonResult {
+  amount: number
+  isTaxInclusive: boolean
+  locations: Array<{
+    name: string
+    rate: number
+    preTaxNet: number
+    taxAmount: number
+    totalAmount: number
+    differenceFromLowest: number
+  }>
+  lowestTaxLocation: string
+  highestTaxLocation: string
+}
+
+export interface BulkItemInput {
+  id?: string
+  name?: string
+  price: number
+  quantity?: number
+  taxRatePercentage?: number
+  isTaxInclusive?: boolean
+}
+
+export interface BulkItemResult {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  taxRatePercentage: number
+  isTaxInclusive: boolean
+  lineNet: number
+  lineTax: number
+  lineTotal: number
+}
+
+export interface BulkSalesTaxResult {
+  items: BulkItemResult[]
+  totalNet: number
+  totalTax: number
+  totalGross: number
+  itemCount: number
+}
+
 /**
- * Standard Reverse Tax Calculation (Sales Tax, VAT, GST, HST)
- * Formula: netAmount = grossAmount / (1 + taxRate)
+ * Standard financial rounding: rounds to 2 decimal places (cents)
+ * Uses epsilon addition to avoid floating-point binary inaccuracies.
+ */
+export function roundCurrency(value: number): number {
+  if (isNaN(value) || !isFinite(value)) return 0
+  return Math.round((value + Number.EPSILON) * 100) / 100
+}
+
+/**
+ * Currency formatter with sensible fallbacks
+ */
+export function formatCurrency(amount: number, symbol: string = '$'): string {
+  const rounded = roundCurrency(amount)
+  return `${symbol}${rounded.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`
+}
+
+/**
+ * 1. Standard Reverse Tax Calculation (Remove Tax / Calculate Pre-Tax Price)
+ * Formula: Net = Gross / (1 + Rate / 100)
+ * Tax = Gross - Net
  */
 export function calculateReverseTax(
   grossAmount: number,
@@ -68,17 +185,44 @@ export function calculateReverseTax(
   const effectiveRateOnGross = grossAmount > 0 ? (taxAmount / grossAmount) * 100 : 0
 
   return {
-    netAmount: Math.round(netAmount * 100) / 100,
-    taxAmount: Math.round(taxAmount * 100) / 100,
-    grossAmount: Math.round(grossAmount * 100) / 100,
+    netAmount: roundCurrency(netAmount),
+    taxAmount: roundCurrency(taxAmount),
+    grossAmount: roundCurrency(grossAmount),
     taxRatePercentage,
-    effectiveRateOnGross: Math.round(effectiveRateOnGross * 100) / 100,
+    effectiveRateOnGross: roundCurrency(effectiveRateOnGross),
   }
 }
 
 /**
- * Reverse Tax RATE Solver
- * Formula: taxRate = (grossAmount / netAmount) - 1
+ * 2. Forward Sales Tax Calculation (Add Sales Tax)
+ * Formula: Tax = Net * (Rate / 100)
+ * Total = Net + Tax
+ */
+export function calculateForwardSalesTax(
+  netAmount: number,
+  taxRatePercentage: number
+): ForwardSalesTaxResult {
+  if (isNaN(netAmount) || netAmount < 0) {
+    throw new Error('Net amount must be a non-negative number')
+  }
+  if (isNaN(taxRatePercentage) || taxRatePercentage < 0 || taxRatePercentage > 500) {
+    throw new Error('Tax rate percentage must be between 0% and 500%')
+  }
+
+  const taxAmount = netAmount * (taxRatePercentage / 100)
+  const totalAmount = netAmount + taxAmount
+
+  return {
+    netAmount: roundCurrency(netAmount),
+    taxAmount: roundCurrency(taxAmount),
+    totalAmount: roundCurrency(totalAmount),
+    taxRatePercentage,
+  }
+}
+
+/**
+ * 3. Reverse Tax RATE Solver
+ * Formula: Tax Rate = [(Gross / Net) - 1] * 100
  */
 export function calculateReverseTaxRate(
   grossAmount: number,
@@ -95,21 +239,19 @@ export function calculateReverseTaxRate(
   }
 
   const taxAmount = grossAmount - netAmount
-  const rateDecimal = (grossAmount / netAmount) - 1
+  const rateDecimal = grossAmount / netAmount - 1
   const taxRatePercentage = rateDecimal * 100
 
   return {
-    netAmount: Math.round(netAmount * 100) / 100,
-    grossAmount: Math.round(grossAmount * 100) / 100,
-    taxAmount: Math.round(taxAmount * 100) / 100,
-    taxRatePercentage: Math.round(taxRatePercentage * 1000) / 1000,
+    netAmount: roundCurrency(netAmount),
+    grossAmount: roundCurrency(grossAmount),
+    taxAmount: roundCurrency(taxAmount),
+    taxRatePercentage: Math.round((taxRatePercentage + Number.EPSILON) * 1000) / 1000,
   }
 }
 
 /**
- * Canada / Regional Dual-Tax Calculation (e.g. Quebec GST + QST)
- * Compounded formula (historical QST on GST): gross = net * (1 + tax1) * (1 + tax2)
- * Additive formula (modern QST): gross = net * (1 + tax1 + tax2)
+ * 4. Dual-Tax Calculation (e.g. Canada GST + QST/PST)
  */
 export function calculateDualTax(
   grossAmount: number,
@@ -131,14 +273,11 @@ export function calculateDualTax(
   let tax2Amount: number
 
   if (isCompounded) {
-    // gross = net * (1 + t1) * (1 + t2)
     const factor = (1 + t1) * (1 + t2)
     netAmount = grossAmount / factor
     tax1Amount = netAmount * t1
-    // tax2 applies to (net + tax1)
     tax2Amount = (netAmount + tax1Amount) * t2
   } else {
-    // gross = net * (1 + t1 + t2)
     const totalRate = t1 + t2
     netAmount = totalRate === 0 ? grossAmount : grossAmount / (1 + totalRate)
     tax1Amount = netAmount * t1
@@ -151,23 +290,107 @@ export function calculateDualTax(
     : tax1RatePercentage + tax2RatePercentage
 
   return {
-    netAmount: Math.round(netAmount * 100) / 100,
-    tax1Amount: Math.round(tax1Amount * 100) / 100,
-    tax2Amount: Math.round(tax2Amount * 100) / 100,
-    totalTaxAmount: Math.round(totalTaxAmount * 100) / 100,
-    grossAmount: Math.round(grossAmount * 100) / 100,
+    netAmount: roundCurrency(netAmount),
+    tax1Amount: roundCurrency(tax1Amount),
+    tax2Amount: roundCurrency(tax2Amount),
+    totalTaxAmount: roundCurrency(totalTaxAmount),
+    grossAmount: roundCurrency(grossAmount),
     tax1Name,
     tax2Name,
     tax1RatePercentage,
     tax2RatePercentage,
-    combinedRatePercentage: Math.round(combinedRatePercentage * 1000) / 1000,
+    combinedRatePercentage: Math.round((combinedRatePercentage + Number.EPSILON) * 1000) / 1000,
   }
 }
 
 /**
- * Reverse Sales Tax + Tip Calculator
- * Calculates Subtotal (Net), Tax Paid, and Tip Paid from Total Bill.
- * Tip calculated on net subtotal by default (standard US/Canadian restaurant norm).
+ * 5. Discount and Sales Tax Calculator
+ * Applies discount to original price, then calculates sales tax on discounted price.
+ */
+export function calculateDiscountAndTax(
+  originalPrice: number,
+  discountPercentage: number,
+  taxRatePercentage: number
+): DiscountAndTaxResult {
+  if (isNaN(originalPrice) || originalPrice < 0) {
+    throw new Error('Original price must be non-negative')
+  }
+  if (isNaN(discountPercentage) || discountPercentage < 0 || discountPercentage > 100) {
+    throw new Error('Discount percentage must be between 0% and 100%')
+  }
+  if (isNaN(taxRatePercentage) || taxRatePercentage < 0 || taxRatePercentage > 500) {
+    throw new Error('Tax rate percentage must be between 0% and 500%')
+  }
+
+  const discountAmount = originalPrice * (discountPercentage / 100)
+  const discountedPrice = originalPrice - discountAmount
+  const taxAmount = discountedPrice * (taxRatePercentage / 100)
+  const finalTotal = discountedPrice + taxAmount
+
+  return {
+    originalPrice: roundCurrency(originalPrice),
+    discountPercentage,
+    discountAmount: roundCurrency(discountAmount),
+    discountedPrice: roundCurrency(discountedPrice),
+    taxRatePercentage,
+    taxAmount: roundCurrency(taxAmount),
+    finalTotal: roundCurrency(finalTotal),
+    totalSavings: roundCurrency(discountAmount),
+  }
+}
+
+/**
+ * 6. Restaurant Tip and Tax Calculator
+ * Supports both pre-tax tip (standard etiquette) and post-tax tip calculation.
+ */
+export function calculateTipAndTaxDetailed(
+  billAmount: number,
+  taxRatePercentage: number,
+  tipPercentage: number,
+  isBillTaxInclusive: boolean = false,
+  tipOnPreTax: boolean = true
+): TipAndTaxDetailedResult {
+  if (isNaN(billAmount) || billAmount < 0) {
+    throw new Error('Bill amount must be non-negative')
+  }
+  if (isNaN(taxRatePercentage) || taxRatePercentage < 0) {
+    throw new Error('Tax rate must be non-negative')
+  }
+  if (isNaN(tipPercentage) || tipPercentage < 0) {
+    throw new Error('Tip rate must be non-negative')
+  }
+
+  const taxDecimal = taxRatePercentage / 100
+  const tipDecimal = tipPercentage / 100
+
+  let foodSubtotal: number
+  let taxAmount: number
+
+  if (isBillTaxInclusive) {
+    foodSubtotal = taxDecimal === 0 ? billAmount : billAmount / (1 + taxDecimal)
+    taxAmount = billAmount - foodSubtotal
+  } else {
+    foodSubtotal = billAmount
+    taxAmount = foodSubtotal * taxDecimal
+  }
+
+  const tipBase = tipOnPreTax ? foodSubtotal : foodSubtotal + taxAmount
+  const tipAmount = tipBase * tipDecimal
+  const finalTotal = foodSubtotal + taxAmount + tipAmount
+
+  return {
+    foodSubtotal: roundCurrency(foodSubtotal),
+    taxRatePercentage,
+    taxAmount: roundCurrency(taxAmount),
+    tipPercentage,
+    tipAmount: roundCurrency(tipAmount),
+    tipCalculatedOn: tipOnPreTax ? 'pre-tax' : 'post-tax',
+    finalTotal: roundCurrency(finalTotal),
+  }
+}
+
+/**
+ * Backward compatibility alias for calculateReverseTaxAndTip
  */
 export function calculateReverseTaxAndTip(
   totalPaid: number,
@@ -175,44 +398,206 @@ export function calculateReverseTaxAndTip(
   tipPercentage: number,
   tipOnGross: boolean = false
 ): ReverseTaxAndTipResult {
-  if (isNaN(totalPaid) || totalPaid < 0) {
-    throw new Error('Total paid must be non-negative')
-  }
-
-  const taxDecimal = taxRatePercentage / 100
-  const tipDecimal = tipPercentage / 100
-
-  let netAmount: number
-  let taxAmount: number
-  let tipAmount: number
-
-  if (tipOnGross) {
-    // total = (net * (1 + tax)) * (1 + tip)
-    const grossBeforeTip = totalPaid / (1 + tipDecimal)
-    tipAmount = totalPaid - grossBeforeTip
-    netAmount = grossBeforeTip / (1 + taxDecimal)
-    taxAmount = grossBeforeTip - netAmount
-  } else {
-    // tip on subtotal net: total = net * (1 + tax + tip)
-    const combinedMultiplier = 1 + taxDecimal + tipDecimal
-    netAmount = totalPaid / combinedMultiplier
-    taxAmount = netAmount * taxDecimal
-    tipAmount = netAmount * tipDecimal
-  }
-
+  const res = calculateTipAndTaxDetailed(
+    totalPaid,
+    taxRatePercentage,
+    tipPercentage,
+    true,
+    !tipOnGross
+  )
   return {
-    netAmount: Math.round(netAmount * 100) / 100,
-    taxAmount: Math.round(taxAmount * 100) / 100,
-    tipAmount: Math.round(tipAmount * 100) / 100,
-    totalPaid: Math.round(totalPaid * 100) / 100,
+    netAmount: res.foodSubtotal,
+    taxAmount: res.taxAmount,
+    tipAmount: res.tipAmount,
+    totalPaid: res.finalTotal,
     taxRatePercentage,
     tipPercentage,
   }
 }
 
 /**
- * Net-to-Gross Income / Payroll Simplified Estimate
- * Note: Progressive income tax brackets apply in practice. This provides a flat effective estimate.
+ * 7. Sales Tax Breakdown Calculator
+ * Deconstructs tax into State, County, City, and Special District components.
+ */
+export function calculateTaxBreakdown(
+  amount: number,
+  rates: JurisdictionTaxRate,
+  isTaxInclusive: boolean = false
+): TaxBreakdownResult {
+  if (isNaN(amount) || amount < 0) {
+    throw new Error('Amount must be non-negative')
+  }
+
+  const stateR = rates.stateRate || 0
+  const countyR = rates.countyRate || 0
+  const cityR = rates.cityRate || 0
+  const specialR = rates.specialDistrictRate || 0
+  const combinedRate = stateR + countyR + cityR + specialR
+
+  let preTaxNet: number
+
+  if (isTaxInclusive) {
+    preTaxNet = combinedRate === 0 ? amount : amount / (1 + combinedRate / 100)
+  } else {
+    preTaxNet = amount
+  }
+
+  const stateTax = preTaxNet * (stateR / 100)
+  const countyTax = preTaxNet * (countyR / 100)
+  const cityTax = preTaxNet * (cityR / 100)
+  const specialTax = preTaxNet * (specialR / 100)
+  const totalTax = stateTax + countyTax + cityTax + specialTax
+  const finalTotal = preTaxNet + totalTax
+
+  return {
+    baseAmount: roundCurrency(amount),
+    isTaxInclusive,
+    preTaxNet: roundCurrency(preTaxNet),
+    stateTaxAmount: roundCurrency(stateTax),
+    countyTaxAmount: roundCurrency(countyTax),
+    cityTaxAmount: roundCurrency(cityTax),
+    specialDistrictTaxAmount: roundCurrency(specialTax),
+    totalTaxAmount: roundCurrency(totalTax),
+    finalTotalAmount: roundCurrency(finalTotal),
+    combinedRatePercentage: Math.round((combinedRate + Number.EPSILON) * 1000) / 1000,
+  }
+}
+
+/**
+ * 8. Multiple Location Tax Comparison
+ * Compares taxes and final costs across multiple jurisdictions.
+ */
+export function compareLocationTaxes(
+  amount: number,
+  locations: Array<{ name: string; rate: number }>,
+  isTaxInclusive: boolean = false
+): LocationTaxComparisonResult {
+  if (isNaN(amount) || amount < 0) {
+    throw new Error('Amount must be non-negative')
+  }
+  if (!locations || locations.length === 0) {
+    throw new Error('At least one location must be provided')
+  }
+
+  const computed = locations.map((loc) => {
+    let preTaxNet: number
+    let taxAmount: number
+    let totalAmount: number
+
+    if (isTaxInclusive) {
+      preTaxNet = loc.rate === 0 ? amount : amount / (1 + loc.rate / 100)
+      taxAmount = amount - preTaxNet
+      totalAmount = amount
+    } else {
+      preTaxNet = amount
+      taxAmount = amount * (loc.rate / 100)
+      totalAmount = amount + taxAmount
+    }
+
+    return {
+      name: loc.name,
+      rate: loc.rate,
+      preTaxNet: roundCurrency(preTaxNet),
+      taxAmount: roundCurrency(taxAmount),
+      totalAmount: roundCurrency(totalAmount),
+      differenceFromLowest: 0,
+    }
+  })
+
+  // Find lowest and highest tax amounts
+  const lowestTax = Math.min(...computed.map((c) => c.taxAmount))
+  const highestTax = Math.max(...computed.map((c) => c.taxAmount))
+  const lowestLoc = computed.find((c) => c.taxAmount === lowestTax)?.name || ''
+  const highestLoc = computed.find((c) => c.taxAmount === highestTax)?.name || ''
+
+  computed.forEach((c) => {
+    c.differenceFromLowest = roundCurrency(c.taxAmount - lowestTax)
+  })
+
+  return {
+    amount: roundCurrency(amount),
+    isTaxInclusive,
+    locations: computed,
+    lowestTaxLocation: lowestLoc,
+    highestTaxLocation: highestLoc,
+  }
+}
+
+/**
+ * 9. Bulk Sales Tax Calculator
+ * Calculates line-by-line and aggregated sales tax for multiple items.
+ */
+export function calculateBulkSalesTax(
+  items: BulkItemInput[],
+  defaultTaxRate: number = 0
+): BulkSalesTaxResult {
+  if (!items || items.length === 0) {
+    return {
+      items: [],
+      totalNet: 0,
+      totalTax: 0,
+      totalGross: 0,
+      itemCount: 0,
+    }
+  }
+
+  let totalNet = 0
+  let totalTax = 0
+  let totalGross = 0
+
+  const computedItems: BulkItemResult[] = items.map((item, idx) => {
+    const qty = item.quantity !== undefined && item.quantity > 0 ? item.quantity : 1
+    const price = isNaN(item.price) || item.price < 0 ? 0 : item.price
+    const rate = item.taxRatePercentage !== undefined ? item.taxRatePercentage : defaultTaxRate
+    const isInclusive = Boolean(item.isTaxInclusive)
+
+    const rawLineAmount = price * qty
+    let lineNet: number
+    let lineTax: number
+    let lineTotal: number
+
+    if (isInclusive) {
+      lineNet = rate === 0 ? rawLineAmount : rawLineAmount / (1 + rate / 100)
+      lineTax = rawLineAmount - lineNet
+      lineTotal = rawLineAmount
+    } else {
+      lineNet = rawLineAmount
+      lineTax = rawLineAmount * (rate / 100)
+      lineTotal = lineNet + lineTax
+    }
+
+    const roundedNet = roundCurrency(lineNet)
+    const roundedTax = roundCurrency(lineTax)
+    const roundedTotal = roundCurrency(lineTotal)
+
+    totalNet += roundedNet
+    totalTax += roundedTax
+    totalGross += roundedTotal
+
+    return {
+      id: item.id || `item-${idx + 1}`,
+      name: item.name || `Item ${idx + 1}`,
+      price: roundCurrency(price),
+      quantity: qty,
+      taxRatePercentage: rate,
+      isTaxInclusive: isInclusive,
+      lineNet: roundedNet,
+      lineTax: roundedTax,
+      lineTotal: roundedTotal,
+    }
+  })
+
+  return {
+    items: computedItems,
+    totalNet: roundCurrency(totalNet),
+    totalTax: roundCurrency(totalTax),
+    totalGross: roundCurrency(totalGross),
+    itemCount: computedItems.length,
+  }
+}
+
+/**
+ * 10. Net-to-Gross Income Estimate
  */
 export function calculateNetToGrossEstimate(
   targetNet: number,
@@ -230,9 +615,9 @@ export function calculateNetToGrossEstimate(
   const estimatedTaxWithheld = estimatedGross - targetNet
 
   return {
-    targetNet: Math.round(targetNet * 100) / 100,
-    estimatedGross: Math.round(estimatedGross * 100) / 100,
-    estimatedTaxWithheld: Math.round(estimatedTaxWithheld * 100) / 100,
+    targetNet: roundCurrency(targetNet),
+    estimatedGross: roundCurrency(estimatedGross),
+    estimatedTaxWithheld: roundCurrency(estimatedTaxWithheld),
     effectiveTaxRatePercentage,
     disclaimer:
       'This estimate uses a simplified flat effective tax rate. Actual payroll withholding is calculated using progressive tax brackets, local exemptions, and payroll deductions (FICA/EI/CPP). Consult a tax professional or official tax table for exact payroll calculations.',
