@@ -1122,7 +1122,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
     title: guide.metaTitle,
     description: guide.metaDesc,
     alternates: {
-      canonical: `https://reversetaxcalculator.pro/guides/${params.slug}`,
+      canonical: `https://www.reversetaxcalculator.pro/guides/${params.slug}`,
     },
   }
 }

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Privacy policy for Reverse Tax Calculator. Zero personal data collected.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/privacy-policy',
+    canonical: 'https://www.reversetaxcalculator.pro/privacy-policy',
   },
 }
 

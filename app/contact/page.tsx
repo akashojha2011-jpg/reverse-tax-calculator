@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Contact the Reverse Tax Calculator team for tax rate updates, feedback, or general inquiries.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/contact',
+    canonical: 'https://www.reversetaxcalculator.pro/contact',
   },
 }
 

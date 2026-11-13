@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description:
     'Free online reverse VAT calculator. Calculate pre-VAT net price and VAT paid backwards from total price for UK 20% VAT, EU standard rates (19%, 21%), and reduced rates.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/reverse-vat-calculator',
+    canonical: 'https://www.reversetaxcalculator.pro/reverse-vat-calculator',
   },
   openGraph: {
     type: 'website',
-    url: 'https://reversetaxcalculator.pro/reverse-vat-calculator',
+    url: 'https://www.reversetaxcalculator.pro/reverse-vat-calculator',
     title: 'Reverse VAT Calculator — Remove 20% VAT from Total Price',
     description:
       'Free online tool to remove 20% UK VAT or European VAT rates from total prices instantly.',

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Terms of Use',
   description: 'Terms of use and financial disclaimer for Reverse Tax Calculator.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/terms',
+    canonical: 'https://www.reversetaxcalculator.pro/terms',
   },
 }
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Learn how Reverse Tax Calculator sources rate data, our calculation methodology, jurisdiction coverage, and important disclaimers for tax filings.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/about',
+    canonical: 'https://www.reversetaxcalculator.pro/about',
   },
 }
 

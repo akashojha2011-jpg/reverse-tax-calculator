@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description:
     'Free online reverse GST calculator. Find pre-GST net amount and GST paid from total price for 10% Australia GST, 18% India GST, 9% Singapore GST, and NZ 15% GST.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/reverse-gst-calculator',
+    canonical: 'https://www.reversetaxcalculator.pro/reverse-gst-calculator',
   },
   openGraph: {
     type: 'website',
-    url: 'https://reversetaxcalculator.pro/reverse-gst-calculator',
+    url: 'https://www.reversetaxcalculator.pro/reverse-gst-calculator',
     title: 'Reverse GST Calculator — Australia, India, Singapore & Global GST',
     description:
       'Instantly remove GST from total prices across Australian 10% GST, India 18% GST, and Singapore 9% GST rates.',

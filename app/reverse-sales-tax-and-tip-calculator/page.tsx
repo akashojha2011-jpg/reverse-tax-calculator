@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description:
     'Free online reverse sales tax and tip calculator. Instantly split total credit card restaurant bills into pre-tax food subtotal, sales tax paid, and tip amount.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator',
+    canonical: 'https://www.reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator',
   },
   openGraph: {
     type: 'website',
-    url: 'https://reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator',
+    url: 'https://www.reversetaxcalculator.pro/reverse-sales-tax-and-tip-calculator',
     title: 'Reverse Sales Tax and Tip Calculator — Restaurant Receipt Split',
     description:
       'Split restaurant charges backwards into food subtotal (net), sales tax amount, and tip paid.',

@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description:
     'Free online reverse HST calculator for Canada. Calculate pre-tax price and HST paid from total price for Ontario 13% HST and Atlantic Canada 15% HST.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/reverse-hst-calculator',
+    canonical: 'https://www.reversetaxcalculator.pro/reverse-hst-calculator',
   },
   openGraph: {
     type: 'website',
-    url: 'https://reversetaxcalculator.pro/reverse-hst-calculator',
+    url: 'https://www.reversetaxcalculator.pro/reverse-hst-calculator',
     title: 'Reverse HST Calculator — Canadian Harmonized Sales Tax',
     description:
       'Extract pre-tax subtotal and HST paid from total receipts in Ontario (13% HST) and Atlantic provinces (15% HST).',

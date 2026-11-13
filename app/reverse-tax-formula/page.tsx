@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   description:
     'Complete guide to reverse tax formulas. Learn the exact algebra to find pre-tax net prices, tax amounts, and solve tax rates from total gross amounts.',
   alternates: {
-    canonical: 'https://reversetaxcalculator.pro/reverse-tax-formula',
+    canonical: 'https://www.reversetaxcalculator.pro/reverse-tax-formula',
   },
   openGraph: {
     type: 'website',
-    url: 'https://reversetaxcalculator.pro/reverse-tax-formula',
+    url: 'https://www.reversetaxcalculator.pro/reverse-tax-formula',
     title: 'Reverse Tax Formula — How to Calculate Tax Backwards',
     description:
       'Complete guide to reverse tax formulas. Learn the exact algebra to find pre-tax net prices, tax amounts, and solve tax rates from total gross amounts.',
