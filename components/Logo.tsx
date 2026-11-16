@@ -8,7 +8,7 @@ export function Logo({ className = '' }: { className?: string }) {
       <div className="relative w-8 h-8 rounded-xl flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
         <Image
           src="/icon.png"
-          alt="Reverse Tax Calculator Icon"
+          alt="ReverseTaxCalculator.pro Logo"
           width={32}
           height={32}
           className="w-full h-full object-contain"
@@ -16,10 +16,11 @@ export function Logo({ className = '' }: { className?: string }) {
         />
       </div>
 
-      {/* Distinct Typography */}
-      <div className="flex items-center text-base sm:text-lg md:text-xl font-black tracking-tight font-sans whitespace-nowrap">
-        <span className="text-slate-900 font-extrabold">Reverse Tax</span>
-        <span className="text-brand-600 font-bold ml-1">Calculator</span>
+      {/* Site Name Typography */}
+      <div className="flex items-center text-base sm:text-lg md:text-xl tracking-tight font-sans whitespace-nowrap">
+        <span className="text-slate-900 font-extrabold">ReverseTax</span>
+        <span className="text-blue-600 font-bold">Calculator</span>
+        <span className="text-slate-400 font-medium text-xs sm:text-sm ml-0.5">.pro</span>
       </div>
     </div>
   )
