@@ -380,17 +380,17 @@ export default function RegionPage({ params }: RegionPageProps) {
               </p>
 
               {/* Styled Formula Card */}
-              <div className="p-5 rounded-2xl bg-slate-900 text-white font-mono space-y-3 shadow-sm border border-slate-800">
-                <div className="text-xs uppercase tracking-wider text-slate-400 font-sans font-semibold">
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-3 border border-slate-200/90 shadow-2xs">
+                <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
                   Mathematical Formulas:
                 </div>
-                <div className="text-sm sm:text-base text-blue-300 font-bold space-y-1.5">
+                <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1.5">
                   <div>Pre-Tax Price = Gross Total ÷ (1 + Tax Rate ÷ 100)</div>
                   <div>Sales Tax Paid = Gross Total - Pre-Tax Price</div>
                 </div>
-                <div className="text-xs text-slate-400 pt-2 border-t border-slate-800 font-sans leading-relaxed">
-                  Where <code className="text-slate-200 font-mono">Gross Total</code> is your receipt amount and{' '}
-                  <code className="text-slate-200 font-mono">Tax Rate</code> is expressed as a percentage (e.g., {region.rate}% becomes{' '}
+                <div className="text-xs text-slate-600 pt-3 border-t border-slate-200 font-sans leading-relaxed">
+                  Where <code className="text-slate-800 font-mono font-semibold">Gross Total</code> is your receipt amount and{' '}
+                  <code className="text-slate-800 font-mono font-semibold">Tax Rate</code> is expressed as a percentage (e.g., {region.rate}% becomes{' '}
                   {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')} divisor).
                 </div>
               </div>

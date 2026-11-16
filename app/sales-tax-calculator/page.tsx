@@ -161,11 +161,11 @@ export default function SalesTaxCalculatorPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 Sales Tax Mathematical Formula
               </h2>
-              <div className="p-5 rounded-2xl bg-slate-900 text-white font-mono space-y-2 shadow-sm border border-slate-800">
-                <div className="text-xs uppercase tracking-wider text-slate-400 font-sans font-semibold">
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-2 border border-slate-200/90 shadow-2xs">
+                <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
                   Standard Calculation:
                 </div>
-                <div className="text-sm sm:text-base text-blue-300 font-bold space-y-1">
+                <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1">
                   <div>Sales Tax Due = Subtotal × (Tax Rate ÷ 100)</div>
                   <div>Final Checkout Total = Subtotal + Sales Tax Due</div>
                 </div>

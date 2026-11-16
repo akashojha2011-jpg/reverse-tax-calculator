@@ -87,7 +87,7 @@ export default function TaxExclusivePriceCalculatorPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 How to Add Tax to Exclusive Prices
               </h2>
-              <div className="p-4 rounded-xl bg-slate-900 text-white font-mono text-xs sm:text-sm space-y-1">
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 text-slate-800 border border-slate-200/90 font-mono text-xs sm:text-sm space-y-1 text-blue-700 font-bold shadow-2xs">
                 <div>Sales Tax = Tax-Exclusive Subtotal × (Tax Rate ÷ 100)</div>
                 <div>Total at Checkout = Tax-Exclusive Subtotal + Sales Tax</div>
               </div>

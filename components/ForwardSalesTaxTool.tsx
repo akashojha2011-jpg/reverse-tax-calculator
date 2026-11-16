@@ -44,132 +44,136 @@ export function ForwardSalesTaxTool({ initialAmount = 100, initialRate = 8.25 }:
   }
 
   return (
-    <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-        {/* Left: Inputs */}
-        <div className="md:col-span-6 space-y-4">
-          <div>
-            <label htmlFor="forward-subtotal" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Original Price Before Tax (Subtotal)
-            </label>
-            <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
-              <input
-                id="forward-subtotal"
-                type="number"
-                min="0"
-                step="any"
-                value={isNaN(subtotal) ? '' : subtotal}
-                onChange={(e) => setSubtotal(parseFloat(e.target.value) || 0)}
-                placeholder="100.00"
-                className="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-lg focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="forward-rate" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Sales Tax Percentage (%)
-            </label>
-            <div className="relative">
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">%</span>
-              <input
-                id="forward-rate"
-                type="number"
-                min="0"
-                max="100"
-                step="any"
-                value={isNaN(taxRate) ? '' : taxRate}
-                onChange={(e) => {
-                  setTaxRate(parseFloat(e.target.value) || 0)
-                  setSelectedState('')
-                }}
-                placeholder="8.25"
-                className="w-full pl-4 pr-9 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-lg focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="forward-state-preset" className="block text-xs font-medium text-slate-500 mb-1.5">
-              Or pick a US State to load base rate:
-            </label>
-            <select
-              id="forward-state-preset"
-              value={selectedState}
-              onChange={handleStateSelect}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm font-medium focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-600 transition-all"
-            >
-              <option value="">-- Custom Rate / Select State --</option>
-              {US_TAX_RATES_ARRAY.map((s) => (
-                <option key={s.slug} value={s.slug}>
-                  {s.name} ({s.baseRate}%)
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="pt-2 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={handleReset}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset</span>
-            </button>
+    <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+      {/* Top: Inputs */}
+      <div className="space-y-4">
+        <div>
+          <label htmlFor="forward-subtotal" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Original Price Before Tax (Subtotal)
+          </label>
+          <div className="relative">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+            <input
+              id="forward-subtotal"
+              type="number"
+              min="0"
+              step="any"
+              value={isNaN(subtotal) ? '' : subtotal}
+              onChange={(e) => setSubtotal(parseFloat(e.target.value) || 0)}
+              placeholder="100.00"
+              className="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-lg focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+            />
           </div>
         </div>
 
-        {/* Right: Output Card */}
-        <div className="md:col-span-6 bg-slate-900 text-white rounded-2xl p-6 shadow-sm space-y-5">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              Calculation Breakdown
-            </span>
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Copied</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>Copy</span>
-                </>
-              )}
-            </button>
+        <div>
+          <label htmlFor="forward-rate" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Sales Tax Percentage (%)
+          </label>
+          <div className="relative">
+            <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">%</span>
+            <input
+              id="forward-rate"
+              type="number"
+              min="0"
+              max="100"
+              step="any"
+              value={isNaN(taxRate) ? '' : taxRate}
+              onChange={(e) => {
+                setTaxRate(parseFloat(e.target.value) || 0)
+                setSelectedState('')
+              }}
+              placeholder="8.25"
+              className="w-full pl-4 pr-9 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-lg focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="forward-state-preset" className="block text-xs font-medium text-slate-500 mb-1.5">
+            Or pick a US State to load base rate:
+          </label>
+          <select
+            id="forward-state-preset"
+            value={selectedState}
+            onChange={handleStateSelect}
+            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm font-medium focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-600 transition-all cursor-pointer"
+          >
+            <option value="">-- Custom Rate / Select State --</option>
+            {US_TAX_RATES_ARRAY.map((s) => (
+              <option key={s.slug} value={s.slug}>
+                {s.name} ({s.baseRate}%)
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="pt-1 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom: Light Output Card */}
+      <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-4 sm:p-5 space-y-4 shadow-2xs">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Calculation Breakdown
+          </span>
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-emerald-700 font-bold">Copied</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                <span>Copy</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        <div className="space-y-2.5">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
+            <span>Original Pre-Tax Subtotal:</span>
+            <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.netAmount)}</span>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm text-slate-300">
-              <span>Original Pre-Tax Subtotal:</span>
-              <span className="font-semibold text-white">{formatCurrency(result.netAmount)}</span>
-            </div>
+          <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
+            <span>Sales Tax Added ({result.taxRatePercentage}%):</span>
+            <span className="font-bold text-emerald-700 font-mono">+{formatCurrency(result.taxAmount)}</span>
+          </div>
 
-            <div className="flex items-center justify-between text-sm text-slate-300">
-              <span>Sales Tax Added ({result.taxRatePercentage}%):</span>
-              <span className="font-bold text-emerald-400">+{formatCurrency(result.taxAmount)}</span>
-            </div>
-
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-2">
+            <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
               <div>
-                <span className="text-xs uppercase tracking-wider text-slate-400 block">Total Due at Checkout</span>
-                <span className="text-2xl sm:text-3xl font-black text-white">{formatCurrency(result.totalAmount)}</span>
+                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                  Total Due at Checkout
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                  {formatCurrency(result.totalAmount)}
+                </span>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="p-3 bg-slate-800/80 rounded-xl text-xs text-slate-300 font-mono space-y-1">
-            <div className="text-[11px] text-slate-400 font-sans uppercase font-bold">Standard Forward Formula:</div>
-            <div>Tax = ${result.netAmount.toFixed(2)} × ({result.taxRatePercentage} / 100) = ${result.taxAmount.toFixed(2)}</div>
-            <div>Total = ${result.netAmount.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.totalAmount.toFixed(2)}</div>
-          </div>
+        <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 font-mono space-y-1">
+          <div className="text-[11px] text-slate-500 font-sans uppercase font-bold">Standard Forward Formula:</div>
+          <div>Tax = ${result.netAmount.toFixed(2)} × ({result.taxRatePercentage} / 100) = ${result.taxAmount.toFixed(2)}</div>
+          <div>Total = ${result.netAmount.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.totalAmount.toFixed(2)}</div>
         </div>
       </div>
     </div>

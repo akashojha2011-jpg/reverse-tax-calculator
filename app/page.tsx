@@ -497,15 +497,15 @@ export default function HomePage() {
           </div>
 
           {/* Visually Attractive Formula Card */}
-          <div className="p-5 rounded-2xl bg-slate-900 text-white font-mono space-y-3 shadow-sm border border-slate-800">
-            <div className="text-xs uppercase tracking-wider text-slate-400 font-sans font-semibold">
+          <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-3 border border-slate-200/90 shadow-2xs">
+            <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
               The Reverse Sales Tax Formulas:
             </div>
-            <div className="text-sm sm:text-base text-blue-300 font-bold space-y-1.5">
+            <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1.5">
               <div>Original Price = Total Price ÷ (1 + Tax Rate ÷ 100)</div>
               <div>Sales Tax Paid = Total Price - Original Price</div>
             </div>
-            <div className="text-xs text-slate-400 pt-2 border-t border-slate-800 font-sans leading-relaxed">
+            <div className="text-xs text-slate-600 pt-3 border-t border-slate-200 font-sans leading-relaxed">
               <strong>Worked Numerical Example:</strong> For a <strong>$108.00</strong> receipt total with an <strong>8%</strong> sales tax rate:
               <br />
               1. Divide $108.00 by 1.08 = <strong>$100.00</strong> (Original Price).

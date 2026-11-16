@@ -150,11 +150,11 @@ export default function RemoveSalesTaxPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 The Reverse Tax Division Formula
               </h2>
-              <div className="p-5 rounded-2xl bg-slate-900 text-white font-mono space-y-2 shadow-sm border border-slate-800">
-                <div className="text-xs uppercase tracking-wider text-slate-400 font-sans font-semibold">
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-2 border border-slate-200/90 shadow-2xs">
+                <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
                   Formula:
                 </div>
-                <div className="text-sm sm:text-base text-blue-300 font-bold space-y-1">
+                <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1">
                   <div>Pre-Tax Price = Gross Total ÷ (1 + Tax Rate ÷ 100)</div>
                   <div>Sales Tax Removed = Gross Total - Pre-Tax Price</div>
                 </div>

@@ -183,24 +183,24 @@ export function TaxBreakdownTool() {
         </div>
 
         {/* Right: Output Breakdown */}
-        <div className="md:col-span-6 bg-slate-900 text-white rounded-2xl p-6 shadow-sm space-y-5">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+        <div className="md:col-span-6 bg-slate-50 border border-slate-200/90 rounded-2xl p-5 sm:p-6 space-y-5 text-slate-900 shadow-2xs">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Tax Revenue Distribution
             </span>
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Copied</span>
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="text-emerald-700 font-bold">Copied</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="w-3.5 h-3.5 text-slate-400" />
                   <span>Copy</span>
                 </>
               )}
@@ -209,12 +209,12 @@ export function TaxBreakdownTool() {
 
           {/* Visual Stacked Bar */}
           <div className="space-y-1.5">
-            <div className="flex justify-between text-xs text-slate-300">
+            <div className="flex justify-between text-xs text-slate-600">
               <span>Combined Sales Tax:</span>
-              <span className="font-bold text-white">{totalRate.toFixed(3).replace(/\.?0+$/, '')}% ({formatCurrency(breakdown.totalTaxAmount)})</span>
+              <span className="font-bold text-slate-900 font-mono">{totalRate.toFixed(3).replace(/\.?0+$/, '')}% ({formatCurrency(breakdown.totalTaxAmount)})</span>
             </div>
             {totalRate > 0 && (
-              <div className="h-3 w-full bg-slate-800 rounded-full overflow-hidden flex">
+              <div className="h-3 w-full bg-slate-200 rounded-full overflow-hidden flex">
                 <div style={{ width: `${(stateRate / totalRate) * 100}%` }} className="bg-blue-500 h-full" title={`State: ${stateRate}%`} />
                 <div style={{ width: `${(countyRate / totalRate) * 100}%` }} className="bg-indigo-500 h-full" title={`County: ${countyRate}%`} />
                 <div style={{ width: `${(cityRate / totalRate) * 100}%` }} className="bg-emerald-500 h-full" title={`City: ${cityRate}%`} />
@@ -224,25 +224,27 @@ export function TaxBreakdownTool() {
           </div>
 
           {/* Individual Tier Breakdown */}
-          <div className="space-y-2.5 pt-2">
+          <div className="space-y-2 pt-1">
             {tiers.map((tier) => (
-              <div key={tier.name} className="flex items-center justify-between text-xs py-1.5 border-b border-slate-800/60">
+              <div key={tier.name} className="flex items-center justify-between text-xs py-1.5 border-b border-slate-200/80">
                 <span className={`font-semibold ${tier.color}`}>
                   {tier.name} ({tier.rate}%):
                 </span>
-                <span className="font-bold text-white">{formatCurrency(tier.taxAmount)}</span>
+                <span className="font-bold text-slate-900 font-mono">{formatCurrency(tier.taxAmount)}</span>
               </div>
             ))}
           </div>
 
-          <div className="pt-2 flex items-center justify-between">
-            <div>
-              <span className="text-xs uppercase tracking-wider text-slate-400 block">
-                {isReverse ? 'Original Net Subtotal' : 'Grand Total at Register'}
-              </span>
-              <span className="text-2xl sm:text-3xl font-black text-white">
-                {formatCurrency(isReverse ? breakdown.preTaxNet : breakdown.finalTotalAmount)}
-              </span>
+          <div className="pt-2">
+            <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
+              <div>
+                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                  {isReverse ? 'Original Net Subtotal' : 'Grand Total at Register'}
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                  {formatCurrency(isReverse ? breakdown.preTaxNet : breakdown.finalTotalAmount)}
+                </span>
+              </div>
             </div>
           </div>
         </div>

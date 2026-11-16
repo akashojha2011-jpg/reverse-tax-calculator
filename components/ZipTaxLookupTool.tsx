@@ -194,15 +194,15 @@ export function ZipTaxLookupTool() {
 
         {/* Calculation Matrix: Forward & Reverse */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-slate-900 text-white rounded-2xl p-6 shadow-sm space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-5 sm:p-6 space-y-5 text-slate-900 shadow-2xs">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Calculations for {formatCurrency(amount)}
               </span>
               <button
                 type="button"
                 onClick={handleCopy}
-                className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors"
+                className="text-xs font-semibold px-2.5 py-1 rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
               >
                 {copied ? 'Copied!' : 'Copy Results'}
               </button>
@@ -210,42 +210,42 @@ export function ZipTaxLookupTool() {
 
             {/* Mode 1: Forward (Add Tax) */}
             <div className="space-y-2">
-              <div className="text-xs font-bold text-blue-400 uppercase tracking-wider">
+              <div className="text-xs font-bold text-blue-700 uppercase tracking-wider">
                 1. Adding Sales Tax (Purchasing ${amount})
               </div>
-              <div className="bg-slate-800/80 rounded-xl p-3.5 space-y-1.5 text-xs">
-                <div className="flex justify-between text-slate-300">
+              <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs shadow-2xs">
+                <div className="flex justify-between text-slate-600">
                   <span>Pre-Tax Subtotal:</span>
-                  <span className="font-semibold text-white">{formatCurrency(forwardResult.netAmount)}</span>
+                  <span className="font-bold text-slate-900 font-mono">{formatCurrency(forwardResult.netAmount)}</span>
                 </div>
-                <div className="flex justify-between text-slate-300">
+                <div className="flex justify-between text-slate-600">
                   <span>Sales Tax ({selectedZip.combinedRate}%):</span>
-                  <span className="font-semibold text-emerald-400">+{formatCurrency(forwardResult.taxAmount)}</span>
+                  <span className="font-bold text-emerald-700 font-mono">+{formatCurrency(forwardResult.taxAmount)}</span>
                 </div>
-                <div className="pt-1.5 border-t border-slate-700/80 flex justify-between text-sm font-bold text-white">
+                <div className="pt-1.5 border-t border-slate-100 flex justify-between text-sm font-bold text-slate-900">
                   <span>Total Amount at Register:</span>
-                  <span className="text-blue-300">{formatCurrency(forwardResult.totalAmount)}</span>
+                  <span className="text-blue-700 font-mono">{formatCurrency(forwardResult.totalAmount)}</span>
                 </div>
               </div>
             </div>
 
             {/* Mode 2: Reverse (Extract Tax from Receipt) */}
             <div className="space-y-2">
-              <div className="text-xs font-bold text-amber-400 uppercase tracking-wider">
+              <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">
                 2. Reverse Tax (Receipt Total was ${amount})
               </div>
-              <div className="bg-slate-800/80 rounded-xl p-3.5 space-y-1.5 text-xs">
-                <div className="flex justify-between text-slate-300">
+              <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs shadow-2xs">
+                <div className="flex justify-between text-slate-600">
                   <span>Tax-Inclusive Receipt:</span>
-                  <span className="font-semibold text-white">{formatCurrency(amount)}</span>
+                  <span className="font-bold text-slate-900 font-mono">{formatCurrency(amount)}</span>
                 </div>
-                <div className="flex justify-between text-slate-300">
+                <div className="flex justify-between text-slate-600">
                   <span>Original Pre-Tax Price:</span>
-                  <span className="font-semibold text-white">{formatCurrency(reverseResult.netAmount)}</span>
+                  <span className="font-bold text-slate-900 font-mono">{formatCurrency(reverseResult.netAmount)}</span>
                 </div>
-                <div className="pt-1.5 border-t border-slate-700/80 flex justify-between text-sm font-bold text-white">
+                <div className="pt-1.5 border-t border-slate-100 flex justify-between text-sm font-bold text-slate-900">
                   <span>Sales Tax Included in Total:</span>
-                  <span className="text-amber-400">{formatCurrency(reverseResult.taxAmount)}</span>
+                  <span className="text-amber-700 font-mono">{formatCurrency(reverseResult.taxAmount)}</span>
                 </div>
               </div>
             </div>

@@ -128,24 +128,24 @@ export function DiscountTaxTool() {
         </div>
 
         {/* Right: Output Breakdown */}
-        <div className="md:col-span-6 bg-slate-900 text-white rounded-2xl p-6 shadow-sm space-y-5">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+        <div className="md:col-span-6 bg-slate-50 border border-slate-200/90 rounded-2xl p-5 sm:p-6 space-y-5 text-slate-900 shadow-2xs">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Savings & Final Receipt
             </span>
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Copied</span>
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="text-emerald-700 font-bold">Copied</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="w-3.5 h-3.5 text-slate-400" />
                   <span>Copy</span>
                 </>
               )}
@@ -153,40 +153,46 @@ export function DiscountTaxTool() {
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm text-slate-300">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Original Sticker Price:</span>
-              <span className="font-semibold text-white">{formatCurrency(result.originalPrice)}</span>
+              <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.originalPrice)}</span>
             </div>
 
-            <div className="flex items-center justify-between text-sm text-emerald-400 font-semibold">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-emerald-700 font-semibold">
               <span>Discount ({discountPercent}% OFF):</span>
-              <span>-{formatCurrency(result.discountAmount)}</span>
+              <span className="font-mono">-{formatCurrency(result.discountAmount)}</span>
             </div>
 
-            <div className="flex items-center justify-between text-sm text-slate-300">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Sale Subtotal:</span>
-              <span className="font-semibold text-white">{formatCurrency(result.discountedPrice)}</span>
+              <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.discountedPrice)}</span>
             </div>
 
-            <div className="flex items-center justify-between text-sm text-slate-300">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Sales Tax ({taxRate}%):</span>
-              <span className="font-semibold text-white">+{formatCurrency(result.taxAmount)}</span>
+              <span className="font-bold text-slate-900 font-mono">+{formatCurrency(result.taxAmount)}</span>
             </div>
 
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-              <div>
-                <span className="text-xs uppercase tracking-wider text-slate-400 block">Final Out-of-Pocket</span>
-                <span className="text-2xl sm:text-3xl font-black text-white">{formatCurrency(result.finalTotal)}</span>
-              </div>
-              <div className="text-right">
-                <span className="text-xs uppercase tracking-wider text-emerald-400 block font-bold">Total Savings</span>
-                <span className="text-lg font-black text-emerald-400">{formatCurrency(result.totalSavings)}</span>
+            <div className="pt-2">
+              <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
+                <div>
+                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                    Final Out-of-Pocket
+                  </span>
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                    {formatCurrency(result.finalTotal)}
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[11px] uppercase tracking-wider text-emerald-700 block font-bold">Total Savings</span>
+                  <span className="text-lg font-black text-emerald-700 font-mono">{formatCurrency(result.totalSavings)}</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="p-3 bg-slate-800/80 rounded-xl text-xs text-slate-300 font-mono space-y-1">
-            <div className="text-[11px] text-slate-400 font-sans uppercase font-bold">Calculation Logic:</div>
+          <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 font-mono space-y-1">
+            <div className="text-[11px] text-slate-500 font-sans uppercase font-bold">Calculation Logic:</div>
             <div>Discounted Subtotal = ${result.originalPrice.toFixed(2)} - ${result.discountAmount.toFixed(2)} = ${result.discountedPrice.toFixed(2)}</div>
             <div>Sales Tax = ${result.discountedPrice.toFixed(2)} × {taxRate}% = ${result.taxAmount.toFixed(2)}</div>
             <div>Total = ${result.discountedPrice.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.finalTotal.toFixed(2)}</div>
