@@ -142,6 +142,29 @@ export default function ReverseSalesTaxPage() {
           },
         })),
       },
+      {
+        '@type': 'HowTo',
+        '@id': 'https://www.reversetaxcalculator.pro/reverse-sales-tax-calculator#howto',
+        name: 'How to Calculate Reverse Sales Tax from a Total Receipt',
+        description: 'Learn how to calculate pre-tax net subtotal and extract sales tax paid backwards from a tax-inclusive total.',
+        step: [
+          {
+            '@type': 'HowToStep',
+            name: 'Obtain Gross Total & Sales Tax Rate',
+            text: 'Note the total receipt amount paid and the applicable combined sales tax percentage.',
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Divide by 1 Plus Decimal Tax Rate',
+            text: 'Divide the gross total by (1 + Tax Rate ÷ 100). For example, with 7% tax, divide by 1.07.',
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Subtract Net Price from Total',
+            text: 'Subtract the net pre-tax price from the gross receipt total to obtain the sales tax paid.',
+          },
+        ],
+      },
     ],
   }
 

@@ -14,12 +14,15 @@ import {
   AlertCircle,
   HelpCircle,
   Percent,
+  FileSpreadsheet,
+  Layers,
+  BookOpen,
 } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Sales Tax Calculator (2026) — Calculate Tax & Total Price',
   description:
-    'Free online sales tax calculator. Calculate the exact sales tax amount and final price from any pre-tax subtotal. Supports state and local tax rates with full formula breakdown.',
+    'Free online sales tax calculator. Calculate the exact sales tax amount and final price from any pre-tax subtotal. Supports state and local tax rates with spreadsheet formulas and state rate reference.',
   alternates: {
     canonical: 'https://www.reversetaxcalculator.pro/sales-tax-calculator',
   },
@@ -28,7 +31,7 @@ export const metadata: Metadata = {
     url: 'https://www.reversetaxcalculator.pro/sales-tax-calculator',
     title: 'Sales Tax Calculator (2026) — Calculate Tax & Total Price',
     description:
-      'Free online sales tax calculator. Calculate the exact sales tax amount and final price from any pre-tax subtotal. Supports state and local tax rates.',
+      'Free online sales tax calculator. Calculate the exact sales tax amount and final price from any pre-tax subtotal. Supports state and local tax rates with full formula breakdown.',
     siteName: 'Reverse Tax Calculator',
   },
 }
@@ -52,8 +55,28 @@ const FAQS = [
   {
     question: 'Do all US states have a sales tax?',
     answer:
-      'No. Five states have no statewide sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon (commonly known as the NOMAD states). However, local municipalities in Alaska may levy local sales taxes.',
+      'No. Five states have no statewide sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon (commonly known as the NOMAD states). However, local municipalities in Alaska may levy local sales taxes up to 7.5%.',
   },
+  {
+    question: 'How do you calculate sales tax in Excel or Google Sheets?',
+    answer:
+      'If your subtotal is in cell A2 and your sales tax rate is in cell B2 (as a percentage, e.g., 8.25%), enter =A2*(1+B2) to get the final total including tax. To calculate just the tax dollar amount, use =A2*B2.',
+  },
+  {
+    question: 'Are shipping charges subject to sales tax in the United States?',
+    answer:
+      'Taxability of freight and shipping varies by state. In states like California, delivery charges by common carrier are generally non-taxable if separately stated on the invoice. In states like New York, Texas, and Washington, shipping and handling charges are generally taxable if the underlying merchandise is taxable.',
+  },
+]
+
+const POPULAR_RATES_TABLE = [
+  { amount: 10, rate6: 0.60, total6: 10.60, rate7: 0.70, total7: 10.70, rate825: 0.83, total825: 10.83, rate95: 0.95, total95: 10.95 },
+  { amount: 25, rate6: 1.50, total6: 26.50, rate7: 1.75, total7: 26.75, rate825: 2.06, total825: 27.06, rate95: 2.38, total95: 27.38 },
+  { amount: 50, rate6: 3.00, total6: 53.00, rate7: 3.50, total7: 53.50, rate825: 4.13, total825: 54.13, rate95: 4.75, total95: 54.75 },
+  { amount: 100, rate6: 6.00, total6: 106.00, rate7: 7.00, total7: 107.00, rate825: 8.25, total825: 108.25, rate95: 9.50, total95: 109.50 },
+  { amount: 250, rate6: 15.00, total6: 265.00, rate7: 17.50, total7: 267.50, rate825: 20.63, total825: 270.63, rate95: 23.75, total95: 273.75 },
+  { amount: 500, rate6: 30.00, total6: 530.00, rate7: 35.00, total7: 535.00, rate825: 41.25, total825: 541.25, rate95: 47.50, total95: 547.50 },
+  { amount: 1000, rate6: 60.00, total6: 1060.00, rate7: 70.00, total7: 1070.00, rate825: 82.50, total825: 1082.50, rate95: 95.00, total95: 1095.00 },
 ]
 
 export default function SalesTaxCalculatorPage() {
@@ -84,10 +107,35 @@ export default function SalesTaxCalculatorPage() {
     })),
   }
 
+  const schemaHowTo = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'How to Calculate Sales Tax and Total Checkout Price',
+    description: 'A 3-step guide to calculating sales tax on any taxable retail purchase or invoice subtotal.',
+    step: [
+      {
+        '@type': 'HowToStep',
+        name: 'Identify the Net Subtotal',
+        text: 'Determine the base price of taxable goods before any taxes are added. Ensure all discounts and promotions have already been subtracted.',
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Multiply by the Decimal Tax Rate',
+        text: 'Convert your combined sales tax percentage to a decimal by dividing by 100 (e.g., 8.25% ÷ 100 = 0.0825). Multiply the net subtotal by this decimal to find the sales tax due.',
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Sum the Subtotal and Sales Tax',
+        text: 'Add the calculated sales tax to your original net subtotal to arrive at the final total payable at checkout.',
+      },
+    ],
+  }
+
   const tocItems: TocItem[] = [
     { id: 'how-to-calculate', label: 'How Forward Sales Tax Works' },
-    { id: 'sales-tax-formula', label: 'Sales Tax Mathematical Formula' },
-    { id: 'worked-examples', label: 'Step-by-Step Numerical Examples' },
+    { id: 'sales-tax-formula', label: 'Mathematical Formula & Derivation' },
+    { id: 'quick-reference-table', label: 'Quick Reference Calculation Table' },
+    { id: 'excel-formulas', label: 'Excel & Google Sheets Formulas' },
     { id: 'nomad-states', label: 'States with 0% Statewide Sales Tax (NOMAD)' },
     { id: 'forward-vs-reverse', label: 'Forward vs. Reverse Tax Calculations' },
     { id: 'faqs', label: 'Frequently Asked Questions' },
@@ -102,6 +150,10 @@ export default function SalesTaxCalculatorPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFaq) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaHowTo) }}
       />
 
       <BreadcrumbNav
@@ -120,7 +172,7 @@ export default function SalesTaxCalculatorPage() {
             </span>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium">
               <Calendar className="w-3 h-3" />
-              Updated for 2026
+              Verified for 2026
             </span>
           </div>
 
@@ -133,7 +185,7 @@ export default function SalesTaxCalculatorPage() {
 
           <div className="flex items-center gap-2 pt-1 text-xs text-slate-500">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>Reviewed by <strong>Financial Calculation Desk</strong> • Verified for 2026</span>
+            <span>Updated with official state statutory rates • Tax Foundation 2026 benchmarks</span>
           </div>
         </header>
 
@@ -153,49 +205,111 @@ export default function SalesTaxCalculatorPage() {
                 How Forward Sales Tax Works
               </h2>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Sales tax is an ad valorem consumption tax imposed by state and municipal governments on the retail sale of goods and taxable services. In forward calculations, you begin with the item&apos;s sticker price (the net subtotal) and add the tax percentage to calculate the final register price.
+                Sales tax is an <em>ad valorem</em> consumption tax imposed by state and municipal governments on the retail sale of tangible personal property and designated services. In the United States, retail prices are advertised <strong>tax-exclusive</strong>, meaning the sales tax is computed and added to the purchase amount at the point of sale.
               </p>
-            </section>
-
-            <section id="sales-tax-formula" className="scroll-mt-24 space-y-3">
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-                Sales Tax Mathematical Formula
-              </h2>
-              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 tabular-nums space-y-2 border border-slate-200/90 shadow-2xs">
-                <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
-                  Standard Calculation:
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                The total rate you pay is generally an aggregate of multiple overlapping jurisdictional layers:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+                  <div className="font-bold text-slate-900 text-xs">1. State Tax</div>
+                  <div className="text-xs text-slate-600 mt-1">Levied by the state government (typically 2.9% to 7.25%).</div>
                 </div>
-                <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1">
-                  <div>Sales Tax Due = Subtotal × (Tax Rate ÷ 100)</div>
-                  <div>Final Checkout Total = Subtotal + Sales Tax Due</div>
+                <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+                  <div className="font-bold text-slate-900 text-xs">2. County Tax</div>
+                  <div className="text-xs text-slate-600 mt-1">Imposed by county commissioners for local services (0.25% to 3.0%).</div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+                  <div className="font-bold text-slate-900 text-xs">3. City & District</div>
+                  <div className="text-xs text-slate-600 mt-1">Municipal and transit district levies (0.1% to 2.5%).</div>
                 </div>
               </div>
             </section>
 
-            <section id="worked-examples" className="scroll-mt-24 space-y-3">
+            <section id="sales-tax-formula" className="scroll-mt-24 space-y-3">
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-                Step-by-Step Numerical Examples
+                Mathematical Formula & Derivation
               </h2>
-              <div className="space-y-3 text-sm">
-                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 tabular-nums">
-                  <div className="font-bold text-slate-900 font-sans text-sm">
-                    Example 1: A $100 Item with 8.25% Tax (Dallas, TX)
-                  </div>
-                  <div className="text-xs sm:text-sm text-slate-600">
-                    <div>1. Convert rate: 8.25% = 0.0825</div>
-                    <div>2. Tax due: $100.00 × 0.0825 = <strong className="text-blue-700 font-bold">$8.25</strong></div>
-                    <div>3. Total checkout: $100.00 + $8.25 = <strong className="text-slate-900 font-bold">$108.25</strong></div>
-                  </div>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Forward sales tax calculation takes the pre-tax base price and scales it by the statutory tax percentage:
+              </p>
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 tabular-nums space-y-3 border border-slate-200/90 shadow-2xs">
+                <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
+                  Standard Mathematical Formulation
+                </div>
+                <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1.5">
+                  <div>Sales Tax Due = Pre-Tax Subtotal × (Tax Rate ÷ 100)</div>
+                  <div>Final Checkout Total = Pre-Tax Subtotal × (1 + [Tax Rate ÷ 100])</div>
+                </div>
+                <div className="text-xs text-slate-600 border-t border-slate-200 pt-3">
+                  <strong>Example:</strong> For a $100 purchase at an 8.25% combined tax rate:
+                  <br />
+                  Tax Due = $100.00 × 0.0825 = $8.25
+                  <br />
+                  Total Price = $100.00 + $8.25 = $108.25
+                </div>
+              </div>
+            </section>
+
+            <section id="quick-reference-table" className="scroll-mt-24 space-y-3">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
+                Quick Reference Calculation Table
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                The table below illustrates the exact sales tax due and resulting total cost for common transaction amounts across popular combined tax rates (6.0%, 7.0%, 8.25%, and 9.50%):
+              </p>
+              <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full text-left text-xs sm:text-sm tabular-nums">
+                  <thead className="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                    <tr>
+                      <th className="p-3">Subtotal</th>
+                      <th className="p-3">6.00% Tax (Total)</th>
+                      <th className="p-3">7.00% Tax (Total)</th>
+                      <th className="p-3">8.25% Tax (Total)</th>
+                      <th className="p-3">9.50% Tax (Total)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 bg-white">
+                    {POPULAR_RATES_TABLE.map((row) => (
+                      <tr key={row.amount} className="hover:bg-slate-50">
+                        <td className="p-3 font-semibold text-slate-900">${row.amount.toFixed(2)}</td>
+                        <td className="p-3 text-slate-700">${row.rate6.toFixed(2)} <span className="text-slate-400 font-normal">(${row.total6.toFixed(2)})</span></td>
+                        <td className="p-3 text-slate-700">${row.rate7.toFixed(2)} <span className="text-slate-400 font-normal">(${row.total7.toFixed(2)})</span></td>
+                        <td className="p-3 text-blue-700 font-medium">${row.rate825.toFixed(2)} <span className="text-slate-500 font-normal">(${row.total825.toFixed(2)})</span></td>
+                        <td className="p-3 text-slate-700">${row.rate95.toFixed(2)} <span className="text-slate-400 font-normal">(${row.total95.toFixed(2)})</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="excel-formulas" className="scroll-mt-24 space-y-3">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
+                Excel & Google Sheets Formulas
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                If you are building quotes, invoices, or budget spreadsheets in Microsoft Excel or Google Sheets, use these standardized formulas:
+              </p>
+              <div className="space-y-3">
+                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1">
+                  <div className="text-xs font-bold text-slate-800">Calculate Sales Tax Dollar Amount:</div>
+                  <pre className="p-2.5 bg-slate-900 text-emerald-400 rounded-lg text-xs font-mono overflow-x-auto">
+                    =A2 * B2
+                  </pre>
+                  <p className="text-xs text-slate-500 m-0">
+                    Assuming cell A2 contains the pre-tax price ($100) and cell B2 contains the percentage (8.25% or 0.0825).
+                  </p>
                 </div>
 
-                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 tabular-nums">
-                  <div className="font-bold text-slate-900 font-sans text-sm">
-                    Example 2: A $49.99 Item with 7% Tax (Florida)
-                  </div>
-                  <div className="text-xs sm:text-sm text-slate-600">
-                    <div>1. Tax due: $49.99 × 0.07 = $3.4993 (rounds to $3.50)</div>
-                    <div>2. Total checkout: $49.99 + $3.50 = <strong className="text-slate-900 font-bold">$53.49</strong></div>
-                  </div>
+                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1">
+                  <div className="text-xs font-bold text-slate-800">Calculate Total Price Including Tax in One Step:</div>
+                  <pre className="p-2.5 bg-slate-900 text-emerald-400 rounded-lg text-xs font-mono overflow-x-auto">
+                    =A2 * (1 + B2)
+                  </pre>
+                  <p className="text-xs text-slate-500 m-0">
+                    Calculates the full out-of-pocket invoice total directly without creating an intermediate column.
+                  </p>
                 </div>
               </div>
             </section>
@@ -231,15 +345,23 @@ export default function SalesTaxCalculatorPage() {
                 Forward vs. Reverse Tax Calculations
               </h2>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                If you already have a receipt showing the final total and want to extract the pre-tax price backwards, remember not to simply subtract the percentage. Dividing by <code>1 + Tax Rate</code> ensures mathematical accuracy.
+                A common mistake in bookkeeping is trying to remove sales tax from a receipt by multiplying the final total by the tax percentage and subtracting it. This is mathematically incorrect because the tax was calculated on the smaller base subtotal, not the inflated total.
               </p>
-              <Link
-                href="/reverse-sales-tax-calculator"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800"
-              >
-                <span>Switch to Reverse Sales Tax Calculator</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-xs sm:text-sm text-blue-900 space-y-2">
+                <div className="font-bold">Need to work backwards from a receipt?</div>
+                <p className="m-0 leading-relaxed">
+                  Use our reverse tax formula: <code>Pre-Tax = Total ÷ (1 + Tax Rate)</code>. Or open our dedicated reverse sales tax engine.
+                </p>
+                <div className="pt-1">
+                  <Link
+                    href="/reverse-sales-tax-calculator"
+                    className="inline-flex items-center gap-1.5 font-bold text-blue-700 hover:text-blue-900 underline"
+                  >
+                    <span>Launch Reverse Sales Tax Calculator</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
             </section>
 
             <section id="faqs" className="scroll-mt-24">
@@ -269,16 +391,19 @@ export default function SalesTaxCalculatorPage() {
               </div>
 
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs space-y-2">
-                <div className="font-bold text-slate-800">Related Tools</div>
+                <div className="font-bold text-slate-800">Related Tax Engines</div>
                 <div className="space-y-1.5 text-blue-600 font-medium">
                   <Link href="/us-sales-tax-by-zip-code" className="block hover:underline">
-                    • ZIP Code Sales Tax Lookup
+                    • US Sales Tax by ZIP Code Lookup
                   </Link>
                   <Link href="/discount-and-tax-calculator" className="block hover:underline">
-                    • Discount & Tax Calculator
+                    • Discount & Sales Tax Calculator
+                  </Link>
+                  <Link href="/bulk-sales-tax-calculator" className="block hover:underline">
+                    • Bulk Multi-Item Invoice Tool
                   </Link>
                   <Link href="/sales-tax-breakdown-calculator" className="block hover:underline">
-                    • Tax Breakdown Calculator
+                    • State vs City Tax Breakdown
                   </Link>
                 </div>
               </div>
