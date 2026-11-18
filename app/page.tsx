@@ -1,105 +1,118 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import {
+  Calculator,
+  ArrowRight,
+  Receipt,
+  Store,
+  Briefcase,
+  FileText,
+  Percent,
+  MinusCircle,
+  MapPin,
+  Layers,
+  FileSpreadsheet,
+} from 'lucide-react'
 import { HeroReverseSalesTaxCalculator } from '@/components/HeroReverseSalesTaxCalculator'
 import { FAQAccordion } from '@/components/FAQAccordion'
-import {
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  Calculator,
-  Percent,
-  Layers,
-  Scale,
-  MinusCircle,
-  FileSpreadsheet,
-  Tag,
-  BookOpen,
-  MapPin,
-  ExternalLink,
-  Zap,
-  Smartphone,
-  Sliders,
-  Sparkles,
-  AlertTriangle,
-  Receipt,
-  FileText,
-  Briefcase,
-  Store,
-  HelpCircle,
-} from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Reverse Sales Tax Calculator | Calculate Pre-Tax Price & Remove Tax',
   description:
-    'Calculate sales tax backwards from any total price or receipt. Instantly find original pre-tax price, sales tax paid, and state tax rates with our free calculator.',
+    'Free reverse sales tax calculator. Calculate original pre-tax price and remove sales tax from any receipt or total bill using official 2026 US state and local tax rates.',
   alternates: {
     canonical: 'https://www.reversetaxcalculator.pro',
   },
   openGraph: {
-    type: 'website',
-    url: 'https://www.reversetaxcalculator.pro',
     title: 'Reverse Sales Tax Calculator | Calculate Pre-Tax Price & Remove Tax',
     description:
-      'Free reverse sales tax calculator to remove sales tax from any total receipt or invoice. Calculate original pre-tax price and exact tax paid backwards instantly.',
+      'Free reverse sales tax calculator. Calculate original pre-tax price and remove sales tax from any receipt or total bill using official 2026 US state and local tax rates.',
+    url: 'https://www.reversetaxcalculator.pro',
     siteName: 'ReverseTaxCalculator.pro',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Reverse Sales Tax Calculator | Calculate Pre-Tax Price from Total',
-    description:
-      'Free reverse sales tax calculator. Calculate the original price before tax and exact sales tax paid from any receipt total.',
+    type: 'website',
   },
 }
 
 export default function HomePage() {
   const homeFaqs = [
     {
-      question: 'What is a reverse sales tax calculator?',
+      question: 'What is a reverse sales tax calculation?',
       answer:
-        'A reverse sales tax calculator is a financial tool that determines the original pre-tax price and the exact sales tax amount from a tax-inclusive total. While standard forward calculations multiply a net subtotal by the tax rate to add tax, reverse calculations work backwards by dividing the final total by (1 + tax rate expressed as a decimal).',
+        'A reverse sales tax calculation extracts the original pre-tax price (net subtotal) and the exact sales tax amount from a tax-inclusive total receipt. Instead of multiplying by the tax rate, you divide the gross total by 1 plus the tax rate in decimal form (e.g. Total ÷ 1.08 for an 8% tax rate).',
     },
     {
-      question: 'How do I calculate sales tax backwards from a total price?',
+      question: 'Why can I not just subtract the tax percentage from the total?',
       answer:
-        'To calculate sales tax backwards, convert your tax rate to a decimal, add 1 to create your divisor, and divide your total price by that divisor. For example, with an 8% tax rate, divide your total by 1.08. A $108.00 total divided by 1.08 gives $100.00 pre-tax price. Then subtract $100.00 from $108.00 to determine the $8.00 sales tax paid.',
+        'Subtracting the tax percentage directly from the total gives an incorrect result. Sales tax is originally calculated on the smaller pre-tax subtotal, not the larger gross total. For example, on a $108.00 total with 8% sales tax, subtracting 8% ($8.64) yields $99.36. However, 8% sales tax on $99.36 is only $7.95, resulting in $107.31—leaving a 64¢ deficit. Dividing $108.00 by 1.08 correctly yields the exact original $100.00 subtotal.',
     },
     {
-      question: 'Why can’t I just subtract the tax percentage directly from the total?',
+      question: 'What is the exact formula to remove sales tax from a receipt?',
       answer:
-        'Subtracting the tax percentage directly produces an incorrect under-calculation because sales tax was originally levied on the smaller pre-tax subtotal, not the larger gross total. For example, subtracting 8% from $108.00 removes $8.64, leaving $99.36. If you add 8% tax back to $99.36, you only reach $107.31—meaning you undercounted your pre-tax base by $0.64. Always divide by (1 + tax rate) to get the true mathematical result.',
+        'The formula to find the pre-tax price is: Pre-Tax Price = Gross Total ÷ (1 + [Tax Rate ÷ 100]). To find the sales tax amount paid, subtract the pre-tax price from the gross total: Sales Tax = Gross Total - Pre-Tax Price.',
     },
     {
-      question: 'What is the reverse sales tax formula in Excel or Google Sheets?',
+      question: 'How do I calculate reverse sales tax in Excel or Google Sheets?',
       answer:
-        'In Microsoft Excel or Google Sheets, if Cell A2 contains the total tax-inclusive amount and Cell B2 contains the sales tax percentage (e.g. 8% or 0.08):\n• Pre-Tax Price Formula: =A2 / (1 + B2)\n• Sales Tax Amount Formula: =A2 - (A2 / (1 + B2))\nIf Cell B2 is formatted as a whole number (like 8 rather than 8%), use: =A2 / (1 + (B2 / 100)).',
+        'In Excel or Google Sheets, if cell A2 contains the gross receipt amount ($108.00) and cell B2 contains the sales tax rate (8% or 0.08), the formula for the pre-tax price is =A2 / (1 + B2). The formula to calculate just the sales tax amount is =A2 - (A2 / (1 + B2)).',
     },
     {
-      question: 'How do combined state and local sales taxes affect reverse calculations?',
+      question: 'What if my receipt has both state and city sales tax?',
       answer:
-        'In most US states, sales tax consists of a statewide baseline rate plus county, city, or special transit district surtaxes. To calculate in reverse, you must use the total combined rate. For example, in Los Angeles, California, the statewide rate is 7.25% but the combined local rate is 9.50%. You must divide by 1.0950 rather than 1.0725 to accurately reflect receipts issued in Los Angeles.',
+        'In the United States, most purchases are subject to combined state, county, and local city tax rates. To perform a reverse calculation, add all statutory rates together into a single combined rate (e.g. 6.25% state + 2.00% local = 8.25% combined). Divide your gross total by 1.0825 to find the pre-tax base, then multiply the pre-tax base by each tier to isolate state and local tax portions.',
     },
     {
-      question: 'How do I remove 8.25% Texas sales tax from a receipt?',
+      question: 'Which US states do not have a statewide sales tax?',
       answer:
-        'In Texas, where the maximum combined sales tax rate is 8.25%, divide your total receipt amount by 1.0825. For example, for a receipt of $216.50: $216.50 ÷ 1.0825 = $200.00 pre-tax base. The sales tax paid is $216.50 - $200.00 = $16.50.',
+        'Five US states do not impose a general statewide sales tax (the "NOMAD" states): Alaska, Delaware, Montana, New Hampshire, and Oregon. However, Alaska permits local municipalities and boroughs to levy local sales taxes up to 7.85%.',
     },
     {
-      question: 'Is reverse sales tax the same as removing tax from a receipt?',
+      question: 'Can I use this reverse calculator for Canadian GST, HST, or PST?',
       answer:
-        'Yes. Reverse sales tax, tax removal, calculating tax backwards, and finding the pre-tax price all refer to the identical mathematical operation: separating the original net expense from the sales tax component embedded in a gross price.',
+        'Yes. Canadian federal GST (5%), Harmonized Sales Tax (HST: 13% or 15%), and provincial sales taxes (PST) follow the exact same mathematical divisor rule. We also provide dedicated tools for Canadian tax systems.',
     },
     {
-      question: 'What is the difference between tax-inclusive and tax-exclusive pricing?',
+      question: 'Is reverse sales tax the same as reverse VAT?',
       answer:
-        'Tax-exclusive pricing displays the product price before taxes, with sales tax added separately at checkout (standard in the United States and Canada). Tax-inclusive pricing displays the final checkout price with taxes already bundled in (standard in Europe for VAT and Australia for GST). Reverse calculators are essential whenever a US receipt displays only the final lump sum.',
+        'Yes, mathematically they use the identical divisor formula. Value Added Tax (VAT) in the UK, European Union, and Latin America is typically included directly on price tags and receipts, requiring buyers and businesses to calculate backwards to reclaim VAT.',
     },
     {
-      question: 'Is this reverse tax calculator free to use?',
+      question: 'How does rounding work for reverse sales tax?',
       answer:
-        'Yes. ReverseTaxCalculator.pro is 100% free with unlimited calculations. There is no account registration, no subscription fee, and no software download required.',
+        'Sales tax calculations follow standard financial rounding rules (half-up to the nearest cent / 2 decimal places). Because divisions can yield fractional cents (e.g. $92.5925...), statutory rounding occurs at the final penny level in accordance with state Department of Revenue guidelines.',
     },
   ]
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'ReverseTaxCalculator.pro',
+    url: 'https://www.reversetaxcalculator.pro',
+    description:
+      'Authoritative US reverse sales tax calculator, pre-tax price extraction tool, and statutory state rate directory.',
+  }
+
+  const appSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Reverse Sales Tax Calculator',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    featureList: [
+      'Reverse sales tax extraction (remove tax from total)',
+      'Pre-tax net subtotal calculation',
+      'Forward sales tax calculation (add tax to subtotal)',
+      'All 50 US states statutory tax rate auto-fill',
+      'Split state and local municipal tax distribution',
+      'Excel and Google Sheets copyable formula generator',
+      'Mathematical arithmetic verification proof',
+    ],
+  }
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -114,37 +127,12 @@ export default function HomePage() {
     })),
   }
 
-  const websiteSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'ReverseTaxCalculator.pro',
-    url: 'https://www.reversetaxcalculator.pro',
-    description:
-      'Authoritative reverse sales tax calculation platform. Extract pre-tax prices and sales tax paid backwards from any receipt or invoice.',
-  }
-
-  const appSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Reverse Sales Tax Calculator',
-    url: 'https://www.reversetaxcalculator.pro',
-    applicationCategory: 'FinanceApplication',
-    operatingSystem: 'All',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-    description:
-      'Free reverse sales tax calculator to calculate pre-tax amounts, sales tax paid, and original prices backwards from any total price.',
-  }
-
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'How to Calculate Sales Tax Backwards from a Total Price',
+    name: 'How to Calculate Reverse Sales Tax (Remove Tax from Total)',
     description:
-      'Step-by-step mathematical method to remove sales tax from any gross receipt or invoice total.',
+      'Learn how to calculate the pre-tax price and extract sales tax from a tax-inclusive receipt or total invoice amount.',
     step: [
       {
         '@type': 'HowToStep',
@@ -222,50 +210,58 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
-      <div className="space-y-14 md:space-y-16 max-w-7xl mx-auto">
+      <div className="space-y-16 max-w-7xl mx-auto">
         {/* =========================================================================
-            SECTION 1: HERO SECTION WITH THE ENHANCED INTERACTIVE CALCULATOR
+            SECTION 1: HERO SECTION & CALCULATOR
             ========================================================================= */}
-        <section className="pt-2 pb-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-            {/* Left Column: Hero Editorial Information */}
-            <div className="lg:col-span-6 space-y-4 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-slate-700 text-xs font-semibold tracking-wide">
-                <span className="flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-                <span>FREE ONLINE REVERSE TAX PLATFORM</span>
+        <section className="pt-4 pb-2">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left Column: Clear, Authoritative Editorial Introduction */}
+            <div className="lg:col-span-6 space-y-6 text-left">
+              <div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.15]">
+                  Reverse Sales Tax Calculator
+                </h1>
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed mt-4">
+                  Calculate the pre-tax price, isolate sales tax paid, and verify receipt math backwards using statutory state and local tax rates across the United States.
+                </p>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-                Reverse Sales Tax Calculator
-              </h1>
+              {/* 3 Simple Workflow Steps */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
+                    1
+                  </span>
+                  <div>
+                    <h2 className="text-sm font-semibold text-slate-900 m-0">Enter Receipt Total</h2>
+                    <p className="text-xs text-slate-500 m-0 mt-0.5">The final amount paid including sales tax.</p>
+                  </div>
+                </div>
 
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                Remove sales tax from any total price or receipt. Instantly calculate your original pre-tax price, exact sales tax paid, and effective tax rate backwards using verified 2026 state and local rates.
-              </p>
+                <div className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
+                    2
+                  </span>
+                  <div>
+                    <h2 className="text-sm font-semibold text-slate-900 m-0">Choose State or Custom Rate</h2>
+                    <p className="text-xs text-slate-500 m-0 mt-0.5">Auto-fills statutory state rates or your combined local rate.</p>
+                  </div>
+                </div>
 
-              {/* Four Trust & Accuracy Indicators */}
-              <div className="pt-2 grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700">
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>2026 US Statutory Rates</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>2-Decimal Currency Precision</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Two-Way Forward & Reverse</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>No Registration Required</span>
+                <div className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
+                    3
+                  </span>
+                  <div>
+                    <h2 className="text-sm font-semibold text-slate-900 m-0">Instant Itemized Breakdown</h2>
+                    <p className="text-xs text-slate-500 m-0 mt-0.5">Extracts the pre-tax subtotal, sales tax amount, and divisor proof.</p>
+                  </div>
                 </div>
               </div>
 
-              {/* Quick Summary Card */}
-              <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-200/80 text-xs text-blue-900 leading-relaxed">
-                <strong>Need to separate tax for bookkeeping or receipts?</strong> Simply enter your total receipt amount and select your US state from the calculator dropdown. The tool automatically extracts your deductible pre-tax subtotal and tax paid.
+              <div className="pt-2 text-xs text-slate-500 border-t border-slate-100">
+                Verified against 2026 US state statutory Department of Revenue guidelines.
               </div>
             </div>
 
@@ -277,56 +273,53 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================================
-            SECTION 2: THE "SUBTRACTION TRAP" (HIGH-INTENT PROBLEM SOLVING)
+            SECTION 2: THE "SUBTRACTION TRAP" (EDITORIAL COMPARISON)
             ========================================================================= */}
-        <section className="p-6 sm:p-8 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-6">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-md border border-amber-200">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-              <span>Critical Financial Concept</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-              Why You Cannot Simply Subtract the Tax Rate (The Subtraction Trap)
+        <section className="space-y-6 pt-4 border-t border-slate-200/80">
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+              Fundamental Tax Accounting Rule
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
+              Why You Cannot Simply Subtract the Tax Rate
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed m-0">
-              The most widespread mistake in sales tax accounting is attempting to remove sales tax by multiplying the total price by the tax percentage and subtracting it. This math is fundamentally incorrect because sales tax is originally calculated on the <strong>smaller pre-tax price</strong>, not the <strong>larger gross total</strong>.
+              The most common error in sales tax bookkeeping is multiplying the gross receipt total by the sales tax percentage and subtracting it. This math is fundamentally incorrect because sales tax is originally calculated on the <strong>smaller pre-tax price</strong>, not the <strong>larger gross total</strong>.
             </p>
           </div>
 
-          {/* Visual Comparison: Incorrect vs Correct */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Clean Side-by-Side Comparison */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* The Incorrect Subtraction Method */}
-            <div className="p-5 rounded-xl border border-red-200 bg-red-50/40 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold text-red-800 uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-red-500" />
-                <span>❌ The Incorrect Method (Direct Subtraction)</span>
+            <div className="p-6 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-rose-700">
+                Common Mistake: Direct Subtraction
               </div>
-              <div className="text-xs text-slate-700 leading-relaxed space-y-1.5 font-mono">
-                <div>Total Receipt: $108.00 | Tax Rate: 8%</div>
-                <div className="p-2.5 bg-white rounded-lg border border-red-200 text-red-900 font-bold">
-                  $108.00 - ($108.00 × 0.08) = $108.00 - $8.64 = $99.36
-                </div>
-                <div className="text-[11px] text-red-700 font-sans pt-1">
-                  <strong>The Verification Flaw:</strong> If you add 8% tax back to $99.36 ($99.36 × 1.08), you only get <strong>$107.31</strong>! You have undercounted the true pre-tax expense by $0.64.
-                </div>
+              <p className="text-xs text-slate-600 m-0">
+                Receipt Total: <strong>$108.00</strong> • Tax Rate: <strong>8%</strong>
+              </p>
+              <div className="p-3 bg-white rounded-lg border border-slate-200 text-slate-900 text-sm tabular-nums">
+                $108.00 − ($108.00 × 0.08) = $108.00 − $8.64 = <strong>$99.36</strong>
               </div>
+              <p className="text-xs text-slate-500 m-0 leading-relaxed">
+                <strong>Why it fails:</strong> If you add 8% tax back to $99.36 ($99.36 × 1.08), you arrive at only <strong>$107.31</strong>. You have undercounted the true pre-tax expense by 64¢.
+              </p>
             </div>
 
             {/* The Correct Divisor Method */}
-            <div className="p-5 rounded-xl border border-emerald-200 bg-emerald-50/40 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span>✅ The Correct Method (The Divisor Formula)</span>
+            <div className="p-6 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+                Correct Method: The Divisor Formula
               </div>
-              <div className="text-xs text-slate-700 leading-relaxed space-y-1.5 font-mono">
-                <div>Total Receipt: $108.00 | Divisor: (1 + 0.08) = 1.08</div>
-                <div className="p-2.5 bg-white rounded-lg border border-emerald-200 text-emerald-900 font-bold">
-                  $108.00 ÷ 1.08 = $100.00 Pre-Tax Base
-                </div>
-                <div className="text-[11px] text-emerald-800 font-sans pt-1">
-                  <strong>The Verification Proof:</strong> If you add 8% tax back to $100.00 ($100.00 × 1.08), you arrive back at exactly <strong>$108.00</strong>. The sales tax paid was exactly $8.00.
-                </div>
+              <p className="text-xs text-slate-600 m-0">
+                Receipt Total: <strong>$108.00</strong> • Divisor: (1 + 0.08) = <strong>1.08</strong>
+              </p>
+              <div className="p-3 bg-white rounded-lg border border-slate-200 text-slate-900 text-sm tabular-nums">
+                $108.00 ÷ 1.08 = <strong>$100.00 Pre-Tax Subtotal</strong>
               </div>
+              <p className="text-xs text-slate-500 m-0 leading-relaxed">
+                <strong>Verification proof:</strong> Adding 8% tax back to $100.00 ($100.00 × 1.08) equals exactly <strong>$108.00</strong>. The sales tax paid is exactly $8.00.
+              </p>
             </div>
           </div>
         </section>
@@ -334,342 +327,304 @@ export default function HomePage() {
         {/* =========================================================================
             SECTION 3: STEP-BY-STEP MATHEMATICAL FORMULAS
             ========================================================================= */}
-        <section className="p-6 sm:p-8 bg-slate-50 border border-slate-200 rounded-2xl space-y-5">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
+        <section className="space-y-6 pt-4 border-t border-slate-200/80">
+          <div className="max-w-3xl space-y-2">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
               The Reverse Sales Tax Mathematical Formula
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed m-0">
-              To mathematically reverse sales tax from any gross receipt, divide the total amount by 1 plus the decimal tax rate:
+              To reverse sales tax from any total receipt amount, divide the gross figure by 1 plus the decimal tax rate:
             </p>
           </div>
 
-          {/* Mathematical Cards */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-white text-slate-800 font-mono space-y-3 border border-slate-200 shadow-2xs">
-            <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
-              Standard Reverse Tax Equations:
+          <div className="p-6 rounded-xl border border-slate-200 bg-white space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                <div className="text-xs font-semibold uppercase text-slate-500">Pre-Tax Price Equation</div>
+                <div className="text-base font-bold text-slate-900">
+                  Pre-Tax Price = Gross Total ÷ (1 + Tax Rate)
+                </div>
+              </div>
+
+              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                <div className="text-xs font-semibold uppercase text-slate-500">Sales Tax Extracted Equation</div>
+                <div className="text-base font-bold text-slate-900">
+                  Sales Tax = Gross Total − Pre-Tax Price
+                </div>
+              </div>
             </div>
-            <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1.5">
-              <div>Pre-Tax Price = Gross Total ÷ (1 + [Tax Rate % ÷ 100])</div>
-              <div>Sales Tax Paid = Gross Total - Pre-Tax Price</div>
-            </div>
-            <div className="text-xs text-slate-600 pt-3 border-t border-slate-100 font-sans leading-relaxed">
-              <strong>Worked Walkthrough:</strong> For a <strong>$216.50</strong> purchase in Texas with an <strong>8.25%</strong> sales tax rate:
+
+            <div className="pt-2 text-xs text-slate-600 leading-relaxed border-t border-slate-100">
+              <strong>Example Walkthrough:</strong> For a <strong>$216.50</strong> receipt in Texas with an <strong>8.25%</strong> combined tax rate:
               <br />
-              1. Convert 8.25% to decimal: 8.25 ÷ 100 = 0.0825.
+              1. Convert tax rate to decimal: 8.25 ÷ 100 = 0.0825.
               <br />
               2. Add 1 to find the divisor: 1 + 0.0825 = 1.0825.
               <br />
-              3. Divide gross total by divisor: $216.50 ÷ 1.0825 = <strong>$200.00</strong> (Pre-tax price).
+              3. Divide total by divisor: $216.50 ÷ 1.0825 = <strong>$200.00</strong> (Pre-tax price).
               <br />
-              4. Subtract pre-tax price from total: $216.50 - $200.00 = <strong>$16.50</strong> (Texas sales tax paid).
+              4. Subtract subtotal from gross total: $216.50 − $200.00 = <strong>$16.50</strong> (Sales tax paid).
             </div>
-          </div>
 
-          {/* Link to Dedicated Formula Page */}
-          <div>
-            <Link
-              href="/reverse-tax-formula"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              <span>Explore the comprehensive algebraic derivation of the reverse tax formula</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div>
+              <Link
+                href="/reverse-tax-formula"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                <span>Read the complete algebraic derivation and proof</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </section>
 
         {/* =========================================================================
             SECTION 4: SPREADSHEET FORMULAS (EXCEL & GOOGLE SHEETS)
             ========================================================================= */}
-        <section className="p-6 sm:p-8 bg-white border border-slate-200 rounded-2xl space-y-5 shadow-xs">
-          <div className="flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-              How to Calculate Reverse Sales Tax in Excel & Google Sheets
+        <section className="space-y-6 pt-4 border-t border-slate-200/80">
+          <div className="flex items-center gap-2.5">
+            <FileSpreadsheet className="w-6 h-6 text-emerald-600" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
+              Formulas for Excel & Google Sheets
             </h2>
           </div>
-          <p className="text-slate-600 text-sm leading-relaxed m-0">
-            If you manage spreadsheets, QuickBooks exports, or invoice batches, use these formulas to calculate pre-tax amounts and sales tax columns automatically:
+          <p className="text-slate-600 text-sm leading-relaxed m-0 max-w-3xl">
+            For bookkeeping batches, QuickBooks reconciliations, or spreadsheet audits, copy and paste these exact formulas into your worksheet:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-            {/* Box 1 */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-              <span className="font-sans font-bold text-slate-700 block uppercase text-[11px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-5 rounded-xl border border-slate-200 bg-white space-y-2">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide block">
                 Pre-Tax Price (Net Subtotal)
               </span>
-              <code className="block p-2.5 bg-white border border-slate-200 rounded-lg text-blue-700 font-bold text-xs sm:text-sm">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono text-sm">
                 =A2 / (1 + B2)
-              </code>
-              <p className="font-sans text-slate-500 text-[11px] m-0">
-                Where A2 is the gross total ($108.00) and B2 is the tax percentage (8% or 0.08).
+              </div>
+              <p className="text-xs text-slate-500 m-0">
+                Where <strong>A2</strong> is the gross receipt ($108.00) and <strong>B2</strong> is the tax rate (8% or 0.08).
               </p>
             </div>
 
-            {/* Box 2 */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-              <span className="font-sans font-bold text-slate-700 block uppercase text-[11px]">
-                Sales Tax Amount Removed
+            <div className="p-5 rounded-xl border border-slate-200 bg-white space-y-2">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide block">
+                Sales Tax Amount Isolated
               </span>
-              <code className="block p-2.5 bg-white border border-slate-200 rounded-lg text-emerald-700 font-bold text-xs sm:text-sm">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono text-sm">
                 =A2 - (A2 / (1 + B2))
-              </code>
-              <p className="font-sans text-slate-500 text-[11px] m-0">
-                Extracts the isolated sales tax dollar amount directly from the gross total.
+              </div>
+              <p className="text-xs text-slate-500 m-0">
+                Extracts the isolated tax dollar amount directly from the total bill.
               </p>
             </div>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 5: REFERENCE TABLE - COMMON PRICE POINTS
+            SECTION 5: REFERENCE LOOKUP TABLE
             ========================================================================= */}
-        <section className="space-y-4">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-              Reverse Sales Tax Calculation Examples & Lookup Table
+        <section className="space-y-4 pt-4 border-t border-slate-200/80">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
+              Reverse Sales Tax Reference Table
             </h2>
-            <p className="text-slate-600 text-sm leading-relaxed m-0">
-              Quick reference table showing pre-tax net amounts and sales tax removed across common purchase totals and typical state/local tax rates:
+            <p className="text-slate-600 text-sm leading-relaxed m-0 mt-1">
+              Common receipt totals and corresponding pre-tax net amounts across standard US sales tax rates:
             </p>
           </div>
 
-          <div className="overflow-x-auto border border-slate-200 rounded-xl bg-white shadow-xs">
+          <div className="overflow-x-auto border border-slate-200 rounded-xl bg-white">
             <table className="w-full text-left text-sm border-collapse">
               <thead>
-                <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 text-xs uppercase tracking-wider">
-                  <th className="py-3 px-4 font-bold">Receipt Total (Gross)</th>
-                  <th className="py-3 px-4 font-bold">Tax Rate</th>
-                  <th className="py-3 px-4 font-bold">Divisor</th>
-                  <th className="py-3 px-4 font-bold">Original Price (Net)</th>
-                  <th className="py-3 px-4 font-bold text-emerald-700">Tax Removed</th>
+                <tr className="bg-slate-50 text-slate-600 border-b border-slate-200 text-xs uppercase tracking-wider">
+                  <th className="py-3 px-4 font-semibold">Receipt Total (Gross)</th>
+                  <th className="py-3 px-4 font-semibold">Tax Rate</th>
+                  <th className="py-3 px-4 font-semibold">Divisor</th>
+                  <th className="py-3 px-4 font-semibold">Pre-Tax Price (Net)</th>
+                  <th className="py-3 px-4 font-semibold">Sales Tax Paid</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-mono text-xs sm:text-sm">
+              <tbody className="divide-y divide-slate-100 text-xs sm:text-sm tabular-nums">
                 {priceTableData.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-2.5 px-4 font-bold text-slate-900">${row.gross.toFixed(2)}</td>
-                    <td className="py-2.5 px-4 text-slate-600">{row.rate}%</td>
-                    <td className="py-2.5 px-4 text-slate-500">{row.divisor}</td>
-                    <td className="py-2.5 px-4 font-semibold text-slate-800">${row.net.toFixed(2)}</td>
-                    <td className="py-2.5 px-4 font-bold text-emerald-700">+${row.tax.toFixed(2)}</td>
+                  <tr key={idx} className="hover:bg-slate-50/60 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-slate-900">${row.gross.toFixed(2)}</td>
+                    <td className="py-3 px-4 text-slate-600">{row.rate}%</td>
+                    <td className="py-3 px-4 text-slate-500">{row.divisor}</td>
+                    <td className="py-3 px-4 font-medium text-slate-900">${row.net.toFixed(2)}</td>
+                    <td className="py-3 px-4 font-medium text-slate-700">${row.tax.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <div className="text-xs text-slate-500 leading-relaxed">
-            * Note: All values are rounded to two decimal places following standard GAAP financial currency rules.
+          <div className="text-xs text-slate-400">
+            * All values rounded to two decimal places under standard GAAP financial currency rules.
           </div>
         </section>
 
         {/* =========================================================================
             SECTION 6: POPULAR US STATES QUICK DIRECTORY
             ========================================================================= */}
-        <section className="p-6 sm:p-8 bg-slate-50 border border-slate-200 rounded-2xl space-y-5">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+        <section className="space-y-4 pt-4 border-t border-slate-200/80">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-                Reverse Sales Tax by US State
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
+                Sales Tax Rates by State
               </h2>
               <p className="text-slate-600 text-sm mt-1 m-0">
-                Explore official statutory base rates and average local combined rates for high-population US states:
+                Baseline statutory rates and average combined local rates for major US states:
               </p>
             </div>
             <Link
               href="/data-sources"
-              className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 shrink-0 transition-colors"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 shrink-0 transition-colors"
             >
-              <span>View All 50 States Directory</span>
+              <span>All 50 States Directory</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Popular States Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {popularStates.map((state) => (
               <Link
                 key={state.slug}
                 href={`/${state.slug}-reverse-sales-tax-calculator`}
-                className="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-2xs transition-all block group"
+                className="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all block group"
               >
-                <div className="font-bold text-slate-900 text-xs sm:text-sm group-hover:text-blue-700 truncate">
+                <div className="font-semibold text-slate-900 text-xs sm:text-sm group-hover:text-blue-600 truncate">
                   {state.name}
                 </div>
-                <div className="text-[11px] text-slate-500 mt-1 font-mono">
+                <div className="text-[11px] text-slate-500 mt-1 tabular-nums">
                   Base: {state.baseRate}
                 </div>
-                <div className="text-[10px] text-slate-400 font-mono">
+                <div className="text-[10px] text-slate-400 tabular-nums">
                   Avg: {state.avgCombined}
                 </div>
               </Link>
             ))}
           </div>
 
-          <div className="text-xs text-slate-500 leading-relaxed pt-2">
-            * 5 US states (Alaska, Delaware, Montana, New Hampshire, Oregon) assess zero statewide sales tax, though Alaska allows local municipal taxes up to 7.85%.
+          <div className="text-xs text-slate-400">
+            * 5 US states (Alaska, Delaware, Montana, New Hampshire, Oregon) levy zero statewide sales tax.
           </div>
         </section>
 
         {/* =========================================================================
             SECTION 7: PRACTICAL BUSINESS & ACCOUNTING USE CASES
             ========================================================================= */}
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-              Who Needs to Calculate Sales Tax in Reverse?
+        <section className="space-y-6 pt-4 border-t border-slate-200/80">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
+              Common Accounting & Bookkeeping Scenarios
             </h2>
-            <p className="text-slate-600 text-sm leading-relaxed m-0">
-              Reverse sales tax calculation is an everyday operational requirement across multiple business and personal finance scenarios:
+            <p className="text-slate-600 text-sm leading-relaxed m-0 mt-1">
+              Practical situations where calculating sales tax in reverse is necessary:
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+            <div className="p-5 bg-white rounded-xl border border-slate-200 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
                 <Receipt className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 m-0">Receipt Auditing</h3>
+              <h3 className="text-sm font-semibold text-slate-900 m-0">Expense Reporting</h3>
               <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                When filing employee expense reports or logging business receipts that show only a total credit card charge, reverse calculation isolates the true deductible expense.
+                When employee receipts or credit card records only show the gross total, reverse math isolates the true deductible expense.
               </p>
             </div>
 
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+            <div className="p-5 bg-white rounded-xl border border-slate-200 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
                 <Store className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 m-0">Retail Cash Reconciliation</h3>
+              <h3 className="text-sm font-semibold text-slate-900 m-0">Retail Cash Sales</h3>
               <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Retailers quoting "out-the-door" tax-inclusive cash pricing (e.g., at fairs or events) must calculate reverse sales tax to remit accurate tax liabilities to the state.
+                Vendors quoting flat tax-inclusive prices at events must reverse the tax to remit the correct liability to the Department of Revenue.
               </p>
             </div>
 
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+            <div className="p-5 bg-white rounded-xl border border-slate-200 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
                 <Briefcase className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 m-0">Freelancer Invoicing</h3>
+              <h3 className="text-sm font-semibold text-slate-900 m-0">Freelancer Invoicing</h3>
               <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Independent contractors who quote flat project rates can easily determine their net take-home revenue versus mandatory sales tax obligations.
+                Contractors quoting flat project rates can easily separate net earnings from mandatory statutory tax charges.
               </p>
             </div>
 
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+            <div className="p-5 bg-white rounded-xl border border-slate-200 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
                 <FileText className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 m-0">E-Commerce & VAT/GST</h3>
+              <h3 className="text-sm font-semibold text-slate-900 m-0">Global Commerce</h3>
               <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Sellers trading internationally on marketplaces where tax is embedded in display prices need reverse math to file quarterly tax returns.
+                Sellers dealing with VAT and GST jurisdictions where display prices include tax need reverse calculations to prepare returns.
               </p>
             </div>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 8: EXPLORE REVERSE TAX CALCULATORS
+            SECTION 8: SPECIALIZED REVERSE TAX CALCULATORS
             ========================================================================= */}
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
+        <section className="space-y-4 pt-4 border-t border-slate-200/80">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
               Specialized Reverse Tax Calculators
             </h2>
-            <p className="text-slate-600 text-sm leading-relaxed m-0">
-              Access dedicated tools designed for specific tax systems, international currencies, and transaction structures:
+            <p className="text-slate-600 text-sm leading-relaxed m-0 mt-1">
+              Dedicated calculators for international jurisdictions and specific tax structures:
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <Link
               href="/reverse-sales-tax-calculator"
-              className="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
-                <Calculator className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Reverse Sales Tax Calculator
-              </h3>
-              <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Remove standard US sales tax from total purchase prices.
-              </p>
+              <div className="font-semibold text-sm text-slate-900">Reverse Sales Tax Calculator</div>
+              <div className="text-xs text-slate-500">Remove US sales tax from any total price.</div>
             </Link>
 
             <Link
               href="/reverse-vat-calculator"
-              className="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
-                <Percent className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Reverse VAT Calculator
-              </h3>
-              <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Extract original pre-VAT prices from UK, EU, and international invoices.
-              </p>
+              <div className="font-semibold text-sm text-slate-900">Reverse VAT Calculator</div>
+              <div className="text-xs text-slate-500">Extract pre-VAT amounts from UK and European receipts.</div>
             </Link>
 
             <Link
               href="/reverse-gst-calculator"
-              className="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
-                <Percent className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Reverse GST Calculator
-              </h3>
-              <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Remove GST from Canadian, Australian, and Indian goods and services receipts.
-              </p>
+              <div className="font-semibold text-sm text-slate-900">Reverse GST Calculator</div>
+              <div className="text-xs text-slate-500">Calculate base prices before GST for Canada, Australia, and India.</div>
             </Link>
 
             <Link
               href="/reverse-hst-calculator"
-              className="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
-                <Percent className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Reverse HST Calculator
-              </h3>
-              <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Separate Harmonized Sales Tax (13% - 15%) from Canadian purchases.
-              </p>
+              <div className="font-semibold text-sm text-slate-900">Reverse HST Calculator</div>
+              <div className="text-xs text-slate-500">Separate Canadian Harmonized Sales Tax (13% - 15%).</div>
             </Link>
 
             <Link
               href="/reverse-pst-calculator"
-              className="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
-                <Percent className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Reverse PST Calculator
-              </h3>
-              <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Calculate base amounts before provincial sales tax in BC, SK, and MB.
-              </p>
+              <div className="font-semibold text-sm text-slate-900">Reverse PST Calculator</div>
+              <div className="text-xs text-slate-500">Calculate pre-tax base for BC, Saskatchewan, and Manitoba.</div>
             </Link>
 
             <Link
               href="/tax-inclusive-price-calculator"
-              className="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-colors">
-                <Layers className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Tax-Inclusive Price Calculator
-              </h3>
-              <p className="text-xs text-slate-500 m-0 leading-relaxed">
-                Deconstruct bundled tax-inclusive retail pricing.
-              </p>
+              <div className="font-semibold text-sm text-slate-900">Tax-Inclusive Price Calculator</div>
+              <div className="text-xs text-slate-500">Deconstruct bundled consumer retail pricing.</div>
             </Link>
           </div>
         </section>
@@ -677,67 +632,55 @@ export default function HomePage() {
         {/* =========================================================================
             SECTION 9: RELATED FORWARD SALES TAX TOOLS
             ========================================================================= */}
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
-              More Sales Tax Tools
+        <section className="space-y-4 pt-4 border-t border-slate-200/80">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
+              Related Sales Tax Tools
             </h2>
-            <p className="text-slate-600 text-sm leading-relaxed m-0">
-              Calculate sales tax additions, multi-tier splits, and location comparisons:
+            <p className="text-slate-600 text-sm leading-relaxed m-0 mt-1">
+              Forward sales tax additions, municipal lookups, and multi-tier breakdowns:
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <Link
               href="/sales-tax-calculator"
-              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-1.5 block hover:shadow-2xs"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <Calculator className="w-4 h-4 text-blue-600" />
-              <div className="font-bold text-sm text-slate-900">Sales Tax Calculator</div>
-              <div className="text-xs text-slate-500 leading-normal">
-                Calculate sales tax to add to a pre-tax price.
-              </div>
+              <div className="font-semibold text-sm text-slate-900">Sales Tax Calculator</div>
+              <div className="text-xs text-slate-500">Add sales tax to any pre-tax amount.</div>
             </Link>
 
             <Link
               href="/remove-sales-tax-calculator"
-              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-1.5 block hover:shadow-2xs"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <MinusCircle className="w-4 h-4 text-blue-600" />
-              <div className="font-bold text-sm text-slate-900">Remove Sales Tax Calculator</div>
-              <div className="text-xs text-slate-500 leading-normal">
-                Deduct sales tax from any total bill or receipt.
-              </div>
+              <div className="font-semibold text-sm text-slate-900">Remove Sales Tax Calculator</div>
+              <div className="text-xs text-slate-500">Deduct sales tax from total bills.</div>
             </Link>
 
             <Link
               href="/us-sales-tax-by-zip-code"
-              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-1.5 block hover:shadow-2xs"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <MapPin className="w-4 h-4 text-blue-600" />
-              <div className="font-bold text-sm text-slate-900">ZIP Code Tax Lookup</div>
-              <div className="text-xs text-slate-500 leading-normal">
-                Find state, county, and municipal rates by 5-digit ZIP.
-              </div>
+              <div className="font-semibold text-sm text-slate-900">ZIP Code Tax Lookup</div>
+              <div className="text-xs text-slate-500">Find state and city rates by 5-digit ZIP.</div>
             </Link>
 
             <Link
               href="/sales-tax-breakdown-calculator"
-              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-1.5 block hover:shadow-2xs"
+              className="p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 transition-all space-y-1 block"
             >
-              <Layers className="w-4 h-4 text-blue-600" />
-              <div className="font-bold text-sm text-slate-900">Sales Tax Breakdown</div>
-              <div className="text-xs text-slate-500 leading-normal">
-                Deconstruct state, county, and transit splits.
-              </div>
+              <div className="font-semibold text-sm text-slate-900">Sales Tax Breakdown</div>
+              <div className="text-xs text-slate-500">Separate state, county, and transit splits.</div>
             </Link>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 10: FREQUENTLY ASKED QUESTIONS (WITH FAQPAGESCHEMA)
+            SECTION 10: FAQS
             ========================================================================= */}
-        <section className="space-y-4">
+        <section className="pt-4 border-t border-slate-200/80">
           <FAQAccordion items={homeFaqs} title="Frequently Asked Questions about Reverse Sales Tax" />
         </section>
       </div>

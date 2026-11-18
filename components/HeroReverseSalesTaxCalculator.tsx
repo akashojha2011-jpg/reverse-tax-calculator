@@ -6,14 +6,9 @@ import {
   Copy,
   Check,
   RotateCcw,
-  Calculator,
-  Info,
-  ShieldCheck,
-  ArrowRight,
   SlidersHorizontal,
-  FileSpreadsheet,
-  Layers,
-  HelpCircle,
+  ArrowRight,
+  ShieldCheck,
 } from 'lucide-react'
 import { calculateReverseTax, calculateForwardSalesTax, formatCurrency } from '@/lib/tax-math'
 import { US_TAX_RATES_ARRAY } from '@/data/us-tax-rates'
@@ -32,17 +27,16 @@ export function HeroReverseSalesTaxCalculator() {
   const [stateRateInput, setStateRateInput] = useState<string>('6.25')
   const [localRateInput, setLocalRateInput] = useState<string>('2.00')
 
-  const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [copied, setCopied] = useState<boolean>(false)
 
   // Popular quick tax rate presets
   const quickRates = [
-    { label: '4% (NY)', rate: '4' },
-    { label: '6% (FL)', rate: '6' },
-    { label: '6.25% (TX)', rate: '6.25' },
-    { label: '7.25% (CA)', rate: '7.25' },
-    { label: '8.25% (TX Avg)', rate: '8.25' },
-    { label: '8.875% (NYC)', rate: '8.875' },
+    { label: '4% NY', rate: '4' },
+    { label: '6% FL', rate: '6' },
+    { label: '6.25% TX', rate: '6.25' },
+    { label: '7.25% CA', rate: '7.25' },
+    { label: '8.25% TX Avg', rate: '8.25' },
+    { label: '8.875% NYC', rate: '8.875' },
     { label: '10%', rate: '10' },
   ]
 
@@ -50,7 +44,6 @@ export function HeroReverseSalesTaxCalculator() {
   const handleStateSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const slug = e.target.value
     setSelectedStateSlug(slug)
-    setErrorMsg(null)
 
     if (!slug) return
     const found = US_TAX_RATES_ARRAY.find((s) => s.slug === slug)
@@ -87,12 +80,10 @@ export function HeroReverseSalesTaxCalculator() {
       const divisor = 1 + activeCombinedRate / 100
       const taxSharePercent = amt > 0 ? (res.taxAmount / amt) * 100 : 0
 
-      // If split tax is active
       let stateTaxAmount = 0
       let localTaxAmount = 0
       if (enableSplitTax && activeCombinedRate > 0) {
         const sRate = parseFloat(stateRateInput) || 0
-        const lRate = parseFloat(localRateInput) || 0
         stateTaxAmount = Math.round(res.netAmount * (sRate / 100) * 100) / 100
         localTaxAmount = Math.round((res.taxAmount - stateTaxAmount) * 100) / 100
       }
@@ -108,7 +99,6 @@ export function HeroReverseSalesTaxCalculator() {
         localTaxAmount,
       }
     } else {
-      // Forward calculation
       const res = calculateForwardSalesTax(amt, activeCombinedRate)
       const taxSharePercent = res.totalAmount > 0 ? (res.taxAmount / res.totalAmount) * 100 : 0
 
@@ -116,7 +106,6 @@ export function HeroReverseSalesTaxCalculator() {
       let localTaxAmount = 0
       if (enableSplitTax && activeCombinedRate > 0) {
         const sRate = parseFloat(stateRateInput) || 0
-        const lRate = parseFloat(localRateInput) || 0
         stateTaxAmount = Math.round(amt * (sRate / 100) * 100) / 100
         localTaxAmount = Math.round((res.taxAmount - stateTaxAmount) * 100) / 100
       }
@@ -140,7 +129,6 @@ export function HeroReverseSalesTaxCalculator() {
     setStateRateInput('6.25')
     setLocalRateInput('2.00')
     setSelectedStateSlug('')
-    setErrorMsg(null)
   }
 
   const handleCopy = () => {
@@ -160,44 +148,24 @@ export function HeroReverseSalesTaxCalculator() {
   return (
     <div
       id="calculator"
-      className="w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 md:p-7 transition-all text-slate-900 space-y-5"
+      className="w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 text-slate-900 space-y-5"
     >
-      {/* Top Header & Calculation Direction Toggle */}
-      <div className="space-y-3 pb-3 border-b border-slate-100">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/10" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Interactive Tax Engine
-            </span>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleReset}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors cursor-pointer"
-            title="Reset calculator inputs"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Reset</span>
-          </button>
-        </div>
-
-        {/* Tactile Direction Switcher: Reverse vs Forward */}
-        <div className="grid grid-cols-2 p-1 bg-slate-100 rounded-xl gap-1 text-xs font-bold">
+      {/* Top Segmented Control (Mode Toggle) */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="grid grid-cols-2 p-1 bg-slate-100 rounded-xl gap-1 text-xs font-semibold w-full sm:w-auto">
           <button
             type="button"
             onClick={() => {
               setCalcMode('reverse')
               if (amountInput === '100.00') setAmountInput('108.00')
             }}
-            className={`py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`py-2 px-4 rounded-lg transition-all text-center cursor-pointer ${
               calcMode === 'reverse'
-                ? 'bg-white text-blue-700 shadow-2xs font-extrabold'
+                ? 'bg-white text-slate-900 shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <span>🔄 Remove Tax (Reverse)</span>
+            Remove Tax (Reverse)
           </button>
           <button
             type="button"
@@ -205,35 +173,40 @@ export function HeroReverseSalesTaxCalculator() {
               setCalcMode('forward')
               if (amountInput === '108.00') setAmountInput('100.00')
             }}
-            className={`py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`py-2 px-4 rounded-lg transition-all text-center cursor-pointer ${
               calcMode === 'forward'
-                ? 'bg-white text-blue-700 shadow-2xs font-extrabold'
+                ? 'bg-white text-slate-900 shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <span>➕ Add Tax (Forward)</span>
+            Add Tax (Forward)
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={handleReset}
+          className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
+          title="Reset values"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          <span>Reset</span>
+        </button>
       </div>
 
       {/* Main Input Form */}
       <div className="space-y-4">
         {/* Amount Input */}
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <label
-              htmlFor="hero-amount-input"
-              className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-            >
-              {calcMode === 'reverse' ? 'Total Price Including Tax (Receipt Amount)' : 'Pre-Tax Subtotal (Sticker Price)'}
-            </label>
-            <span className="text-[11px] text-slate-500 font-medium font-mono">
-              {calcMode === 'reverse' ? 'Gross Total' : 'Net Base'}
-            </span>
-          </div>
+          <label
+            htmlFor="hero-amount-input"
+            className="block text-xs font-semibold text-slate-700 mb-1.5"
+          >
+            {calcMode === 'reverse' ? 'Total Receipt Amount (Tax Included)' : 'Pre-Tax Subtotal (Net Price)'}
+          </label>
 
-          <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-3 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
-            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-mono font-bold text-lg">
+          <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
+            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-base sm:text-lg">
               $
             </span>
             <input
@@ -242,30 +215,26 @@ export function HeroReverseSalesTaxCalculator() {
               step="any"
               min="0"
               value={amountInput}
-              onChange={(e) => {
-                setAmountInput(e.target.value)
-                setErrorMsg(null)
-              }}
+              onChange={(e) => setAmountInput(e.target.value)}
               placeholder={calcMode === 'reverse' ? '108.00' : '100.00'}
-              className="block w-full bg-transparent pl-8 pr-4 py-2.5 text-xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
-              required
+              className="block w-full bg-transparent pl-8 pr-4 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
             />
           </div>
         </div>
 
-        {/* State Auto-Fill Dropdown */}
+        {/* State Selection Dropdown */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label
               htmlFor="hero-state-select"
-              className="block text-xs font-bold text-slate-700"
+              className="block text-xs font-semibold text-slate-700"
             >
-              Select US State <span className="font-normal text-slate-500">(auto-fills statutory rate)</span>:
+              US State (Optional Auto-Fill)
             </label>
             {selectedStateData && (
               <Link
                 href={`/${selectedStateData.slug}-reverse-sales-tax-calculator`}
-                className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-0.5"
+                className="text-[11px] font-medium text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-0.5"
               >
                 <span>{selectedStateData.name} Tax Guide</span>
                 <ArrowRight className="w-3 h-3" />
@@ -273,290 +242,233 @@ export function HeroReverseSalesTaxCalculator() {
             )}
           </div>
 
-          <select
-            id="hero-state-select"
-            value={selectedStateSlug}
-            onChange={handleStateSelect}
-            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all cursor-pointer shadow-2xs"
-          >
-            <option value="">-- Choose State (or enter custom rate below) --</option>
-            {US_TAX_RATES_ARRAY.map((s) => (
-              <option key={s.slug} value={s.slug}>
-                {s.name} ({s.baseRate}% base{s.hasLocalTaxes ? ` / up to ${s.maxCombinedRate}% combined` : ''})
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              id="hero-state-select"
+              value={selectedStateSlug}
+              onChange={handleStateSelect}
+              className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 transition-all cursor-pointer"
+            >
+              <option value="">Select a state or enter rate below</option>
+              {US_TAX_RATES_ARRAY.map((st) => (
+                <option key={st.slug} value={st.slug}>
+                  {st.name} — {st.baseRate}% base {st.maxCombinedRate ? `(up to ${st.maxCombinedRate}% combined)` : ''}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
         </div>
 
-        {/* Tax Rate Input Section */}
-        {!enableSplitTax ? (
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label
-                htmlFor="hero-tax-rate"
-                className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-              >
-                Sales Tax Rate (%)
-              </label>
-              <button
-                type="button"
-                onClick={() => setEnableSplitTax(true)}
-                className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
-              >
-                <SlidersHorizontal className="w-3 h-3" />
-                <span>Split State & Local Rates</span>
-              </button>
-            </div>
+        {/* Tax Rate Input & Presets */}
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <label
+              htmlFor="hero-tax-rate"
+              className="block text-xs font-semibold text-slate-700"
+            >
+              Sales Tax Rate (%)
+            </label>
+            <button
+              type="button"
+              onClick={() => setEnableSplitTax(!enableSplitTax)}
+              className="text-[11px] font-medium text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1 cursor-pointer"
+            >
+              <SlidersHorizontal className="w-3 h-3" />
+              <span>{enableSplitTax ? 'Simple Rate Mode' : 'Split State & Local Rates'}</span>
+            </button>
+          </div>
 
-            <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-3 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
-              <input
-                id="hero-tax-rate"
-                type="number"
-                step="any"
-                min="0"
-                max="100"
-                value={taxRateInput}
-                onChange={(e) => {
-                  setTaxRateInput(e.target.value)
-                  setSelectedStateSlug('')
-                  setErrorMsg(null)
-                }}
-                placeholder="8"
-                className="block w-full bg-transparent pl-4 pr-8 py-2.5 text-xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
-                required
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-mono font-bold text-lg">
-                %
-              </span>
-            </div>
-
-            {/* Quick preset chips */}
-            <div className="flex items-center gap-1.5 mt-2 flex-wrap text-xs">
-              <span className="text-slate-400 text-[11px] font-medium mr-0.5">Presets:</span>
-              {quickRates.map((item) => (
-                <button
-                  key={item.label}
-                  type="button"
-                  onClick={() => {
-                    setTaxRateInput(item.rate)
+          {!enableSplitTax ? (
+            <div className="space-y-2">
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
+                <input
+                  id="hero-tax-rate"
+                  type="number"
+                  step="any"
+                  min="0"
+                  max="100"
+                  value={taxRateInput}
+                  onChange={(e) => {
+                    setTaxRateInput(e.target.value)
                     setSelectedStateSlug('')
-                    setErrorMsg(null)
                   }}
-                  className={`px-2 py-0.5 rounded-md border text-xs font-mono transition-colors cursor-pointer ${
-                    taxRateInput === item.rate && !selectedStateSlug
-                      ? 'bg-blue-600 text-white border-blue-600 font-bold'
-                      : 'border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-600'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          /* Advanced: Split State & Local Rates */
-          <div className="p-3.5 bg-blue-50/50 rounded-xl border border-blue-200/80 space-y-3">
-            <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-blue-900 flex items-center gap-1">
-                <Layers className="w-3.5 h-3.5 text-blue-600" />
-                <span>Split State & Local Tax Jurisdictions</span>
-              </span>
-              <button
-                type="button"
-                onClick={() => setEnableSplitTax(false)}
-                className="text-[11px] font-semibold text-blue-700 hover:underline cursor-pointer"
-              >
-                Switch to Single Rate
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="split-state-rate" className="block text-[11px] font-bold text-slate-700 mb-1">
-                  State Base Rate (%)
-                </label>
-                <div className="relative rounded-lg border border-slate-300 bg-white">
-                  <input
-                    id="split-state-rate"
-                    type="number"
-                    step="any"
-                    value={stateRateInput}
-                    onChange={(e) => setStateRateInput(e.target.value)}
-                    className="w-full px-2.5 py-1.5 text-sm font-bold font-mono outline-none"
-                  />
-                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">%</span>
-                </div>
+                  placeholder="8.00"
+                  className="block w-full bg-transparent pl-4 pr-8 py-2.5 text-xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-semibold text-base">
+                  %
+                </span>
               </div>
 
-              <div>
-                <label htmlFor="split-local-rate" className="block text-[11px] font-bold text-slate-700 mb-1">
-                  County/City Rate (%)
-                </label>
-                <div className="relative rounded-lg border border-slate-300 bg-white">
-                  <input
-                    id="split-local-rate"
-                    type="number"
-                    step="any"
-                    value={localRateInput}
-                    onChange={(e) => setLocalRateInput(e.target.value)}
-                    className="w-full px-2.5 py-1.5 text-sm font-bold font-mono outline-none"
-                  />
-                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">%</span>
-                </div>
+              {/* Quick Rate Presets */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                <span className="text-[11px] text-slate-400 mr-1">Presets:</span>
+                {quickRates.map((preset) => (
+                  <button
+                    key={preset.rate}
+                    type="button"
+                    onClick={() => {
+                      setTaxRateInput(preset.rate)
+                      setSelectedStateSlug('')
+                    }}
+                    className={`px-2.5 py-1 rounded-lg border text-xs font-medium tabular-nums transition-colors cursor-pointer ${
+                      taxRateInput === preset.rate && !enableSplitTax
+                        ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold'
+                        : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
               </div>
             </div>
-
-            <div className="text-xs text-blue-900 font-semibold flex items-center justify-between pt-1 border-t border-blue-200/60">
-              <span>Combined Effective Tax Rate:</span>
-              <span className="font-mono font-extrabold text-sm">{activeCombinedRate}%</span>
+          ) : (
+            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="state-rate" className="block text-[11px] font-semibold text-slate-600 mb-1">
+                    State Base Rate (%)
+                  </label>
+                  <div className="relative rounded-lg border border-slate-200 bg-white">
+                    <input
+                      id="state-rate"
+                      type="number"
+                      step="any"
+                      min="0"
+                      value={stateRateInput}
+                      onChange={(e) => setStateRateInput(e.target.value)}
+                      className="w-full px-3 py-1.5 text-sm font-semibold tabular-nums outline-none rounded-lg"
+                    />
+                    <span className="absolute right-2.5 top-1.5 text-xs text-slate-400">%</span>
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="local-rate" className="block text-[11px] font-semibold text-slate-600 mb-1">
+                    Local / City Rate (%)
+                  </label>
+                  <div className="relative rounded-lg border border-slate-200 bg-white">
+                    <input
+                      id="local-rate"
+                      type="number"
+                      step="any"
+                      min="0"
+                      value={localRateInput}
+                      onChange={(e) => setLocalRateInput(e.target.value)}
+                      className="w-full px-3 py-1.5 text-sm font-semibold tabular-nums outline-none rounded-lg"
+                    />
+                    <span className="absolute right-2.5 top-1.5 text-xs text-slate-400">%</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-xs text-slate-600 flex justify-between items-center pt-1 border-t border-slate-200/60">
+                <span>Combined Tax Rate:</span>
+                <span className="font-bold text-slate-900 tabular-nums">{activeCombinedRate}%</span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      {/* Validation Error Message */}
-      {errorMsg && (
-        <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-700">
-          {errorMsg}
-        </div>
-      )}
-
-      {/* Real-Time Calculation Results & Itemized Breakdown */}
+      {/* Itemized Calculation Summary */}
       {calculation && (
-        <div className="rounded-xl bg-slate-50 border border-slate-200/90 p-4 sm:p-5 space-y-4 shadow-2xs">
-          {/* Header & Copy Button */}
-          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              {calcMode === 'reverse' ? 'Reverse Calculation Breakdown' : 'Forward Tax Calculation'}
-            </span>
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                {calcMode === 'reverse' ? 'Original Pre-Tax Price (Net Subtotal)' : 'Final Checkout Total (With Tax)'}
+              </div>
+              <div className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 tabular-nums mt-0.5">
+                {formatCurrency(calcMode === 'reverse' ? calculation.net : calculation.gross)}
+              </div>
+              <div className="text-xs text-slate-500 mt-0.5">
+                {calcMode === 'reverse'
+                  ? `Subtotal before ${calculation.rate}% sales tax was applied.`
+                  : `Total amount due at checkout with ${calculation.rate}% sales tax.`}
+              </div>
+            </div>
+
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-white border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded-lg shadow-2xs transition-colors shrink-0 cursor-pointer"
             >
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="text-emerald-700 font-bold">Copied Breakdown</span>
+                  <span className="text-emerald-700 font-semibold">Copied</span>
                 </>
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Copy Breakdown</span>
+                  <span>Copy</span>
                 </>
               )}
             </button>
           </div>
 
-          {/* Primary Highlight Metric */}
-          <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-2xs">
-            <div className="text-xs text-slate-500 uppercase tracking-wider font-bold">
-              {calcMode === 'reverse' ? 'Original Pre-Tax Price (Net Subtotal)' : 'Final Checkout Total (With Tax)'}
-            </div>
-            <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-slate-900 mt-0.5">
-              {formatCurrency(calcMode === 'reverse' ? calculation.net : calculation.gross)}
-            </div>
-            <div className="text-xs text-slate-500 mt-1">
-              {calcMode === 'reverse'
-                ? `Base price before ${calculation.rate}% sales tax was applied to this transaction.`
-                : `Total amount due at checkout including ${calculation.rate}% sales tax.`}
-            </div>
-          </div>
-
-          {/* 3 Secondary Financial Metrics */}
-          <div className="grid grid-cols-3 gap-2.5">
-            <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
-              <div className="text-[11px] font-semibold text-slate-500">Sales Tax Amount</div>
-              <div className="text-base sm:text-lg font-bold font-mono text-emerald-700 mt-0.5">
-                {formatCurrency(calculation.tax)}
-              </div>
-              <div className="text-[10px] text-slate-400 mt-0.5 font-mono">
-                {calculation.taxSharePercent.toFixed(1)}% of total
-              </div>
+          {/* Line Item Breakdown */}
+          <div className="pt-3 border-t border-slate-200/70 space-y-2 text-xs">
+            <div className="flex items-center justify-between text-slate-700">
+              <span>Sales Tax {calcMode === 'reverse' ? 'Removed' : 'Added'} ({calculation.rate}%)</span>
+              <span className="font-semibold text-slate-900 tabular-nums">
+                {calcMode === 'reverse' ? '+' : ''}{formatCurrency(calculation.tax)}
+                <span className="text-slate-400 text-[11px] font-normal ml-1.5">
+                  ({calculation.taxSharePercent.toFixed(1)}% of total)
+                </span>
+              </span>
             </div>
 
-            <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
-              <div className="text-[11px] font-semibold text-slate-500">
-                {calcMode === 'reverse' ? 'Gross Total' : 'Pre-Tax Base'}
-              </div>
-              <div className="text-base sm:text-lg font-bold font-mono text-slate-900 mt-0.5">
-                {formatCurrency(calcMode === 'reverse' ? calculation.gross : calculation.net)}
-              </div>
-              <div className="text-[10px] text-slate-400 mt-0.5 font-mono">
-                Receipt total
-              </div>
-            </div>
-
-            <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
-              <div className="text-[11px] font-semibold text-slate-500">Applied Rate</div>
-              <div className="text-base sm:text-lg font-bold font-mono text-blue-700 mt-0.5">
-                {calculation.rate}%
-              </div>
-              <div className="text-[10px] text-slate-400 mt-0.5 font-mono">
-                Divisor: {calculation.divisor.toFixed(4)}
-              </div>
-            </div>
-          </div>
-
-          {/* Multi-Jurisdiction Tier Split if applicable */}
-          {enableSplitTax && (
-            <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs space-y-1.5 shadow-2xs">
-              <div className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">
-                Jurisdiction Tax Distribution:
-              </div>
-              <div className="flex justify-between text-slate-600 font-mono">
-                <span>State Tax ({stateRateInput}%):</span>
-                <span className="font-bold text-slate-900">{formatCurrency(calculation.stateTaxAmount)}</span>
-              </div>
-              <div className="flex justify-between text-slate-600 font-mono">
-                <span>County / City Tax ({localRateInput}%):</span>
-                <span className="font-bold text-slate-900">{formatCurrency(calculation.localTaxAmount)}</span>
-              </div>
-            </div>
-          )}
-
-          {/* Mathematical Formula Verification */}
-          <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs text-slate-700 font-mono space-y-1 shadow-2xs">
-            <div className="text-[11px] text-slate-500 font-sans font-bold uppercase tracking-wider">
-              Formula Verification:
-            </div>
-            {calcMode === 'reverse' ? (
+            {enableSplitTax && (
               <>
-                <div>Pre-Tax Price = ${calculation.gross.toFixed(2)} ÷ {calculation.divisor.toFixed(4)} = <strong>${calculation.net.toFixed(2)}</strong></div>
-                <div>Sales Tax Paid = ${calculation.gross.toFixed(2)} - ${calculation.net.toFixed(2)} = <strong className="text-emerald-700">${calculation.tax.toFixed(2)}</strong></div>
-              </>
-            ) : (
-              <>
-                <div>Sales Tax = ${calculation.net.toFixed(2)} × ({calculation.rate} / 100) = <strong className="text-emerald-700">${calculation.tax.toFixed(2)}</strong></div>
-                <div>Total Due = ${calculation.net.toFixed(2)} + ${calculation.tax.toFixed(2)} = <strong>${calculation.gross.toFixed(2)}</strong></div>
+                <div className="flex items-center justify-between text-slate-500 pl-3">
+                  <span>↳ State Tax Portion ({stateRateInput}%)</span>
+                  <span className="font-medium text-slate-700 tabular-nums">{formatCurrency(calculation.stateTaxAmount)}</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-500 pl-3">
+                  <span>↳ Local Tax Portion ({localRateInput}%)</span>
+                  <span className="font-medium text-slate-700 tabular-nums">{formatCurrency(calculation.localTaxAmount)}</span>
+                </div>
               </>
             )}
+
+            <div className="flex items-center justify-between text-slate-700">
+              <span>Receipt Gross Total</span>
+              <span className="font-semibold text-slate-900 tabular-nums">
+                {formatCurrency(calcMode === 'reverse' ? calculation.gross : calculation.gross)}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-slate-500 pt-1 border-t border-slate-200/50 text-[11px]">
+              <span>Divisor Applied</span>
+              <span className="tabular-nums font-medium text-slate-600">÷ {calculation.divisor.toFixed(4)}</span>
+            </div>
           </div>
 
-          {/* Educational Callout: The Subtraction Trap */}
-          {calcMode === 'reverse' && calculation.rate > 0 && (
-            <div className="p-3 rounded-lg bg-emerald-50/70 border border-emerald-200 text-emerald-950 text-xs leading-relaxed flex items-start gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <div>
-                <strong>Avoid the Common Subtraction Error:</strong> Subtracting {calculation.rate}% directly from ${calculation.gross.toFixed(2)} produces{' '}
-                <span className="line-through font-mono text-red-600">
-                  ${(calculation.gross - calculation.gross * (calculation.rate / 100)).toFixed(2)}
-                </span>
-                . The mathematically correct pre-tax price is{' '}
-                <strong className="text-emerald-900 font-mono">${calculation.net.toFixed(2)}</strong> (obtained by dividing by {calculation.divisor.toFixed(4)}).
-              </div>
-            </div>
-          )}
+          {/* Subtle Formula Line */}
+          <div className="pt-2 border-t border-slate-200/60 text-[11px] text-slate-500 flex flex-wrap items-center justify-between gap-1">
+            <span>
+              {calcMode === 'reverse' ? (
+                <>Formula: ${calculation.gross.toFixed(2)} ÷ {calculation.divisor.toFixed(4)} = <strong>${calculation.net.toFixed(2)}</strong></>
+              ) : (
+                <>Formula: ${calculation.net.toFixed(2)} × (1 + {calculation.rate / 100}) = <strong>${calculation.gross.toFixed(2)}</strong></>
+              )}
+            </span>
+          </div>
         </div>
       )}
 
       {/* Footer Trust Indicator */}
-      <div className="pt-1 flex items-center justify-between text-xs text-slate-500">
-        <div className="flex items-center gap-1.5">
+      <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+        <span className="inline-flex items-center gap-1.5">
           <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-          <span>Verified for 2026 US Statutory Rates</span>
-        </div>
-        <span className="text-[11px]">2-Decimal Rounding</span>
+          <span>2026 US Statutory Rates</span>
+        </span>
+        <span className="text-[11px]">GAAP 2-Decimal Precision</span>
       </div>
     </div>
   )
