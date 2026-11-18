@@ -161,7 +161,7 @@ export default function SalesTaxCalculatorPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 Sales Tax Mathematical Formula
               </h2>
-              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-2 border border-slate-200/90 shadow-2xs">
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 tabular-nums space-y-2 border border-slate-200/90 shadow-2xs">
                 <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
                   Standard Calculation:
                 </div>
@@ -177,7 +177,7 @@ export default function SalesTaxCalculatorPage() {
                 Step-by-Step Numerical Examples
               </h2>
               <div className="space-y-3 text-sm">
-                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 font-mono">
+                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 tabular-nums">
                   <div className="font-bold text-slate-900 font-sans text-sm">
                     Example 1: A $100 Item with 8.25% Tax (Dallas, TX)
                   </div>
@@ -188,7 +188,7 @@ export default function SalesTaxCalculatorPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 font-mono">
+                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 tabular-nums">
                   <div className="font-bold text-slate-900 font-sans text-sm">
                     Example 2: A $49.99 Item with 7% Tax (Florida)
                   </div>

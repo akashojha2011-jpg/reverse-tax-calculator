@@ -128,7 +128,7 @@ export default function ReverseGSTPage() {
             <p>
               In Australia, the Australian Taxation Office (ATO) imposes a 10% GST. The official ATO shortcut to determine GST from a tax-inclusive bill is:
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700 space-y-1">
               <div>GST Amount = Total Price ÷ 11</div>
               <div>Pre-GST Net Price = Total Price ÷ 1.10</div>
             </div>
@@ -146,7 +146,7 @@ export default function ReverseGSTPage() {
             <p>
               India uses a four-tier GST rate structure (5%, 12%, 18%, and 28%). For standard commercial transactions taxed at <strong>18% GST</strong>:
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700 space-y-1">
               <div>Pre-GST Net = Gross Invoice ÷ 1.18</div>
               <div>GST Amount = Gross Invoice × (18 ÷ 118)</div>
             </div>
@@ -157,7 +157,7 @@ export default function ReverseGSTPage() {
             <p>
               Under the Inland Revenue Authority of Singapore (IRAS), the standard GST rate is <strong>9%</strong>:
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700 space-y-1">
               <div>Pre-GST Net = Total SGD ÷ 1.09</div>
               <div>GST Paid = Total SGD × (9 ÷ 109)</div>
             </div>
@@ -180,8 +180,8 @@ export default function ReverseGSTPage() {
                     <tr key={row.country} className="hover:bg-slate-50">
                       <td className="p-2.5 font-bold text-slate-900">{row.country}</td>
                       <td className="p-2.5 font-semibold text-blue-600">{row.rate}</td>
-                      <td className="p-2.5 font-mono">{row.divisor}</td>
-                      <td className="p-2.5 font-mono text-slate-800">{row.quickFormula}</td>
+                      <td className="p-2.5 tabular-nums">{row.divisor}</td>
+                      <td className="p-2.5 tabular-nums text-slate-800">{row.quickFormula}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -188,45 +188,45 @@ export function TipAndTaxTool() {
           <div className="space-y-3 text-sm">
             <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Food & Drink Subtotal:</span>
-              <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.foodSubtotal)}</span>
+              <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(result.foodSubtotal)}</span>
             </div>
 
             <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Sales Tax ({taxRate}%):</span>
-              <span className="font-bold text-slate-900 font-mono">+{formatCurrency(result.taxAmount)}</span>
+              <span className="font-semibold text-slate-900 tabular-nums">+{formatCurrency(result.taxAmount)}</span>
             </div>
 
-            <div className="flex items-center justify-between text-xs sm:text-sm text-emerald-700 font-semibold">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-emerald-700 font-medium">
               <span>Tip ({tipPercent}% on {tipOnPreTax ? 'subtotal' : 'total'}):</span>
-              <span className="font-mono">+{formatCurrency(result.tipAmount)}</span>
+              <span className="tabular-nums font-semibold">+{formatCurrency(result.tipAmount)}</span>
             </div>
 
             <div className="pt-2">
-              <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
+              <div className="p-3.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">
                     Grand Total
                   </span>
-                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                  <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums tracking-tight">
                     {formatCurrency(result.finalTotal)}
                   </span>
                 </div>
 
                 {partySize > 1 && (
                   <div className="text-right bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200">
-                    <span className="text-[10px] uppercase tracking-wider text-blue-700 block font-bold">
+                    <span className="text-[10px] uppercase tracking-wider text-blue-700 block font-semibold">
                       Each ({partySize} people)
                     </span>
-                    <span className="text-lg font-black text-blue-900 font-mono">{formatCurrency(perPersonTotal)}</span>
+                    <span className="text-lg font-bold text-blue-900 tabular-nums">{formatCurrency(perPersonTotal)}</span>
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 font-mono space-y-1">
-            <div className="text-[11px] text-slate-500 font-sans uppercase font-bold">Etiquette Note:</div>
-            <div className="font-sans leading-relaxed text-slate-600 text-xs">
+          <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 space-y-1">
+            <div className="text-[11px] text-slate-500 uppercase font-semibold">Etiquette Note:</div>
+            <div className="leading-relaxed text-slate-600 text-xs">
               {tipOnPreTax
                 ? 'Standard etiquette recommends tipping on the food and beverage subtotal before tax, so you avoid paying a tip on government taxes.'
                 : 'Tipping on the post-tax bill is common when credit card terminals calculate suggested tips automatically.'}

@@ -148,21 +148,21 @@ export function ForwardSalesTaxTool({ initialAmount = 100, initialRate = 8.25 }:
         <div className="space-y-2.5">
           <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
             <span>Original Pre-Tax Subtotal:</span>
-            <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.netAmount)}</span>
+            <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(result.netAmount)}</span>
           </div>
 
           <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
             <span>Sales Tax Added ({result.taxRatePercentage}%):</span>
-            <span className="font-bold text-emerald-700 font-mono">+{formatCurrency(result.taxAmount)}</span>
+            <span className="font-semibold text-slate-900 tabular-nums">+{formatCurrency(result.taxAmount)}</span>
           </div>
 
           <div className="pt-2">
-            <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
+            <div className="p-3.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between">
               <div>
-                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">
                   Total Due at Checkout
                 </span>
-                <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums tracking-tight">
                   {formatCurrency(result.totalAmount)}
                 </span>
               </div>
@@ -170,10 +170,10 @@ export function ForwardSalesTaxTool({ initialAmount = 100, initialRate = 8.25 }:
           </div>
         </div>
 
-        <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 font-mono space-y-1">
-          <div className="text-[11px] text-slate-500 font-sans uppercase font-bold">Standard Forward Formula:</div>
-          <div>Tax = ${result.netAmount.toFixed(2)} × ({result.taxRatePercentage} / 100) = ${result.taxAmount.toFixed(2)}</div>
-          <div>Total = ${result.netAmount.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.totalAmount.toFixed(2)}</div>
+        <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 space-y-1">
+          <div className="text-[11px] text-slate-500 uppercase font-semibold">Standard Forward Formula:</div>
+          <div className="tabular-nums">Tax = ${result.netAmount.toFixed(2)} × ({result.taxRatePercentage} / 100) = ${result.taxAmount.toFixed(2)}</div>
+          <div className="tabular-nums">Total = ${result.netAmount.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.totalAmount.toFixed(2)}</div>
         </div>
       </div>
     </div>

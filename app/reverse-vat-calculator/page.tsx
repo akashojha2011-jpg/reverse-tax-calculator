@@ -131,9 +131,9 @@ export default function ReverseVATPage() {
             <p>
               When filing quarterly VAT returns, calculating input tax credits, or recording business expenses, bookkeepers need to extract the original pre-VAT net subtotal from the total invoice.
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
-              <div>Net Subtotal = Gross Invoice Total ÷ (1 + (VAT Rate ÷ 100))</div>
-              <div>VAT Amount = Gross Invoice Total - Net Subtotal</div>
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs md:text-sm my-4 font-semibold text-slate-900 space-y-1.5">
+              <div>Net Subtotal = Gross Invoice Total ÷ (1 + [VAT Rate ÷ 100])</div>
+              <div>VAT Amount = Gross Invoice Total − Net Subtotal</div>
             </div>
 
             <h2 id="vat-fraction-explained" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -171,8 +171,8 @@ export default function ReverseVATPage() {
                       <td className="p-2.5 font-bold text-slate-900">{row.country}</td>
                       <td className="p-2.5 font-semibold text-blue-600">{row.standardRate}</td>
                       <td className="p-2.5">{row.reducedRate}</td>
-                      <td className="p-2.5 font-mono">{row.divisor}</td>
-                      <td className="p-2.5 font-mono">{row.fraction}</td>
+                      <td className="p-2.5 tabular-nums text-slate-700">{row.divisor}</td>
+                      <td className="p-2.5 tabular-nums text-slate-700">{row.fraction}</td>
                     </tr>
                   ))}
                 </tbody>

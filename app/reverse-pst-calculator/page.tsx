@@ -117,27 +117,27 @@ export default function ReversePSTPage() {
                   <tbody className="divide-y divide-slate-100">
                     <tr>
                       <td className="py-2.5 px-4 font-semibold text-slate-900">British Columbia</td>
-                      <td className="py-2.5 px-4 font-mono">5%</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-slate-900">7% PST</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-blue-700">12%</td>
+                      <td className="py-2.5 px-4 tabular-nums">5%</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">7% PST</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">12%</td>
                     </tr>
                     <tr>
                       <td className="py-2.5 px-4 font-semibold text-slate-900">Saskatchewan</td>
-                      <td className="py-2.5 px-4 font-mono">5%</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-slate-900">6% PST</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-blue-700">11%</td>
+                      <td className="py-2.5 px-4 tabular-nums">5%</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">6% PST</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">11%</td>
                     </tr>
                     <tr>
                       <td className="py-2.5 px-4 font-semibold text-slate-900">Manitoba</td>
-                      <td className="py-2.5 px-4 font-mono">5%</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-slate-900">7% RST</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-blue-700">12%</td>
+                      <td className="py-2.5 px-4 tabular-nums">5%</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">7% RST</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">12%</td>
                     </tr>
                     <tr>
                       <td className="py-2.5 px-4 font-semibold text-slate-900">Alberta & Territories</td>
-                      <td className="py-2.5 px-4 font-mono">5%</td>
-                      <td className="py-2.5 px-4 font-mono text-slate-400">0% (No PST)</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-blue-700">5%</td>
+                      <td className="py-2.5 px-4 tabular-nums">5%</td>
+                      <td className="py-2.5 px-4 tabular-nums text-slate-400">0% (No PST)</td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900 tabular-nums">5%</td>
                     </tr>
                   </tbody>
                 </table>
@@ -148,7 +148,7 @@ export default function ReversePSTPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 Worked Line-Item Example (British Columbia 12% Combined)
               </h2>
-              <div className="p-4 rounded-xl border border-slate-200 bg-white font-mono text-xs sm:text-sm space-y-1">
+              <div className="p-4 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm tabular-nums space-y-1">
                 <div>Total Receipt: $112.00 CAD</div>
                 <div>Combined Divisor: 1 + 0.05 + 0.07 = 1.12</div>
                 <div>Pre-Tax Net Price: $112.00 ÷ 1.12 = <strong className="text-slate-900 font-bold">$100.00</strong></div>

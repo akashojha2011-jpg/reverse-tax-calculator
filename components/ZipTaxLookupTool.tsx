@@ -148,25 +148,25 @@ export function ZipTaxLookupTool() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">State Base</div>
-                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.stateRate}%</div>
+                <div className="text-xl font-bold tabular-nums text-slate-900 mt-0.5">{selectedZip.stateRate}%</div>
                 <div className="text-xs text-slate-400">{selectedZip.stateCode} State</div>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">County Tax</div>
-                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.countyRate}%</div>
+                <div className="text-xl font-bold tabular-nums text-slate-900 mt-0.5">{selectedZip.countyRate}%</div>
                 <div className="text-xs text-slate-400">County Surcharge</div>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">City Tax</div>
-                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.cityRate}%</div>
+                <div className="text-xl font-bold tabular-nums text-slate-900 mt-0.5">{selectedZip.cityRate}%</div>
                 <div className="text-xs text-slate-400">Municipal Surcharge</div>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs text-slate-500 font-medium">Special District</div>
-                <div className="text-xl font-bold font-mono text-slate-900 mt-0.5">{selectedZip.specialDistrictRate}%</div>
+                <div className="text-xl font-bold tabular-nums text-slate-900 mt-0.5">{selectedZip.specialDistrictRate}%</div>
                 <div className="text-xs text-slate-400">Transit / SPD</div>
               </div>
             </div>
@@ -213,39 +213,39 @@ export function ZipTaxLookupTool() {
               <div className="text-xs font-bold text-blue-700 uppercase tracking-wider">
                 1. Adding Sales Tax (Purchasing ${amount})
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs shadow-2xs">
+              <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs">
                 <div className="flex justify-between text-slate-600">
                   <span>Pre-Tax Subtotal:</span>
-                  <span className="font-bold text-slate-900 font-mono">{formatCurrency(forwardResult.netAmount)}</span>
+                  <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(forwardResult.netAmount)}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
                   <span>Sales Tax ({selectedZip.combinedRate}%):</span>
-                  <span className="font-bold text-emerald-700 font-mono">+{formatCurrency(forwardResult.taxAmount)}</span>
+                  <span className="font-semibold text-slate-900 tabular-nums">+{formatCurrency(forwardResult.taxAmount)}</span>
                 </div>
                 <div className="pt-1.5 border-t border-slate-100 flex justify-between text-sm font-bold text-slate-900">
                   <span>Total Amount at Register:</span>
-                  <span className="text-blue-700 font-mono">{formatCurrency(forwardResult.totalAmount)}</span>
+                  <span className="text-slate-900 tabular-nums">{formatCurrency(forwardResult.totalAmount)}</span>
                 </div>
               </div>
             </div>
 
             {/* Mode 2: Reverse (Extract Tax from Receipt) */}
             <div className="space-y-2">
-              <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                 2. Reverse Tax (Receipt Total was ${amount})
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs shadow-2xs">
+              <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs">
                 <div className="flex justify-between text-slate-600">
                   <span>Tax-Inclusive Receipt:</span>
-                  <span className="font-bold text-slate-900 font-mono">{formatCurrency(amount)}</span>
+                  <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(amount)}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
                   <span>Original Pre-Tax Price:</span>
-                  <span className="font-bold text-slate-900 font-mono">{formatCurrency(reverseResult.netAmount)}</span>
+                  <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(reverseResult.netAmount)}</span>
                 </div>
                 <div className="pt-1.5 border-t border-slate-100 flex justify-between text-sm font-bold text-slate-900">
                   <span>Sales Tax Included in Total:</span>
-                  <span className="text-amber-700 font-mono">{formatCurrency(reverseResult.taxAmount)}</span>
+                  <span className="text-slate-900 tabular-nums">{formatCurrency(reverseResult.taxAmount)}</span>
                 </div>
               </div>
             </div>

@@ -155,47 +155,47 @@ export function DiscountTaxTool() {
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Original Sticker Price:</span>
-              <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.originalPrice)}</span>
+              <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(result.originalPrice)}</span>
             </div>
 
-            <div className="flex items-center justify-between text-xs sm:text-sm text-emerald-700 font-semibold">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-emerald-700 font-medium">
               <span>Discount ({discountPercent}% OFF):</span>
-              <span className="font-mono">-{formatCurrency(result.discountAmount)}</span>
+              <span className="tabular-nums font-semibold">-{formatCurrency(result.discountAmount)}</span>
             </div>
 
             <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Sale Subtotal:</span>
-              <span className="font-bold text-slate-900 font-mono">{formatCurrency(result.discountedPrice)}</span>
+              <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(result.discountedPrice)}</span>
             </div>
 
             <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
               <span>Sales Tax ({taxRate}%):</span>
-              <span className="font-bold text-slate-900 font-mono">+{formatCurrency(result.taxAmount)}</span>
+              <span className="font-semibold text-slate-900 tabular-nums">+{formatCurrency(result.taxAmount)}</span>
             </div>
 
             <div className="pt-2">
-              <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
+              <div className="p-3.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">
                     Final Out-of-Pocket
                   </span>
-                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                  <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums tracking-tight">
                     {formatCurrency(result.finalTotal)}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[11px] uppercase tracking-wider text-emerald-700 block font-bold">Total Savings</span>
-                  <span className="text-lg font-black text-emerald-700 font-mono">{formatCurrency(result.totalSavings)}</span>
+                  <span className="text-[11px] uppercase tracking-wider text-emerald-700 block font-semibold">Total Savings</span>
+                  <span className="text-lg font-bold text-emerald-700 tabular-nums">{formatCurrency(result.totalSavings)}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 font-mono space-y-1">
-            <div className="text-[11px] text-slate-500 font-sans uppercase font-bold">Calculation Logic:</div>
-            <div>Discounted Subtotal = ${result.originalPrice.toFixed(2)} - ${result.discountAmount.toFixed(2)} = ${result.discountedPrice.toFixed(2)}</div>
-            <div>Sales Tax = ${result.discountedPrice.toFixed(2)} × {taxRate}% = ${result.taxAmount.toFixed(2)}</div>
-            <div>Total = ${result.discountedPrice.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.finalTotal.toFixed(2)}</div>
+          <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 space-y-1">
+            <div className="text-[11px] text-slate-500 uppercase font-semibold">Calculation Logic:</div>
+            <div className="tabular-nums">Discounted Subtotal = ${result.originalPrice.toFixed(2)} - ${result.discountAmount.toFixed(2)} = ${result.discountedPrice.toFixed(2)}</div>
+            <div className="tabular-nums">Sales Tax = ${result.discountedPrice.toFixed(2)} × {taxRate}% = ${result.taxAmount.toFixed(2)}</div>
+            <div className="tabular-nums">Total = ${result.discountedPrice.toFixed(2)} + ${result.taxAmount.toFixed(2)} = ${result.finalTotal.toFixed(2)}</div>
           </div>
         </div>
       </div>

@@ -133,7 +133,7 @@ export default function ReverseTaxRateCalculatorPage() {
                 When an invoice shows the gross bill and net subtotal but omits the tax percentage, use this formula:
               </p>
 
-              <div className="bg-white border border-slate-200 rounded-xl p-3 font-mono text-xs text-brand-900 space-y-1">
+              <div className="bg-white border border-slate-200 rounded-xl p-3 text-xs tabular-nums text-brand-900 space-y-1">
                 <div>Tax Rate % = [(Gross ÷ Net) - 1] × 100</div>
                 <div>Alternative: Tax Rate % = (Tax ÷ Net) × 100</div>
               </div>

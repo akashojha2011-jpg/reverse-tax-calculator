@@ -128,7 +128,7 @@ export default function ReverseIncomeTaxPage() {
                 Unlike sales tax, income taxes are deducted from gross earnings rather than added to net pay.
               </p>
 
-              <div className="bg-white border border-slate-200 rounded-xl p-3 font-mono text-xs text-brand-900 space-y-1">
+              <div className="bg-white border border-slate-200 rounded-xl p-3 text-xs tabular-nums text-brand-900 space-y-1">
                 <div>Gross Salary = Desired Net Pay ÷ (1 - Tax Rate)</div>
                 <div>Estimated Tax = Gross Salary - Net Pay</div>
               </div>

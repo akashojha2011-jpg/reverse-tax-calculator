@@ -9,7 +9,7 @@ import {
   calculateNetToGrossEstimate,
 } from '@/lib/tax-math'
 import { ResultDisplay } from './ResultDisplay'
-import { RotateCcw, Percent, DollarSign, Sparkles } from 'lucide-react'
+import { RotateCcw } from 'lucide-react'
 
 export type CalcMode =
   | 'sales-tax'
@@ -56,7 +56,6 @@ export function CalculatorCard({
   const [tipRateInput, setTipRateInput] = useState<string>('15')
   const [effectivePayrollRate, setEffectivePayrollRate] = useState<string>('22')
 
-  const [hasCalculated, setHasCalculated] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   // Quick presets for fast tactile interaction
@@ -168,7 +167,6 @@ export function CalculatorCard({
           formulaNote: `Pre-Tax Net = ${currencySymbol}${res.grossAmount} ÷ (1 + ${rateVal}%) = ${currencySymbol}${res.netAmount}`,
         })
       }
-      setHasCalculated(true)
     } catch (err: any) {
       setErrorMsg(err.message || 'Invalid input')
     }
@@ -188,19 +186,16 @@ export function CalculatorCard({
   ])
 
   return (
-    <div className="w-full bg-white rounded-2xl border border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.06),0_1px_3px_rgba(15,23,42,0.04)] p-5 sm:p-7 transition-all">
-      {/* Top Header Status & Reset */}
+    <div className="w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 transition-all text-slate-900">
+      {/* Top Header & Reset */}
       <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-          <span className="text-xs font-bold tracking-tight text-slate-800">
-            {regionName ? `${regionName} Reverse ${taxName}` : 'Reverse Sales Tax Engine'}
-          </span>
-        </div>
+        <span className="text-xs font-semibold text-slate-700">
+          {regionName ? `${regionName} Reverse ${taxName} Calculator` : 'Reverse Tax Calculator'}
+        </span>
 
         <button
           onClick={handleReset}
-          className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/80 transition-all cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
           title="Reset to defaults"
         >
           <RotateCcw className="w-3 h-3" />
@@ -208,15 +203,15 @@ export function CalculatorCard({
         </button>
       </div>
 
-      {/* Mode Switcher Tabs (Linear / Stripe style segmented control) */}
+      {/* Mode Switcher Tabs */}
       {!hideModeSwitcher && (
-        <div className="mb-6">
-          <div className="bg-slate-100/80 p-1 rounded-xl flex items-center gap-1 overflow-x-auto no-scrollbar border border-slate-200/60">
+        <div className="mb-5">
+          <div className="bg-slate-100 p-1 rounded-xl flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-semibold">
             <button
               onClick={() => setMode('sales-tax')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'sales-tax'
-                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -224,9 +219,9 @@ export function CalculatorCard({
             </button>
             <button
               onClick={() => setMode('vat')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'vat'
-                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -234,9 +229,9 @@ export function CalculatorCard({
             </button>
             <button
               onClick={() => setMode('gst')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'gst'
-                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -244,9 +239,9 @@ export function CalculatorCard({
             </button>
             <button
               onClick={() => setMode('solve-rate')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'solve-rate'
-                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -254,9 +249,9 @@ export function CalculatorCard({
             </button>
             <button
               onClick={() => setMode('tax-and-tip')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'tax-and-tip'
-                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -264,9 +259,9 @@ export function CalculatorCard({
             </button>
             <button
               onClick={() => setMode('income-tax')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                 mode === 'income-tax'
-                  ? 'bg-white text-slate-900 shadow-xs font-bold border border-slate-200/60'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -277,21 +272,18 @@ export function CalculatorCard({
       )}
 
       {/* Input Rows */}
-      <div className="space-y-5">
+      <div className="space-y-4">
         {mode === 'solve-rate' ? (
           <>
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor="gross-amount-input-card"
-                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                >
-                  Total Receipt Price (Gross)
-                </label>
-                <span className="text-[11px] text-slate-400">Tax Included</span>
-              </div>
-              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500 font-bold font-mono text-lg">
+              <label
+                htmlFor="gross-amount-input-card"
+                className="block text-xs font-semibold text-slate-700 mb-1.5"
+              >
+                Total Receipt Price (Gross)
+              </label>
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-base sm:text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -300,24 +292,21 @@ export function CalculatorCard({
                   step="any"
                   value={grossInput}
                   onChange={(e) => setGrossInput(e.target.value)}
-                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                  className="block w-full bg-transparent pl-8 pr-4 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="107.00"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor="net-amount-input-card"
-                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                >
-                  Pre-Tax Subtotal (Net)
-                </label>
-                <span className="text-[11px] text-slate-400">Before Tax</span>
-              </div>
-              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500 font-bold font-mono text-lg">
+              <label
+                htmlFor="net-amount-input-card"
+                className="block text-xs font-semibold text-slate-700 mb-1.5"
+              >
+                Pre-Tax Subtotal (Net Price)
+              </label>
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-base sm:text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -326,7 +315,7 @@ export function CalculatorCard({
                   step="any"
                   value={netInput}
                   onChange={(e) => setNetInput(e.target.value)}
-                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                  className="block w-full bg-transparent pl-8 pr-4 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="100.00"
                 />
               </div>
@@ -335,17 +324,14 @@ export function CalculatorCard({
         ) : mode === 'income-tax' ? (
           <>
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor="target-net-input-card"
-                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                >
-                  Target Take-Home Pay (Net)
-                </label>
-                <span className="text-[11px] text-slate-400">Cash Received</span>
-              </div>
-              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500 font-bold font-mono text-lg">
+              <label
+                htmlFor="target-net-input-card"
+                className="block text-xs font-semibold text-slate-700 mb-1.5"
+              >
+                Target Take-Home Pay (Net)
+              </label>
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-base sm:text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -354,33 +340,30 @@ export function CalculatorCard({
                   step="any"
                   value={netInput}
                   onChange={(e) => setNetInput(e.target.value)}
-                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                  className="block w-full bg-transparent pl-8 pr-4 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="4000.00"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor="effective-rate-input-card"
-                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                >
-                  Effective Withholding Rate (%)
-                </label>
-                <span className="text-[11px] text-slate-400">Fed + State Est.</span>
-              </div>
-              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white">
+              <label
+                htmlFor="effective-rate-input-card"
+                className="block text-xs font-semibold text-slate-700 mb-1.5"
+              >
+                Effective Withholding Rate (%)
+              </label>
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
                 <input
                   id="effective-rate-input-card"
                   type="number"
                   step="any"
                   value={effectivePayrollRate}
                   onChange={(e) => setEffectivePayrollRate(e.target.value)}
-                  className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                  className="block w-full bg-transparent pl-4 pr-8 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="22"
                 />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 font-bold font-mono text-lg">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-semibold text-base">
                   %
                 </div>
               </div>
@@ -390,17 +373,14 @@ export function CalculatorCard({
           <>
             {/* Primary Gross Input */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor="total-price-input-card"
-                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                >
-                  Total Amount Paid (Tax Inclusive)
-                </label>
-                <span className="text-[11px] text-slate-400">Gross Receipt Total</span>
-              </div>
-              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 font-bold font-mono text-xl">
+              <label
+                htmlFor="total-price-input-card"
+                className="block text-xs font-semibold text-slate-700 mb-1.5"
+              >
+                Total Receipt Amount (Tax Included)
+              </label>
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-base sm:text-lg">
                   {currencySymbol}
                 </div>
                 <input
@@ -409,23 +389,23 @@ export function CalculatorCard({
                   step="any"
                   value={grossInput}
                   onChange={(e) => setGrossInput(e.target.value)}
-                  className="block w-full bg-transparent pl-9 pr-4 py-3 text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                  className="block w-full bg-transparent pl-8 pr-4 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="107.00"
                 />
               </div>
 
               {/* Quick Amount Preset Chips */}
               <div className="flex items-center gap-1.5 mt-2 overflow-x-auto no-scrollbar">
-                <span className="text-[11px] text-slate-400 font-medium mr-0.5">Quick:</span>
+                <span className="text-[11px] text-slate-400 mr-0.5">Quick:</span>
                 {popularAmounts.map((amt) => (
                   <button
                     key={amt}
                     type="button"
                     onClick={() => setGrossInput(amt.toString())}
-                    className={`px-2 py-0.5 text-xs font-mono rounded-md border transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 text-xs tabular-nums rounded-md border transition-all cursor-pointer ${
                       grossInput === amt.toString()
-                        ? 'bg-blue-50 border-blue-300 text-blue-700 font-bold'
-                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                        ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold'
+                        : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
                     ${amt}
@@ -436,42 +416,39 @@ export function CalculatorCard({
 
             {/* Tax Rate Input */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor="tax-rate-percentage-input-card"
-                  className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                >
-                  {regionName ? `${regionName} ${taxName} Rate (%)` : `Combined Sales Tax Rate (%)`}
-                </label>
-                <span className="text-[11px] text-slate-400">State + Local</span>
-              </div>
-              <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
+              <label
+                htmlFor="tax-rate-percentage-input-card"
+                className="block text-xs font-semibold text-slate-700 mb-1.5"
+              >
+                {regionName ? `${regionName} ${taxName} Rate (%)` : `Combined Sales Tax Rate (%)`}
+              </label>
+              <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
                 <input
                   id="tax-rate-percentage-input-card"
                   type="number"
                   step="any"
                   value={taxRateInput}
                   onChange={(e) => setTaxRateInput(e.target.value)}
-                  className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                  className="block w-full bg-transparent pl-4 pr-8 py-2.5 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                   placeholder="7"
                 />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 font-bold font-mono text-xl">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-semibold text-base">
                   %
                 </div>
               </div>
 
               {/* Quick Rate Preset Chips */}
               <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-                <span className="text-[11px] text-slate-400 font-medium mr-0.5">Rates:</span>
+                <span className="text-[11px] text-slate-400 mr-0.5">Rates:</span>
                 {popularUsRates.map((item) => (
                   <button
                     key={item.label}
                     type="button"
                     onClick={() => setTaxRateInput(item.rate.toString())}
-                    className={`px-2 py-0.5 text-xs font-medium rounded-md border transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 text-xs tabular-nums font-medium rounded-md border transition-all cursor-pointer ${
                       taxRateInput === item.rate.toString()
-                        ? 'bg-blue-50 border-blue-300 text-blue-700 font-bold'
-                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                        ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold'
+                        : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
                     {item.label}
@@ -482,26 +459,23 @@ export function CalculatorCard({
 
             {(mode === 'dual-tax' || defaultSecondTaxRate !== undefined) && (
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label
-                    htmlFor="second-tax-rate-input-card"
-                    className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                  >
-                    {defaultSecondTaxName} Rate (%)
-                  </label>
-                  <span className="text-[11px] text-slate-400">Secondary Tax</span>
-                </div>
-                <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
+                <label
+                  htmlFor="second-tax-rate-input-card"
+                  className="block text-xs font-semibold text-slate-700 mb-1.5"
+                >
+                  {defaultSecondTaxName} Rate (%)
+                </label>
+                <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
                   <input
                     id="second-tax-rate-input-card"
                     type="number"
                     step="any"
                     value={secondTaxRateInput}
                     onChange={(e) => setSecondTaxRateInput(e.target.value)}
-                    className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                    className="block w-full bg-transparent pl-4 pr-8 py-2.5 text-xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                     placeholder="7"
                   />
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 font-bold font-mono text-xl">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-semibold text-base">
                     %
                   </div>
                 </div>
@@ -510,26 +484,23 @@ export function CalculatorCard({
 
             {mode === 'tax-and-tip' && (
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label
-                    htmlFor="tip-rate-input-card"
-                    className="text-xs font-bold uppercase tracking-wider text-slate-700"
-                  >
-                    Tip Percentage (%)
-                  </label>
-                  <span className="text-[11px] text-slate-400">Gratuity</span>
-                </div>
-                <div className="relative rounded-xl border border-slate-300 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all bg-white shadow-2xs">
+                <label
+                  htmlFor="tip-rate-input-card"
+                  className="block text-xs font-semibold text-slate-700 mb-1.5"
+                >
+                  Tip Percentage (%)
+                </label>
+                <div className="relative rounded-xl border border-slate-200 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/10 transition-all bg-white">
                   <input
                     id="tip-rate-input-card"
                     type="number"
                     step="any"
                     value={tipRateInput}
                     onChange={(e) => setTipRateInput(e.target.value)}
-                    className="block w-full bg-transparent pl-4 pr-10 py-3 text-2xl font-bold font-mono text-slate-900 outline-none placeholder:text-slate-300"
+                    className="block w-full bg-transparent pl-4 pr-8 py-2.5 text-xl font-bold tabular-nums text-slate-900 outline-none placeholder:text-slate-300"
                     placeholder="15"
                   />
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 font-bold font-mono text-xl">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-semibold text-base">
                     %
                   </div>
                 </div>
@@ -541,7 +512,7 @@ export function CalculatorCard({
 
       {/* Error Message */}
       {errorMsg && (
-        <div className="mt-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-700">
+        <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-xs font-semibold text-red-700">
           {errorMsg}
         </div>
       )}

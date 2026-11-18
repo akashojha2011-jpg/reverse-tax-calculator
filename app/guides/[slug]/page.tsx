@@ -102,7 +102,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           <li><strong>r</strong> = Tax Rate as a Decimal (e.g., 7% = 0.07)</li>
         </ul>
         
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 my-6 font-mono text-sm space-y-2">
+        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 my-6 text-sm tabular-nums space-y-2">
           <div className="text-slate-500">// Step 1: Standard Forward Equation</div>
           <div>Gross Total = Net Subtotal + Tax Amount</div>
           <div className="font-bold text-slate-900">G = N + T</div>
@@ -121,7 +121,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           Once you have solved for the Net Subtotal (N), calculating the exact Tax Paid (T) is straightforward:
         </p>
-        <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 font-mono text-sm font-bold text-blue-900 my-4">
+        <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 tabular-nums text-sm font-bold text-blue-900 my-4">
           Tax Paid (T) = Gross Total (G) - Net Subtotal (N)
         </div>
 
@@ -150,7 +150,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <tbody className="divide-y divide-slate-200 text-slate-700">
               <tr className="bg-red-50/50">
                 <td className="p-3 font-bold text-red-900">Direct Subtraction (WRONG)</td>
-                <td className="p-3 font-mono text-red-700">G - (G × 0.07)</td>
+                <td className="p-3 tabular-nums text-red-700">G - (G × 0.07)</td>
                 <td className="p-3 font-bold">$107.00</td>
                 <td className="p-3 font-bold text-red-700">$99.51</td>
                 <td className="p-3 font-bold text-red-700">$7.49</td>
@@ -158,7 +158,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
               </tr>
               <tr className="bg-emerald-50/50">
                 <td className="p-3 font-bold text-emerald-900">Reverse Division (CORRECT)</td>
-                <td className="p-3 font-mono text-emerald-700">G ÷ (1 + 0.07)</td>
+                <td className="p-3 tabular-nums text-emerald-700">G ÷ (1 + 0.07)</td>
                 <td className="p-3 font-bold">$107.00</td>
                 <td className="p-3 font-bold text-emerald-700">$100.00</td>
                 <td className="p-3 font-bold text-emerald-700">$7.00</td>
@@ -187,7 +187,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <p className="text-sm text-slate-700 mb-2">
               A retail customer pays a total receipt price of <strong>$536.25</strong> inclusive of <strong>7.25% sales tax</strong>.
             </p>
-            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
+            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 tabular-nums">
               <li>Convert Tax Rate to Decimal: 7.25% = 0.0725</li>
               <li>Add 1 to Decimal: 1 + 0.0725 = 1.0725</li>
               <li>Divide Gross by Multiplier: $536.25 ÷ 1.0725 = <strong>$500.00 Pre-Tax Net</strong></li>
@@ -205,7 +205,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <p className="text-sm text-slate-700 mb-2">
               A business invoice shows a gross total of <strong>£1,200.00</strong> including <strong>20% VAT</strong>.
             </p>
-            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
+            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 tabular-nums">
               <li>Convert Tax Rate to Decimal: 20% = 0.20</li>
               <li>Add 1 to Decimal: 1 + 0.20 = 1.20</li>
               <li>Divide Gross by Multiplier: £1,200.00 ÷ 1.20 = <strong>£1,000.00 Net Subtotal</strong></li>
@@ -223,13 +223,13 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           You can solve directly for the effective tax rate percentage (r%) using the tax rate solver formula:
         </p>
-        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-sm font-bold text-blue-800 my-4">
+        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 tabular-nums text-sm font-bold text-blue-800 my-4">
           Tax Rate % = [(Gross Total ÷ Net Subtotal) - 1] × 100
         </div>
         <p>
           <strong>Worked Demonstration:</strong> An invoice lists a net line item of <strong>$450.00</strong> and a total charge of <strong>$495.00</strong>.
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs sm:text-sm space-y-1">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm tabular-nums space-y-1">
           <div>Rate Decimal = ($495.00 ÷ $450.00) - 1 = 1.10 - 1 = 0.10</div>
           <div>Rate Percentage = 0.10 × 100 = <strong>10.00%</strong></div>
         </div>
@@ -246,13 +246,13 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           When reversing multi-tier additive sales taxes, sum all tax rates into a single composite multiplier:
         </p>
-        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-sm font-bold text-slate-900 my-4">
+        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 tabular-nums text-sm font-bold text-slate-900 my-4">
           Net Subtotal = Gross Total ÷ [1 + Rate1 + Rate2 + ...]
         </div>
         <p>
           For example, in Quebec (5% GST + 9.975% QST = 14.975% total tax):
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs sm:text-sm">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm tabular-nums">
           Net = Gross ÷ (1 + 0.05 + 0.09975) = Gross ÷ 1.14975
         </div>
         <p className="mt-3">
@@ -265,13 +265,13 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           In hospitality and dining, restaurant bills include both a sales tax rate (r_tax) and an auto-gratuity or tip percentage (r_tip) calculated on the original food subtotal.
         </p>
-        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-sm font-bold text-blue-800 my-4">
+        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 tabular-nums text-sm font-bold text-blue-800 my-4">
           Pre-Tax Food Subtotal = Gross Receipt Total ÷ (1 + Tax Rate + Tip Rate)
         </div>
         <p>
           <strong>Example:</strong> A catering invoice is <strong>$1,250.00 total</strong>, which includes <strong>8% sales tax</strong> and an <strong>17% service tip</strong> (total 25% addition).
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs sm:text-sm">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm tabular-nums">
           Pre-Tax Food Subtotal = $1,250.00 ÷ (1 + 0.08 + 0.17) = $1,250.00 ÷ 1.25 = <strong>$1,000.00</strong>
         </div>
         <p className="mt-3">
@@ -301,43 +301,43 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3 font-bold text-slate-900">United States (CA)</td>
                 <td className="p-3">Sales Tax</td>
                 <td className="p-3 font-semibold text-slate-800">7.25%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.0725</td>
-                <td className="p-3 font-mono">Net = Gross ÷ 1.0725</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.0725</td>
+                <td className="p-3 tabular-nums">Net = Gross ÷ 1.0725</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">United States (NY)</td>
                 <td className="p-3">Sales Tax</td>
                 <td className="p-3 font-semibold text-slate-800">8.875%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.08875</td>
-                <td className="p-3 font-mono">Net = Gross ÷ 1.08875</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.08875</td>
+                <td className="p-3 tabular-nums">Net = Gross ÷ 1.08875</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">United Kingdom</td>
                 <td className="p-3">Standard VAT</td>
                 <td className="p-3 font-semibold text-slate-800">20.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.2000</td>
-                <td className="p-3 font-mono">Net = Gross ÷ 1.20</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.2000</td>
+                <td className="p-3 tabular-nums">Net = Gross ÷ 1.20</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Canada (Ontario)</td>
                 <td className="p-3">Blended HST</td>
                 <td className="p-3 font-semibold text-slate-800">13.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1300</td>
-                <td className="p-3 font-mono">Net = Gross ÷ 1.13</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1300</td>
+                <td className="p-3 tabular-nums">Net = Gross ÷ 1.13</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Australia</td>
                 <td className="p-3">GST</td>
                 <td className="p-3 font-semibold text-slate-800">10.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1000</td>
-                <td className="p-3 font-mono">Net = Gross ÷ 1.10</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1000</td>
+                <td className="p-3 tabular-nums">Net = Gross ÷ 1.10</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">India</td>
                 <td className="p-3">Standard GST</td>
                 <td className="p-3 font-semibold text-slate-800">18.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1800</td>
-                <td className="p-3 font-mono">Net = Gross ÷ 1.18</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1800</td>
+                <td className="p-3 tabular-nums">Net = Gross ÷ 1.18</td>
               </tr>
             </tbody>
           </table>
@@ -446,8 +446,8 @@ const GUIDES_DATA: Record<string, GuideData> = {
               </tr>
               <tr>
                 <td className="p-3 font-bold text-slate-900">Primary Operation</td>
-                <td className="p-3 font-mono">Multiplication: N × (1 + r)</td>
-                <td className="p-3 font-mono font-bold text-indigo-700">Division: G ÷ (1 + r)</td>
+                <td className="p-3 tabular-nums">Multiplication: N × (1 + r)</td>
+                <td className="p-3 tabular-nums font-bold text-indigo-700">Division: G ÷ (1 + r)</td>
               </tr>
               <tr>
                 <td className="p-3 font-bold text-slate-900">Primary Use Case</td>
@@ -474,7 +474,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           Forward tax math is straightforward multiplication. It assumes that the base price of the item or service is fixed before tax.
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-sm space-y-1 my-4">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm tabular-nums space-y-1 my-4">
           <div>Tax Amount (T) = Net Price (N) × Tax Rate Decimal (r)</div>
           <div>Gross Total (G) = Net Price (N) + Tax Amount (T)</div>
           <div className="font-bold text-blue-700">G = N × (1 + r)</div>
@@ -482,7 +482,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           <strong>Example:</strong> A wholesale item costs <strong>$200.00 Net</strong>. With an <strong>8.875% NYC sales tax rate</strong>:
         </p>
-        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm font-mono">
+        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm tabular-nums">
           <li>Tax = $200.00 × 0.08875 = $17.75</li>
           <li>Gross Total = $200.00 + $17.75 = <strong>$217.75</strong></li>
         </ul>
@@ -493,14 +493,14 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           Reverse tax math reverses the forward formula algebraically. Since G = N × (1 + r), we isolate N by dividing both sides by (1 + r):
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-sm space-y-1 my-4">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm tabular-nums space-y-1 my-4">
           <div className="font-bold text-indigo-700">Net Price (N) = Gross Total (G) ÷ (1 + r)</div>
           <div>Tax Amount (T) = Gross Total (G) - Net Price (N)</div>
         </div>
         <p>
           <strong>Example:</strong> A receipt displays a total of <strong>$217.75</strong> in NYC (8.875% tax rate):
         </p>
-        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm font-mono">
+        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm tabular-nums">
           <li>Net Subtotal = $217.75 ÷ 1.08875 = <strong>$200.00</strong></li>
           <li>Sales Tax Paid = $217.75 - $200.00 = <strong>$17.75</strong></li>
         </ul>
@@ -520,7 +520,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
 
         <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 my-4 text-amber-900">
           <h3 className="text-base font-bold mt-0 mb-2">The Asymmetry of Percentages:</h3>
-          <ul className="space-y-1 text-xs sm:text-sm font-mono">
+          <ul className="space-y-1 text-xs sm:text-sm tabular-nums">
             <li>Start with $100.00</li>
             <li>Add 20% VAT (+ $20.00) = $120.00 Gross Total</li>
             <li>Now subtract 20% from $120.00 (- $24.00) = <strong>$96.00 (WRONG!)</strong></li>
@@ -563,7 +563,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           Standard financial reporting mandates rounding to 2 decimal places using half-up rounding:
         </p>
-        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm font-mono">
+        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm tabular-nums">
           <li>$93.4579... rounds UP to <strong>$93.46 Net Subtotal</strong></li>
           <li>Tax Paid = $100.00 - $93.46 = <strong>$6.54 Sales Tax</strong></li>
         </ul>
@@ -657,7 +657,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <p className="text-xs sm:text-sm text-blue-800 leading-relaxed">
               Sales tax is added <em>on top of</em> the pre-tax cost: <br />
               <code className="font-bold">Gross = Net × (1 + r)</code> <br />
-              Reverse Formula: <code className="font-bold font-mono">Net = Gross ÷ (1 + r)</code>
+              Reverse Formula: <code className="font-bold tabular-nums">Net = Gross ÷ (1 + r)</code>
             </p>
           </div>
 
@@ -666,7 +666,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <p className="text-xs sm:text-sm text-indigo-800 leading-relaxed">
               Income tax is withheld <em>from</em> gross wages: <br />
               <code className="font-bold">Net = Gross × (1 - t)</code> <br />
-              Reverse Formula: <code className="font-bold font-mono">Gross = Net ÷ (1 - t)</code>
+              Reverse Formula: <code className="font-bold tabular-nums">Gross = Net ÷ (1 - t)</code>
             </p>
           </div>
         </div>
@@ -677,13 +677,13 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           Let:
         </p>
-        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm font-mono">
+        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm tabular-nums">
           <li>N = Target Net Take-Home Pay ($)</li>
           <li>G = Required Gross Salary ($)</li>
           <li>t = Effective Total Withholding Tax Rate (as a Decimal, e.g., 25% = 0.25)</li>
         </ul>
 
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 my-6 font-mono text-sm space-y-2">
+        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 my-6 text-sm tabular-nums space-y-2">
           <div className="text-slate-500">// Step 1: Standard Paycheck Equation</div>
           <div>Net Take-Home = Gross Salary - Tax Withholdings</div>
           <div className="font-bold text-slate-900">N = G - (G × t)</div>
@@ -729,22 +729,22 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <tbody className="divide-y divide-slate-200 text-slate-700">
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Social Security (FICA)</td>
-                <td className="p-3 font-mono font-bold text-blue-700">6.20%</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">6.20%</td>
                 <td className="p-3">Applied to wages up to annual wage cap ($168,600 cap in 2024/2026).</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Medicare (FICA)</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.45%</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.45%</td>
                 <td className="p-3">Applied to all gross wages. Additional 0.9% for high earners over $200k.</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Federal Income Tax (FIT)</td>
-                <td className="p-3 font-mono font-bold text-blue-700">10% to 37% progressive</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">10% to 37% progressive</td>
                 <td className="p-3">Calculated based on W-4 marital filing status and tax brackets.</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">State Income Tax (SIT)</td>
-                <td className="p-3 font-mono font-bold text-blue-700">0% to 13.3%</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">0% to 13.3%</td>
                 <td className="p-3">Varies by state (0% in FL, TX, WA, NV; up to 13.3% in CA).</td>
               </tr>
             </tbody>
@@ -763,7 +763,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <p className="text-sm text-slate-700 mb-2">
               An employee requires <strong>$5,000 net monthly cash</strong> in a state with an estimated <strong>22% effective total withholding rate</strong> (7.65% FICA + 10% Federal + 4.35% State).
             </p>
-            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
+            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 tabular-nums">
               <li>Subtract Tax Rate from 1: 1 - 0.22 = 0.78</li>
               <li>Divide Target Net by 0.78: $5,000 ÷ 0.78 = <strong>$6,410.26 Monthly Gross Salary</strong></li>
               <li>Annualize Gross Salary: $6,410.26 × 12 = <strong>$76,923.08 Annual Gross Salary</strong></li>
@@ -777,7 +777,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <p className="text-sm text-slate-700 mb-2">
               An executive in California demands <strong>$100,000 after-tax annual salary</strong> with a <strong>30% effective total tax rate</strong>.
             </p>
-            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
+            <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 tabular-nums">
               <li>Subtract Tax Rate from 1: 1 - 0.30 = 0.70</li>
               <li>Divide Net Target by 0.70: $100,000 ÷ 0.70 = <strong>$142,857.14 Required Annual Gross Salary</strong></li>
             </ul>
@@ -806,35 +806,35 @@ const GUIDES_DATA: Record<string, GuideData> = {
             <tbody className="divide-y divide-slate-200 text-slate-700">
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">$40,000 Net</td>
-                <td className="p-3 font-mono">$47,058.82</td>
-                <td className="p-3 font-mono">$50,000.00</td>
-                <td className="p-3 font-mono font-bold text-blue-700">$53,333.33</td>
-                <td className="p-3 font-mono">$57,142.86</td>
-                <td className="p-3 font-mono">$61,538.46</td>
+                <td className="p-3 tabular-nums">$47,058.82</td>
+                <td className="p-3 tabular-nums">$50,000.00</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">$53,333.33</td>
+                <td className="p-3 tabular-nums">$57,142.86</td>
+                <td className="p-3 tabular-nums">$61,538.46</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">$60,000 Net</td>
-                <td className="p-3 font-mono">$70,588.24</td>
-                <td className="p-3 font-mono">$75,000.00</td>
-                <td className="p-3 font-mono font-bold text-blue-700">$80,000.00</td>
-                <td className="p-3 font-mono">$85,714.29</td>
-                <td className="p-3 font-mono">$92,307.69</td>
+                <td className="p-3 tabular-nums">$70,588.24</td>
+                <td className="p-3 tabular-nums">$75,000.00</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">$80,000.00</td>
+                <td className="p-3 tabular-nums">$85,714.29</td>
+                <td className="p-3 tabular-nums">$92,307.69</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">$80,000 Net</td>
-                <td className="p-3 font-mono">$94,117.65</td>
-                <td className="p-3 font-mono">$100,000.00</td>
-                <td className="p-3 font-mono font-bold text-blue-700">$106,666.67</td>
-                <td className="p-3 font-mono">$114,285.71</td>
-                <td className="p-3 font-mono">$123,076.92</td>
+                <td className="p-3 tabular-nums">$94,117.65</td>
+                <td className="p-3 tabular-nums">$100,000.00</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">$106,666.67</td>
+                <td className="p-3 tabular-nums">$114,285.71</td>
+                <td className="p-3 tabular-nums">$123,076.92</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">$100,000 Net</td>
-                <td className="p-3 font-mono">$117,647.06</td>
-                <td className="p-3 font-mono">$125,000.00</td>
-                <td className="p-3 font-mono font-bold text-blue-700">$133,333.33</td>
-                <td className="p-3 font-mono">$142,857.14</td>
-                <td className="p-3 font-mono">$153,846.15</td>
+                <td className="p-3 tabular-nums">$117,647.06</td>
+                <td className="p-3 tabular-nums">$125,000.00</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">$133,333.33</td>
+                <td className="p-3 tabular-nums">$142,857.14</td>
+                <td className="p-3 tabular-nums">$153,846.15</td>
               </tr>
             </tbody>
           </table>
@@ -921,7 +921,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <th className="p-3">GST Rate</th>
                 <th className="p-3">PST / QST</th>
                 <th className="p-3 font-bold text-slate-900">Total Combined Rate</th>
-                <th className="p-3 font-mono font-bold text-blue-900">Reverse Multiplier</th>
+                <th className="p-3 tabular-nums font-bold text-blue-900">Reverse Multiplier</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200 text-slate-700">
@@ -931,7 +931,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">5%</td>
                 <td className="p-3">None</td>
                 <td className="p-3 font-bold">5.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.0500</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.0500</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">British Columbia</td>
@@ -939,7 +939,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">5%</td>
                 <td className="p-3">7.00%</td>
                 <td className="p-3 font-bold">12.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1200</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1200</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Manitoba</td>
@@ -947,7 +947,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">5%</td>
                 <td className="p-3">7.00%</td>
                 <td className="p-3 font-bold">12.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1200</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1200</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">New Brunswick</td>
@@ -955,7 +955,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">-</td>
                 <td className="p-3">-</td>
                 <td className="p-3 font-bold">15.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1500</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1500</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Newfoundland & Labrador</td>
@@ -963,7 +963,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">-</td>
                 <td className="p-3">-</td>
                 <td className="p-3 font-bold">15.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1500</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1500</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Nova Scotia</td>
@@ -971,7 +971,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">-</td>
                 <td className="p-3">-</td>
                 <td className="p-3 font-bold">15.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1500</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1500</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Ontario</td>
@@ -979,7 +979,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">-</td>
                 <td className="p-3">-</td>
                 <td className="p-3 font-bold">13.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1300</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1300</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Prince Edward Island</td>
@@ -987,7 +987,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">-</td>
                 <td className="p-3">-</td>
                 <td className="p-3 font-bold">15.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1500</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1500</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Quebec</td>
@@ -995,7 +995,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">5%</td>
                 <td className="p-3">9.975%</td>
                 <td className="p-3 font-bold">14.975%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.14975</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.14975</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Saskatchewan</td>
@@ -1003,7 +1003,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">5%</td>
                 <td className="p-3">6.00%</td>
                 <td className="p-3 font-bold">11.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.1100</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.1100</td>
               </tr>
               <tr className="hover:bg-slate-50">
                 <td className="p-3 font-bold text-slate-900">Territories (NT, NU, YT)</td>
@@ -1011,7 +1011,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
                 <td className="p-3">5%</td>
                 <td className="p-3">None</td>
                 <td className="p-3 font-bold">5.00%</td>
-                <td className="p-3 font-mono font-bold text-blue-700">1.0500</td>
+                <td className="p-3 font-semibold text-slate-900 tabular-nums">1.0500</td>
               </tr>
             </tbody>
           </table>
@@ -1026,13 +1026,13 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           To extract the pre-tax price from an HST receipt:
         </p>
-        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-sm font-bold text-blue-800 my-4">
+        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 tabular-nums text-sm font-bold text-blue-800 my-4">
           Pre-Tax Price = Gross Total ÷ (1 + HST Rate Decimal)
         </div>
         <p>
           <strong>Ontario Example (13% HST):</strong> An office computer invoice is <strong>$1,469.00 total</strong>.
         </p>
-        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm font-mono">
+        <ul className="list-disc pl-6 space-y-1 text-slate-700 text-sm tabular-nums">
           <li>Pre-Tax Computer Cost = $1,469.00 ÷ 1.13 = <strong>$1,300.00</strong></li>
           <li>HST Paid = $1,469.00 - $1,300.00 = <strong>$169.00</strong></li>
         </ul>
@@ -1046,7 +1046,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
         <p>
           Since 2013, Quebec QST is calculated additively on the pre-tax price (not compounded on top of GST).
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs sm:text-sm space-y-1 my-4">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm tabular-nums space-y-1 my-4">
           <div>Quebec Combined Rate = 5% GST + 9.975% QST = 14.975%</div>
           <div className="font-bold text-blue-700">Pre-Tax Net = Gross ÷ 1.14975</div>
         </div>
@@ -1094,7 +1094,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           <p className="text-sm text-slate-700 mb-2">
             A Vancouver business purchase total is <strong>$224.00</strong> (5% GST + 7% BC PST = 12% total tax).
           </p>
-          <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
+          <ul className="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-1 tabular-nums">
             <li>Pre-Tax Net Price = $224.00 ÷ 1.12 = <strong>$200.00</strong></li>
             <li>5% Federal GST (ITC Claimable) = $200.00 × 0.05 = <strong>$10.00</strong></li>
             <li>7% BC PST (Expense) = $200.00 × 0.07 = <strong>$14.00</strong></li>

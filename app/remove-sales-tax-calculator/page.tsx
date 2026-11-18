@@ -150,7 +150,7 @@ export default function RemoveSalesTaxPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 The Reverse Tax Division Formula
               </h2>
-              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-2 border border-slate-200/90 shadow-2xs">
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 tabular-nums space-y-2 border border-slate-200/90 shadow-2xs">
                 <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
                   Formula:
                 </div>
@@ -166,7 +166,7 @@ export default function RemoveSalesTaxPage() {
                 Worked Line-Item Examples
               </h2>
               <div className="space-y-3 text-sm">
-                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1 font-mono">
+                <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1 tabular-nums">
                   <div className="font-bold text-slate-900 font-sans text-sm">
                     Example 1: A $108.25 Receipt with 8.25% Tax
                   </div>

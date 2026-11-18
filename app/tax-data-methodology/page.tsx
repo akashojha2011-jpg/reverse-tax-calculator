@@ -44,26 +44,26 @@ export default function TaxDataMethodologyPage() {
           <p>
             When a sales transaction is completed, forward sales tax is legally defined as:
           </p>
-          <div className="p-3 bg-slate-50 rounded-xl font-mono text-xs sm:text-sm text-slate-800">
+          <div className="p-3 bg-slate-50 rounded-xl text-xs sm:text-sm text-slate-800 font-semibold">
             Gross Total = Net Subtotal + (Net Subtotal × Tax Rate)
           </div>
           <p>
             Factoring out <code>Net Subtotal</code> yields:
           </p>
-          <div className="p-3 bg-slate-50 rounded-xl font-mono text-xs sm:text-sm text-slate-800">
+          <div className="p-3 bg-slate-50 rounded-xl text-xs sm:text-sm text-slate-800 font-semibold">
             Gross Total = Net Subtotal × (1 + Tax Rate)
           </div>
           <p>
             To isolate the original pre-tax price from any tax-inclusive total, our calculation engine applies the reciprocal divisor:
           </p>
-          <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-xl font-mono text-sm font-bold text-blue-900">
+          <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900">
             Pre-Tax Net Price = Gross Total ÷ (1 + [r ÷ 100])
           </div>
           <p>
             Where <code>r</code> is the applicable percentage tax rate. The sales tax paid is subsequently calculated by subtracting the pre-tax net amount from the gross total:
           </p>
-          <div className="p-3 bg-slate-50 rounded-xl font-mono text-xs sm:text-sm text-slate-800">
-            Sales Tax Paid = Gross Total - Pre-Tax Net Price
+          <div className="p-3 bg-slate-50 rounded-xl text-xs sm:text-sm text-slate-800 font-semibold">
+            Sales Tax Paid = Gross Total − Pre-Tax Net Price
           </div>
         </div>
 
@@ -75,7 +75,7 @@ export default function TaxDataMethodologyPage() {
           <p>
             In financial computing, floating-point arithmetic (e.g. <code>0.1 + 0.2 = 0.30000000000000004</code>) can introduce fractional precision errors. Our calculation engine utilizes an epsilon-adjusted <strong>Round Half-Up</strong> algorithm matching US Department of Revenue statutes:
           </p>
-          <div className="p-3 bg-slate-50 rounded-xl font-mono text-xs sm:text-sm text-slate-800">
+          <div className="p-3 bg-slate-50 rounded-xl text-xs sm:text-sm text-slate-800 tabular-nums">
             round(value) = Math.round((value + Number.EPSILON) × 100) ÷ 100
           </div>
           <p>

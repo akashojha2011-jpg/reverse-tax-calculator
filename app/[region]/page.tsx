@@ -267,17 +267,10 @@ export default function RegionPage({ params }: RegionPageProps) {
             Use this calculator to find the original pre-tax price and {region.taxName} paid backwards from any tax-inclusive receipt or invoice in {region.name}.
           </p>
 
-          {/* Genuine Editorial & Source Verification Metadata Bar */}
-          <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-500">
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>
-                Reviewed by <strong>Financial Research Desk</strong>
-              </span>
-            </div>
-            <span>•</span>
+          {/* Authoritative State Tax Data Verification */}
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-slate-500">
             <div>
-              Tax Year: <strong>2026 Statutory Rates</strong>
+              Tax Year: <strong className="text-slate-700">2026 Statutory Rates</strong>
             </div>
             {authorityUrl && (
               <>
@@ -286,7 +279,7 @@ export default function RegionPage({ params }: RegionPageProps) {
                   href={authorityUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-semibold"
+                  className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
                 >
                   <span>{authorityName}</span>
                   <ExternalLink className="w-3 h-3" />
@@ -319,11 +312,11 @@ export default function RegionPage({ params }: RegionPageProps) {
               <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 leading-relaxed">
                 <li>
                   <strong>Enter Total Amount Paid (Gross):</strong> Type the total dollar figure from your receipt (e.g.,{' '}
-                  <span className="font-mono font-semibold">${region.workedExample.total.toFixed(2)}</span>).
+                  <span className="tabular-nums font-semibold">${region.workedExample.total.toFixed(2)}</span>).
                 </li>
                 <li>
                   <strong>Confirm or Adjust the Tax Rate:</strong> The calculator defaults to the official {region.name} state rate of{' '}
-                  <span className="font-mono font-semibold">{region.rate}%</span>. If your transaction occurred in a municipality with a local surcharge (e.g., local county or city add-ons), enter that combined rate instead.
+                  <span className="tabular-nums font-semibold">{region.rate}%</span>. If your transaction occurred in a municipality with a local surcharge (e.g., local county or city add-ons), enter that combined rate instead.
                 </li>
                 <li>
                   <strong>Read the Instant Breakdown:</strong> The tool automatically divides out the tax component to display your pre-tax net subtotal, the exact sales tax paid, and the mathematical formula used.
@@ -380,17 +373,17 @@ export default function RegionPage({ params }: RegionPageProps) {
               </p>
 
               {/* Styled Formula Card */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 text-slate-800 font-mono space-y-3 border border-slate-200/90 shadow-2xs">
-                <div className="text-xs uppercase tracking-wider text-slate-500 font-sans font-bold">
-                  Mathematical Formulas:
+              <div className="p-5 sm:p-6 rounded-xl bg-slate-50 text-slate-900 space-y-3 border border-slate-200">
+                <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  Standard Mathematical Equations:
                 </div>
-                <div className="text-sm sm:text-base text-blue-700 font-bold space-y-1.5">
-                  <div>Pre-Tax Price = Gross Total ÷ (1 + Tax Rate ÷ 100)</div>
-                  <div>Sales Tax Paid = Gross Total - Pre-Tax Price</div>
+                <div className="text-sm sm:text-base font-bold text-slate-900 space-y-1.5">
+                  <div>Pre-Tax Price = Gross Total ÷ (1 + Tax Rate)</div>
+                  <div>Sales Tax Paid = Gross Total − Pre-Tax Price</div>
                 </div>
-                <div className="text-xs text-slate-600 pt-3 border-t border-slate-200 font-sans leading-relaxed">
-                  Where <code className="text-slate-800 font-mono font-semibold">Gross Total</code> is your receipt amount and{' '}
-                  <code className="text-slate-800 font-mono font-semibold">Tax Rate</code> is expressed as a percentage (e.g., {region.rate}% becomes{' '}
+                <div className="text-xs text-slate-600 pt-3 border-t border-slate-200 leading-relaxed">
+                  Where <strong>Gross Total</strong> is your receipt amount and{' '}
+                  <strong>Tax Rate</strong> is expressed as a decimal (e.g. {region.rate}% becomes{' '}
                   {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')} divisor).
                 </div>
               </div>
@@ -405,22 +398,22 @@ export default function RegionPage({ params }: RegionPageProps) {
                 Here is how the reverse tax arithmetic operates on real purchases in {region.name} using the baseline {region.rate}% rate:
               </p>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {/* Example 1 */}
                 <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-white space-y-2">
-                  <div className="font-bold text-slate-900 text-sm">
+                  <div className="font-semibold text-slate-900 text-sm">
                     Example 1: A ${region.workedExample.total.toFixed(2)} Receipt Total
                   </div>
-                  <div className="text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
-                    <div>1. Identify divisor: 1 + ({region.rate} ÷ 100) = {(1 + region.rate / 100).toFixed(4).replace(/\.?0+$/, '')}</div>
-                    <div>2. Calculate net: ${region.workedExample.total.toFixed(2)} ÷ {(1 + region.rate / 100).toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900 font-bold">${region.workedExample.net.toFixed(2)}</strong></div>
-                    <div>3. Calculate tax: ${region.workedExample.total.toFixed(2)} - ${region.workedExample.net.toFixed(2)} = <strong className="text-blue-700 font-bold">${region.workedExample.tax.toFixed(2)}</strong></div>
+                  <div className="text-xs sm:text-sm text-slate-700 space-y-1.5 tabular-nums">
+                    <div>1. Determine divisor: 1 + ({region.rate} ÷ 100) = <strong>{(1 + region.rate / 100).toFixed(4).replace(/\.?0+$/, '')}</strong></div>
+                    <div>2. Calculate net price: ${region.workedExample.total.toFixed(2)} ÷ {(1 + region.rate / 100).toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900">${region.workedExample.net.toFixed(2)}</strong></div>
+                    <div>3. Calculate tax component: ${region.workedExample.total.toFixed(2)} − ${region.workedExample.net.toFixed(2)} = <strong className="text-slate-900">${region.workedExample.tax.toFixed(2)}</strong></div>
                   </div>
                 </div>
 
                 {/* Example 2: Typical $250 purchase */}
                 <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-white space-y-2">
-                  <div className="font-bold text-slate-900 text-sm">
+                  <div className="font-semibold text-slate-900 text-sm">
                     Example 2: A $250.00 Retail Invoice
                   </div>
                   {(() => {
@@ -428,9 +421,9 @@ export default function RegionPage({ params }: RegionPageProps) {
                     const net = gross / divisor
                     const tax = gross - net
                     return (
-                      <div className="text-xs sm:text-sm text-slate-600 space-y-1 font-mono">
-                        <div>1. Calculate net: $250.00 ÷ {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900 font-bold">${net.toFixed(2)}</strong></div>
-                        <div>2. Calculate tax: $250.00 - ${net.toFixed(2)} = <strong className="text-blue-700 font-bold">${tax.toFixed(2)}</strong></div>
+                      <div className="text-xs sm:text-sm text-slate-700 space-y-1.5 tabular-nums">
+                        <div>1. Calculate net price: $250.00 ÷ {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900">${net.toFixed(2)}</strong></div>
+                        <div>2. Calculate tax component: $250.00 − ${net.toFixed(2)} = <strong className="text-slate-900">${tax.toFixed(2)}</strong></div>
                       </div>
                     )
                   })()}
@@ -447,18 +440,18 @@ export default function RegionPage({ params }: RegionPageProps) {
                 The most frequent calculation mistake made by consumers and unassisted bookkeepers is attempting to subtract {region.rate}% directly from the gross receipt total.
               </p>
 
-              <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200/90 text-sm text-amber-950 space-y-2">
-                <div className="font-bold flex items-center gap-1.5 text-amber-900">
-                  <AlertTriangle className="w-4 h-4 text-amber-600" />
-                  <span>The Mathematical Fallacy Demonstrated:</span>
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 text-sm space-y-2">
+                <div className="font-semibold text-slate-900">
+                  The Subtraction Fallacy Explained:
                 </div>
-                <p className="m-0 text-xs sm:text-sm text-amber-900/90 leading-relaxed">
-                  If you have a total of <strong>${region.workedExample.total.toFixed(2)}</strong> and subtract {region.rate}% directly:
-                  <br />
-                  <span className="font-mono text-xs block py-1">
-                    ${region.workedExample.total.toFixed(2)} - ({region.rate}% of ${region.workedExample.total.toFixed(2)}) = ${(region.workedExample.total * (1 - region.rate / 100)).toFixed(2)} (INCORRECT)
-                  </span>
-                  This yields an inaccurate result because {region.rate}% was multiplied against the larger post-tax total rather than the true pre-tax net of <strong>${region.workedExample.net.toFixed(2)}</strong>. Proper reverse division ensures your accounts balance to the exact cent.
+                <p className="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  If you take a total of <strong>${region.workedExample.total.toFixed(2)}</strong> and subtract {region.rate}% directly:
+                </p>
+                <div className="p-2.5 bg-white rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-800 tabular-nums">
+                  ${region.workedExample.total.toFixed(2)} − (${region.workedExample.total.toFixed(2)} × {(region.rate / 100).toFixed(4).replace(/\.?0+$/, '')}) = <strong>${(region.workedExample.total * (1 - region.rate / 100)).toFixed(2)}</strong> (Incorrect)
+                </div>
+                <p className="m-0 text-xs text-slate-500 leading-relaxed">
+                  This results in an inaccurate deduction because {region.rate}% was multiplied against the larger post-tax total rather than the true pre-tax net of <strong>${region.workedExample.net.toFixed(2)}</strong>. Dividing by 1 + tax rate ensures your books balance to the exact cent.
                 </p>
               </div>
             </section>
@@ -519,12 +512,12 @@ export default function RegionPage({ params }: RegionPageProps) {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {usStateData.majorJurisdictions.map((loc) => (
-                        <tr key={loc.name} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="py-2.5 px-3 sm:px-4 font-bold text-slate-900">{loc.name}</td>
+                        <tr key={loc.name} className="hover:bg-slate-50/60 transition-colors">
+                          <td className="py-2.5 px-3 sm:px-4 font-semibold text-slate-900">{loc.name}</td>
                           <td className="py-2.5 px-3 sm:px-4 text-slate-600 capitalize">{loc.type}</td>
-                          <td className="py-2.5 px-3 sm:px-4 font-mono text-slate-600">{region.rate}%</td>
-                          <td className="py-2.5 px-3 sm:px-4 font-mono text-slate-600">+{loc.rate.toFixed(3).replace(/\.?0+$/, '')}%</td>
-                          <td className="py-2.5 px-3 sm:px-4 font-mono font-bold text-blue-700">{loc.combinedRate}%</td>
+                          <td className="py-2.5 px-3 sm:px-4 tabular-nums text-slate-600">{region.rate}%</td>
+                          <td className="py-2.5 px-3 sm:px-4 tabular-nums text-slate-600">+{loc.rate.toFixed(3).replace(/\.?0+$/, '')}%</td>
+                          <td className="py-2.5 px-3 sm:px-4 tabular-nums font-semibold text-slate-900">{loc.combinedRate}%</td>
                         </tr>
                       ))}
                     </tbody>
@@ -609,14 +602,14 @@ export default function RegionPage({ params }: RegionPageProps) {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {lookupTable.map((row) => (
-                      <tr key={row.gross} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="py-2.5 px-4 font-bold font-mono text-slate-900">
+                      <tr key={row.gross} className="hover:bg-slate-50/60 transition-colors">
+                        <td className="py-2.5 px-4 font-semibold tabular-nums text-slate-900">
                           {region.currencySymbol}{row.gross.toFixed(2)}
                         </td>
-                        <td className="py-2.5 px-4 font-medium font-mono text-slate-800">
+                        <td className="py-2.5 px-4 font-medium tabular-nums text-slate-800">
                           {region.currencySymbol}{row.net.toFixed(2)}
                         </td>
-                        <td className="py-2.5 px-4 font-bold font-mono text-blue-700">
+                        <td className="py-2.5 px-4 font-semibold tabular-nums text-slate-900">
                           {region.currencySymbol}{row.tax.toFixed(2)}
                         </td>
                       </tr>
@@ -683,11 +676,11 @@ export default function RegionPage({ params }: RegionPageProps) {
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between pb-1.5 border-b border-slate-100">
                     <span className="text-slate-500">Base State Rate:</span>
-                    <span className="font-mono font-bold text-slate-900">{region.rate}%</span>
+                    <span className="font-semibold text-slate-900 tabular-nums">{region.rate}%</span>
                   </div>
                   <div className="flex justify-between pb-1.5 border-b border-slate-100">
                     <span className="text-slate-500">Max Combined Rate:</span>
-                    <span className="font-mono font-bold text-slate-900">
+                    <span className="font-semibold text-slate-900 tabular-nums">
                       {region.maxCombinedRate ? `${region.maxCombinedRate}%` : `${region.rate}%`}
                     </span>
                   </div>

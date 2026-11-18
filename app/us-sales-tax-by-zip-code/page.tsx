@@ -217,14 +217,14 @@ export default function ZipTaxLookupPage() {
                 {stackingExamples.map((item) => (
                   <tr key={item.zip} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3 px-4 font-semibold text-slate-900">
-                      {item.city} <span className="text-slate-400 font-mono text-xs">({item.zip})</span>
+                      {item.city} <span className="text-slate-400 text-xs tabular-nums">({item.zip})</span>
                     </td>
-                    <td className="py-3 px-4 font-mono text-slate-600">{item.state}</td>
-                    <td className="py-3 px-4 font-mono text-slate-600">{item.county}</td>
-                    <td className="py-3 px-4 font-mono text-slate-600">{item.cityRate}</td>
-                    <td className="py-3 px-4 font-mono text-slate-600">{item.district}</td>
-                    <td className="py-3 px-4 font-mono font-bold text-blue-700">{item.total}</td>
-                    <td className="py-3 px-4 font-mono font-bold text-slate-900">{item.taxOn100}</td>
+                    <td className="py-3 px-4 tabular-nums text-slate-600">{item.state}</td>
+                    <td className="py-3 px-4 tabular-nums text-slate-600">{item.county}</td>
+                    <td className="py-3 px-4 tabular-nums text-slate-600">{item.cityRate}</td>
+                    <td className="py-3 px-4 tabular-nums text-slate-600">{item.district}</td>
+                    <td className="py-3 px-4 font-semibold text-slate-900 tabular-nums">{item.total}</td>
+                    <td className="py-3 px-4 font-semibold text-slate-900 tabular-nums">{item.taxOn100}</td>
                   </tr>
                 ))}
               </tbody>

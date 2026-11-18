@@ -133,7 +133,7 @@ export default function ReverseHSTPage() {
             <p>
               Ontario levies a <strong>13% HST</strong> rate (5% federal GST + 8% provincial component). The formula to calculate pre-tax net subtotal and 13% HST paid is:
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700 space-y-1">
               <div>Pre-Tax Net = Gross Total ÷ 1.13</div>
               <div>HST Paid = Gross Total - Pre-Tax Net</div>
             </div>
@@ -144,7 +144,7 @@ export default function ReverseHSTPage() {
             <p>
               Nova Scotia, New Brunswick, Prince Edward Island, and Newfoundland & Labrador charge a <strong>15% HST</strong> rate (5% federal GST + 10% provincial component). The formula is:
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700 space-y-1">
               <div>Pre-Tax Net = Gross Total ÷ 1.15</div>
               <div>HST Paid = Gross Total - Pre-Tax Net</div>
             </div>
@@ -172,7 +172,7 @@ export default function ReverseHSTPage() {
                       <td className="p-2.5 font-bold text-blue-600">{row.rate}</td>
                       <td className="p-2.5">{row.federalGst}</td>
                       <td className="p-2.5">{row.provincialTax}</td>
-                      <td className="p-2.5 font-mono">{row.divisor}</td>
+                      <td className="p-2.5 tabular-nums">{row.divisor}</td>
                     </tr>
                   ))}
                 </tbody>

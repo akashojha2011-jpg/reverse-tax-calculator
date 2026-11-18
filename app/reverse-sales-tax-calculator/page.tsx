@@ -186,17 +186,17 @@ export default function ReverseSalesTaxPage() {
                 To extract the original price before sales tax was added:
               </p>
 
-              <div className="bg-white border border-slate-200 rounded-xl p-3 font-mono text-xs text-brand-900 space-y-1">
+              <div className="bg-white border border-slate-200 rounded-xl p-3.5 text-xs text-slate-900 font-semibold space-y-1.5">
                 <div>Net Subtotal = Total Receipt ÷ (1 + Tax Rate)</div>
-                <div>Sales Tax Paid = Total Receipt - Net Subtotal</div>
+                <div>Sales Tax Paid = Total Receipt − Net Subtotal</div>
               </div>
 
-              <div className="text-xs text-slate-700 bg-blue-50/70 border border-blue-200 rounded-xl p-3 leading-relaxed">
+              <div className="text-xs text-slate-700 bg-slate-100/70 border border-slate-200 rounded-xl p-3 leading-relaxed">
                 <strong>Example:</strong> For a <strong>$107.00</strong> receipt with <strong>7.00%</strong> sales tax:
                 <br />
                 • $107.00 ÷ 1.07 = <strong>$100.00 Net Price</strong>
                 <br />
-                • $107.00 - $100.00 = <strong>$7.00 Sales Tax Paid</strong>
+                • $107.00 − $100.00 = <strong>$7.00 Sales Tax Paid</strong>
               </div>
             </div>
           </div>

@@ -211,10 +211,10 @@ export function TaxBreakdownTool() {
           <div className="space-y-1.5">
             <div className="flex justify-between text-xs text-slate-600">
               <span>Combined Sales Tax:</span>
-              <span className="font-bold text-slate-900 font-mono">{totalRate.toFixed(3).replace(/\.?0+$/, '')}% ({formatCurrency(breakdown.totalTaxAmount)})</span>
+              <span className="font-semibold text-slate-900 tabular-nums">{totalRate.toFixed(3).replace(/\.?0+$/, '')}% ({formatCurrency(breakdown.totalTaxAmount)})</span>
             </div>
             {totalRate > 0 && (
-              <div className="h-3 w-full bg-slate-200 rounded-full overflow-hidden flex">
+              <div className="h-2.5 w-full bg-slate-200 rounded-full overflow-hidden flex">
                 <div style={{ width: `${(stateRate / totalRate) * 100}%` }} className="bg-blue-500 h-full" title={`State: ${stateRate}%`} />
                 <div style={{ width: `${(countyRate / totalRate) * 100}%` }} className="bg-indigo-500 h-full" title={`County: ${countyRate}%`} />
                 <div style={{ width: `${(cityRate / totalRate) * 100}%` }} className="bg-emerald-500 h-full" title={`City: ${cityRate}%`} />
@@ -230,18 +230,18 @@ export function TaxBreakdownTool() {
                 <span className={`font-semibold ${tier.color}`}>
                   {tier.name} ({tier.rate}%):
                 </span>
-                <span className="font-bold text-slate-900 font-mono">{formatCurrency(tier.taxAmount)}</span>
+                <span className="font-semibold text-slate-900 tabular-nums">{formatCurrency(tier.taxAmount)}</span>
               </div>
             ))}
           </div>
 
           <div className="pt-2">
-            <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-2xs flex items-center justify-between">
+            <div className="p-3.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between">
               <div>
-                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold block">
+                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">
                   {isReverse ? 'Original Net Subtotal' : 'Grand Total at Register'}
                 </span>
-                <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums tracking-tight">
                   {formatCurrency(isReverse ? breakdown.preTaxNet : breakdown.finalTotalAmount)}
                 </span>
               </div>

@@ -96,7 +96,7 @@ export default function TaxInclusivePriceCalculatorPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight m-0">
                 How to Separate Tax from Gross
               </h2>
-              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 text-slate-800 border border-slate-200/90 font-mono text-xs sm:text-sm space-y-1 text-blue-700 font-bold shadow-2xs">
+              <div className="p-4 sm:p-5 rounded-xl bg-slate-50 text-slate-800 border border-slate-200/90 text-xs sm:text-sm tabular-nums space-y-1 text-blue-700 font-bold shadow-2xs">
                 <div>Base Pre-Tax Price = Tax-Inclusive Total ÷ (1 + Tax Rate ÷ 100)</div>
                 <div>Tax Paid = Tax-Inclusive Total - Base Pre-Tax Price</div>
               </div>

@@ -118,7 +118,7 @@ export default function ReverseTaxAndTipPage() {
             <p>
               Assuming tip is calculated on the pre-tax food subtotal (standard US dining norm):
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700 space-y-1">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700 space-y-1">
               <div>Food Subtotal = Total Paid ÷ (1 + (Sales Tax Rate ÷ 100) + (Tip Rate ÷ 100))</div>
               <div>Sales Tax Paid = Food Subtotal × (Sales Tax Rate ÷ 100)</div>
               <div>Tip Paid = Food Subtotal × (Tip Rate ÷ 100)</div>
@@ -151,12 +151,12 @@ export default function ReverseTaxAndTipPage() {
                 <tbody className="divide-y divide-slate-200 text-slate-700">
                   {receiptSplitTable.map((row, idx) => (
                     <tr key={idx} className="hover:bg-slate-50">
-                      <td className="p-2.5 font-bold text-slate-900 font-mono">{row.totalPaid}</td>
+                      <td className="p-2.5 font-bold text-slate-900 tabular-nums">{row.totalPaid}</td>
                       <td className="p-2.5">{row.taxRate}</td>
                       <td className="p-2.5">{row.tipRate}</td>
-                      <td className="p-2.5 font-bold text-blue-600 font-mono">{row.foodSubtotal}</td>
-                      <td className="p-2.5 font-mono">{row.taxPaid}</td>
-                      <td className="p-2.5 font-mono text-slate-800">{row.tipPaid}</td>
+                      <td className="p-2.5 font-bold text-blue-600 tabular-nums">{row.foodSubtotal}</td>
+                      <td className="p-2.5 tabular-nums">{row.taxPaid}</td>
+                      <td className="p-2.5 tabular-nums text-slate-800">{row.tipPaid}</td>
                     </tr>
                   ))}
                 </tbody>

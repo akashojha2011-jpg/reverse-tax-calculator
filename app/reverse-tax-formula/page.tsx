@@ -124,11 +124,11 @@ export default function ReverseTaxFormulaPage() {
             </h2>
             <p className="text-slate-900 text-base md:text-lg leading-relaxed font-semibold mb-0">
               The universal reverse tax formula is: <br />
-              <span className="font-mono bg-white px-3 py-1 rounded border border-brand-200 text-brand-700 inline-block my-2">
+              <span className="tabular-nums bg-white px-3 py-1 rounded border border-brand-200 text-brand-700 inline-block my-2">
                 Net Amount = Gross Total ÷ (1 + Tax Rate)
               </span>
               <br />
-              To find the tax paid: <span className="font-mono bg-white px-3 py-1 rounded border border-brand-200 text-slate-800 inline-block">Tax Paid = Gross Total - Net Amount</span>. For example, a receipt of <strong>$107.00</strong> with a <strong>7% tax rate</strong> yields a pre-tax amount of <strong>$100.00</strong> ($107.00 ÷ 1.07) and <strong>$7.00 tax paid</strong>.
+              To find the tax paid: <span className="tabular-nums bg-white px-3 py-1 rounded border border-brand-200 text-slate-800 inline-block">Tax Paid = Gross Total - Net Amount</span>. For example, a receipt of <strong>$107.00</strong> with a <strong>7% tax rate</strong> yields a pre-tax amount of <strong>$100.00</strong> ($107.00 ÷ 1.07) and <strong>$7.00 tax paid</strong>.
             </p>
           </section>
 
@@ -139,7 +139,7 @@ export default function ReverseTaxFormulaPage() {
             <p>
               When tax is added to a transaction, the gross price ($G$) is equal to the net price ($N$) plus the tax amount ($T$).
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-sm space-y-2 my-4">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-sm tabular-nums space-y-2 my-4">
               <div>G = N + T</div>
               <div>Since Tax T = N × r (where r is the tax rate as a decimal):</div>
               <div>G = N + (N × r)</div>
@@ -169,7 +169,7 @@ export default function ReverseTaxFormulaPage() {
                       <td className="p-2.5 font-bold text-slate-900">{row.calculationType}</td>
                       <td className="p-2.5">{row.knownVariables}</td>
                       <td className="p-2.5 font-semibold text-slate-800">{row.targetResult}</td>
-                      <td className="p-2.5 font-mono text-blue-600 font-bold">{row.formula}</td>
+                      <td className="p-2.5 tabular-nums text-blue-600 font-bold">{row.formula}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -182,7 +182,7 @@ export default function ReverseTaxFormulaPage() {
             <p>
               If you know both the pre-tax net price ($N$) and the tax-included gross total ($G$), you can solve for the tax rate percentage ($r\%$) using:
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 text-blue-700 font-bold">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 text-blue-700 font-bold">
               Tax Rate % = [(Gross ÷ Net) - 1] × 100
             </div>
             <p>
@@ -202,7 +202,7 @@ export default function ReverseTaxFormulaPage() {
                 <h3 className="text-sm font-bold text-slate-900 mt-0 mb-1">
                   A. Additive Rule (Modern Quebec QST & BC PST)
                 </h3>
-                <p className="text-xs text-slate-700 mb-0 font-mono">
+                <p className="text-xs text-slate-700 mb-0 tabular-nums">
                   Gross = Net × (1 + rate1 + rate2)
                   <br />
                   Net = Gross ÷ (1 + 0.05 GST + 0.09975 QST) = Gross ÷ 1.14975
@@ -212,7 +212,7 @@ export default function ReverseTaxFormulaPage() {
                 <h3 className="text-sm font-bold text-slate-900 mt-0 mb-1">
                   B. Historical Compounded Rule
                 </h3>
-                <p className="text-xs text-slate-700 mb-0 font-mono">
+                <p className="text-xs text-slate-700 mb-0 tabular-nums">
                   Gross = Net × (1 + rate1) × (1 + rate2)
                 </p>
               </div>
@@ -224,7 +224,7 @@ export default function ReverseTaxFormulaPage() {
             <p>
               Unlike flat sales taxes where tax is added to the net ($G = N \times (1 + r)$), income taxes are withheld as a percentage of the <em>gross salary</em> ($N = G \times (1 - t)$).
             </p>
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs md:text-sm my-4 font-bold text-blue-700">
+            <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs tabular-nums md:text-sm my-4 font-bold text-blue-700">
               Estimated Gross Salary = Target Net Pay ÷ (1 - Effective Tax Rate)
             </div>
 
