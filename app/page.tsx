@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { HeroReverseSalesTaxCalculator } from '@/components/HeroReverseSalesTaxCalculator'
 import { FAQAccordion } from '@/components/FAQAccordion'
+import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 
 export const metadata: Metadata = {
   title: 'Reverse Sales Tax Calculator – Remove Tax from Total',
@@ -487,6 +488,13 @@ export default function HomePage() {
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
+        </section>
+
+        {/* ================================================================= */}
+        {/* US STATE TAX CALCULATORS DIRECTORY                                */}
+        {/* ================================================================= */}
+        <section className="space-y-4">
+          <RegionGridDirectory />
         </section>
 
         {/* ================================================================= */}

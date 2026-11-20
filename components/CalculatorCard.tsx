@@ -32,6 +32,7 @@ interface CalculatorCardProps {
   regionName?: string
   isCompounded?: boolean
   hideModeSwitcher?: boolean
+  customRatePresets?: { label: string; rate: number }[]
 }
 
 export function CalculatorCard({
@@ -45,6 +46,7 @@ export function CalculatorCard({
   regionName,
   isCompounded = false,
   hideModeSwitcher = false,
+  customRatePresets,
 }: CalculatorCardProps) {
   const [mode, setMode] = useState<CalcMode>(initialMode)
   const [grossInput, setGrossInput] = useState<string>(defaultGross.toString())
@@ -439,8 +441,10 @@ export function CalculatorCard({
 
               {/* Quick Rate Preset Chips */}
               <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-                <span className="text-[11px] text-slate-400 mr-0.5">Rates:</span>
-                {popularUsRates.map((item) => (
+                <span className="text-[11px] text-slate-400 mr-0.5">
+                  {customRatePresets && customRatePresets.length > 0 ? 'Locations:' : 'Rates:'}
+                </span>
+                {(customRatePresets && customRatePresets.length > 0 ? customRatePresets : popularUsRates).map((item) => (
                   <button
                     key={item.label}
                     type="button"

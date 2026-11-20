@@ -49,8 +49,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '/guides' ? 0.9 : 0.8,
   }))
 
-  // Regional pages dynamically generated from data/regions.ts
-  const regionalPages = REGIONS.map((r) => ({
+  // US State pages dynamically generated from data/regions.ts (50 States + DC)
+  const regionalPages = REGIONS.filter((r) => r.country === 'US').map((r) => ({
     url: `${baseUrl}/${r.slug}-reverse-sales-tax-calculator`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,

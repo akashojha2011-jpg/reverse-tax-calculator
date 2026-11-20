@@ -133,6 +133,46 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Popular State Calculators Fast Links */}
+        <div className="py-6 border-t border-slate-200">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2.5">
+            Popular State Sales Tax Calculators:
+          </div>
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xs text-slate-600">
+            <Link href="/california-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">California (7.25%)</Link>
+            <span>•</span>
+            <Link href="/texas-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Texas (6.25%)</Link>
+            <span>•</span>
+            <Link href="/florida-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Florida (6.0%)</Link>
+            <span>•</span>
+            <Link href="/new-york-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">New York (4.0%)</Link>
+            <span>•</span>
+            <Link href="/pennsylvania-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Pennsylvania (6.0%)</Link>
+            <span>•</span>
+            <Link href="/illinois-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Illinois (6.25%)</Link>
+            <span>•</span>
+            <Link href="/ohio-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Ohio (5.75%)</Link>
+            <span>•</span>
+            <Link href="/georgia-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Georgia (4.0%)</Link>
+            <span>•</span>
+            <Link href="/north-carolina-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">North Carolina (4.75%)</Link>
+            <span>•</span>
+            <Link href="/michigan-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Michigan (6.0%)</Link>
+            <span>•</span>
+            <Link href="/washington-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Washington (6.5%)</Link>
+            <span>•</span>
+            <Link href="/arizona-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Arizona (5.6%)</Link>
+            <span>•</span>
+            <Link href="/new-jersey-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">New Jersey (6.625%)</Link>
+            <span>•</span>
+            <Link href="/virginia-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Virginia (5.3%)</Link>
+            <span>•</span>
+            <Link href="/colorado-reverse-sales-tax-calculator" className="hover:text-blue-600 hover:underline">Colorado (2.9%)</Link>
+            <span>•</span>
+            <Link href="/data-sources" className="text-blue-600 font-semibold hover:underline">All 50 States Directory →</Link>
+          </div>
+        </div>
+
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-normal">
           <p className="m-0 text-slate-500 text-center md:text-left">

@@ -91,6 +91,97 @@ const nextConfig = {
         destination: '/guides/net-to-gross-salary-explained',
         permanent: true,
       },
+      // Legacy International Regional URLs redirected to dedicated tools
+      {
+        source: '/united-kingdom-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-vat-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/germany-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-vat-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/france-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-vat-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/spain-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-vat-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/australia-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-gst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/india-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-gst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/singapore-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-gst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/new-zealand-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-gst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/alberta-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-gst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/ontario-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-hst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/nova-scotia-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-hst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/new-brunswick-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-hst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/prince-edward-island-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-hst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/newfoundland-and-labrador-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-hst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/british-columbia-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-pst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/quebec-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-pst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/saskatchewan-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-pst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/manitoba-reverse-sales-tax-calculator',
+        destination: '/tools/reverse-pst-calculator/',
+        permanent: true,
+      },
     ]
   },
 }

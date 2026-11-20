@@ -6,8 +6,10 @@ import { MapPin, Globe, Flag, Search } from 'lucide-react'
 import { REGIONS, RegionData } from '@/data/regions'
 import { StateMapIcon } from '@/components/StateMapIcon'
 
+type RegionTab = 'us' | 'ca' | 'global'
+
 export function RegionGridDirectory() {
-  const [activeTab, setActiveTab] = useState<'us' | 'ca' | 'global'>('us')
+  const [activeTab, setActiveTab] = useState<RegionTab>('us')
   const [search, setSearch] = useState('')
 
   const usRegions = REGIONS.filter((r) => r.country === 'US')
@@ -103,12 +105,23 @@ export function RegionGridDirectory() {
 
       {/* 4-Column Grid of State Buttons */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-3">
-        {currentList.map((r) => (
-          <Link
-            key={r.slug}
-            href={`/${r.slug}-reverse-sales-tax-calculator`}
-            className="group px-3 py-2.5 rounded-xl bg-slate-50 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all flex items-center gap-2.5 cursor-pointer"
-          >
+        {currentList.map((r) => {
+          let targetUrl = `/${r.slug}-reverse-sales-tax-calculator`
+          if (r.country === 'CA') {
+            if (r.taxName.includes('HST')) targetUrl = '/tools/reverse-hst-calculator'
+            else if (r.taxName.includes('GST')) targetUrl = '/tools/reverse-gst-calculator'
+            else targetUrl = '/tools/reverse-pst-calculator'
+          } else if (r.country !== 'US') {
+            if (r.taxName.includes('VAT')) targetUrl = '/tools/reverse-vat-calculator'
+            else targetUrl = '/tools/reverse-gst-calculator'
+          }
+
+          return (
+            <Link
+              key={r.slug}
+              href={targetUrl}
+              className="group px-3 py-2.5 rounded-xl bg-slate-50 hover:bg-brand-600 border border-slate-200/80 hover:border-brand-600 shadow-2xs hover:shadow-md transition-all flex items-center gap-2.5 cursor-pointer"
+            >
             <div className="px-2 py-1 rounded-lg bg-brand-50 border border-brand-200/60 group-hover:bg-white group-hover:border-white group-hover:shadow-2xs transition-all shrink-0 flex items-center justify-center min-w-[36px]">
               <StateMapIcon slug={r.slug} className="text-brand-700 group-hover:text-brand-700 font-extrabold" />
             </div>
@@ -121,7 +134,8 @@ export function RegionGridDirectory() {
               </span>
             </div>
           </Link>
-        ))}
+        )
+      })}
       </div>
 
       {currentList.length === 0 && (

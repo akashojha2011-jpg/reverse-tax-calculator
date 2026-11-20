@@ -34,9 +34,9 @@ interface RegionPageProps {
   }
 }
 
-// Generate static routes for all regions (50 States + DC + International)
+// Generate static routes for all 50 US States + District of Columbia
 export async function generateStaticParams() {
-  return REGIONS.map((r) => ({
+  return REGIONS.filter((r) => r.country === 'US').map((r) => ({
     region: `${r.slug}-reverse-sales-tax-calculator`,
   }))
 }
@@ -203,6 +203,17 @@ export default function RegionPage({ params }: RegionPageProps) {
     { id: 'sources-and-methodology', label: `Sources & Official Authority Data` },
   ]
 
+  // Build municipal/location rate presets for US states
+  const customRatePresets: { label: string; rate: number }[] = [
+    { label: `Base (${region.rate}%)`, rate: region.rate },
+    ...(usStateData?.majorJurisdictions
+      ? usStateData.majorJurisdictions.slice(0, 5).map((j) => ({
+          label: `${j.name.split(' (')[0]} (${j.combinedRate}%)`,
+          rate: j.combinedRate,
+        }))
+      : []),
+  ]
+
   // Calculator component props
   const calculatorProps = {
     initialMode: (isDual ? 'dual-tax' : 'sales-tax') as any,
@@ -215,6 +226,7 @@ export default function RegionPage({ params }: RegionPageProps) {
     regionName: region.name,
     isCompounded: region.isCompounded,
     hideModeSwitcher: true,
+    customRatePresets: usStateData && customRatePresets.length > 1 ? customRatePresets : undefined,
   }
 
   return (
@@ -266,6 +278,30 @@ export default function RegionPage({ params }: RegionPageProps) {
           <p className="text-slate-600 text-base sm:text-lg max-w-3xl leading-relaxed">
             Use this calculator to find the original pre-tax price and {region.taxName} paid backwards from any tax-inclusive receipt or invoice in {region.name}.
           </p>
+
+          {/* NOMAD 0% State Statutory Alert */}
+          {region.rate === 0 && (
+            <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 space-y-1.5 mt-3">
+              <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-amber-800">
+                <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>{region.name} 0.00% State Sales Tax Notice (NOMAD State)</span>
+              </div>
+              <p className="text-xs sm:text-sm text-amber-900 leading-relaxed m-0">
+                {region.slug === 'alaska' &&
+                  'Alaska levies no statewide sales tax. However, over 100 local boroughs and municipalities (including Juneau, Wasilla, and Homer) assess local sales taxes ranging up to 7.85%. Select your municipality from the calculator presets to compute your exact local reverse tax.'}
+                {region.slug === 'delaware' &&
+                  'Delaware has 0.00% state and local sales tax. Instead of consumer retail sales tax, Delaware assesses a Gross Receipts Tax directly on business merchants ranging between 0.0945% and 0.7468%.'}
+                {region.slug === 'montana' &&
+                  'Montana has 0.00% general state sales tax. However, designated resort communities (including Whitefish, West Yellowstone, and Big Sky) levy local resort taxes up to 3.00%–4.00% on lodging, restaurants, and retail.'}
+                {region.slug === 'new-hampshire' &&
+                  'New Hampshire has 0.00% general state sales tax and no local municipal sales tax. However, an 8.5% Meals and Rentals Tax applies to restaurant dining, hotel accommodations, and car rentals.'}
+                {region.slug === 'oregon' &&
+                  'Oregon has 0.00% state and local sales tax. The state assesses a Corporate Activity Tax (CAT) on commercial businesses, plus minor local taxes on bicycles and transit in specific districts.'}
+                {!['alaska', 'delaware', 'montana', 'new-hampshire', 'oregon'].includes(region.slug) &&
+                  `${region.name} does not impose a general statewide sales tax on retail purchases.`}
+              </p>
+            </div>
+          )}
 
           {/* Authoritative State Tax Data Verification */}
           <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-slate-500">
@@ -411,23 +447,45 @@ export default function RegionPage({ params }: RegionPageProps) {
                   </div>
                 </div>
 
-                {/* Example 2: Typical $250 purchase */}
-                <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-white space-y-2">
-                  <div className="font-semibold text-slate-900 text-sm">
-                    Example 2: A $250.00 Retail Invoice
-                  </div>
-                  {(() => {
+                {/* Example 2: Major Municipal Combined Rate */}
+                {usStateData?.majorJurisdictions && usStateData.majorJurisdictions.length > 0 ? (
+                  (() => {
+                    const topLoc = usStateData.majorJurisdictions[0]
+                    const locDivisor = 1 + topLoc.combinedRate / 100
                     const gross = 250
-                    const net = gross / divisor
+                    const net = gross / locDivisor
                     const tax = gross - net
                     return (
-                      <div className="text-xs sm:text-sm text-slate-700 space-y-1.5 tabular-nums">
-                        <div>1. Calculate net price: $250.00 ÷ {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900">${net.toFixed(2)}</strong></div>
-                        <div>2. Calculate tax component: $250.00 − ${net.toFixed(2)} = <strong className="text-slate-900">${tax.toFixed(2)}</strong></div>
+                      <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-white space-y-2">
+                        <div className="font-semibold text-slate-900 text-sm">
+                          Example 2: A $250.00 Receipt in {topLoc.name} ({topLoc.combinedRate}% Combined Rate)
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-700 space-y-1.5 tabular-nums">
+                          <div>1. Determine combined divisor: 1 + ({topLoc.combinedRate} ÷ 100) = <strong>{locDivisor.toFixed(4).replace(/\.?0+$/, '')}</strong></div>
+                          <div>2. Calculate net price: $250.00 ÷ {locDivisor.toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900">${net.toFixed(2)}</strong></div>
+                          <div>3. Calculate combined sales tax: $250.00 − ${net.toFixed(2)} = <strong className="text-slate-900">${tax.toFixed(2)}</strong></div>
+                        </div>
                       </div>
                     )
-                  })()}
-                </div>
+                  })()
+                ) : (
+                  <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-white space-y-2">
+                    <div className="font-semibold text-slate-900 text-sm">
+                      Example 2: A $250.00 Retail Invoice
+                    </div>
+                    {(() => {
+                      const gross = 250
+                      const net = gross / divisor
+                      const tax = gross - net
+                      return (
+                        <div className="text-xs sm:text-sm text-slate-700 space-y-1.5 tabular-nums">
+                          <div>1. Calculate net price: $250.00 ÷ {(1 + effectiveTotalRate / 100).toFixed(4).replace(/\.?0+$/, '')} = <strong className="text-slate-900">${net.toFixed(2)}</strong></div>
+                          <div>2. Calculate tax component: $250.00 − ${net.toFixed(2)} = <strong className="text-slate-900">${tax.toFixed(2)}</strong></div>
+                        </div>
+                      )
+                    })()}
+                  </div>
+                )}
               </div>
             </section>
 

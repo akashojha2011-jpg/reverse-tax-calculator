@@ -18,6 +18,7 @@ import {
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react'
+import { RegionGridDirectory } from '@/components/RegionGridDirectory'
 
 export const metadata: Metadata = {
   title: 'Tax Calculators Directory — Online Sales Tax & Reverse Tax Tools',
@@ -361,6 +362,11 @@ export default function ToolsDirectoryPage() {
               <p className="text-slate-600 m-0">For British Columbia, Saskatchewan, Manitoba, and Quebec.</p>
             </Link>
           </div>
+        </section>
+
+        {/* Section 4: US State Sales Tax Calculators Directory */}
+        <section className="space-y-4">
+          <RegionGridDirectory />
         </section>
       </div>
     </>
