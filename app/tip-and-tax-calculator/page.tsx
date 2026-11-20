@@ -259,14 +259,14 @@ export default function TipAndTaxPage() {
               <div>
                 <h3 className="text-base font-bold text-slate-900 m-0">Need to extract meal cost backwards from a bank statement?</h3>
                 <p className="text-xs text-slate-600 mt-1 max-w-xl m-0">
-                  Use our Reverse Sales Tax and Tip Calculator to separate meal subtotal, tip, and tax from any credit card charge.
+                  Learn the reverse calculation formula to separate food subtotal, service tip, and sales tax from any total receipt charge.
                 </p>
               </div>
               <Link
-                href="/reverse-sales-tax-and-tip-calculator"
+                href="/guides/how-to-calculate-reverse-tax-percentage#section-7"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shrink-0 transition-colors shadow-2xs"
               >
-                <span>Reverse Tax & Tip</span>
+                <span>Reverse Tip Formula</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

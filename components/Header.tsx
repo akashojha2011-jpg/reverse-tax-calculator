@@ -19,19 +19,22 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const searchItems = [
-    { title: 'Reverse Sales Tax Calculator', url: '/reverse-sales-tax-calculator', category: 'Main Tool' },
-    { title: 'Remove Sales Tax from Total', url: '/remove-sales-tax-calculator', category: 'Calculators' },
-    { title: 'Tax-Inclusive Price Calculator', url: '/tax-inclusive-price-calculator', category: 'Calculators' },
-    { title: 'Sales Tax Calculator (Add Tax)', url: '/sales-tax-calculator', category: 'Calculators' },
-    { title: 'Add Sales Tax Calculator', url: '/add-sales-tax-calculator', category: 'Calculators' },
-    { title: 'Tax-Exclusive Price Calculator', url: '/tax-exclusive-price-calculator', category: 'Calculators' },
-    { title: 'Sales Tax Breakdown Calculator', url: '/sales-tax-breakdown-calculator', category: 'Calculators' },
+    { title: 'Reverse Sales Tax Calculator', url: '/', category: 'Main Tool' },
+    { title: 'Sales Tax Calculator (Add Tax)', url: '/tools/sales-tax-calculator', category: 'Calculators' },
+    { title: 'Sales Tax Breakdown Calculator', url: '/tools/sales-tax-breakdown', category: 'Calculators' },
+    { title: 'Reverse VAT Calculator', url: '/tools/reverse-vat-calculator', category: 'Calculators' },
+    { title: 'Reverse GST Calculator', url: '/tools/reverse-gst-calculator', category: 'Calculators' },
+    { title: 'Reverse HST Calculator', url: '/tools/reverse-hst-calculator', category: 'Calculators' },
+    { title: 'Reverse PST Calculator', url: '/tools/reverse-pst-calculator', category: 'Calculators' },
     { title: 'Compare State Sales Tax', url: '/compare-sales-tax', category: 'Calculators' },
     { title: 'Bulk Invoice Sales Tax', url: '/bulk-sales-tax-calculator', category: 'Calculators' },
+    { title: 'Discount and Tax Calculator', url: '/discount-and-tax-calculator', category: 'Calculators' },
+    { title: 'Tip and Tax Calculator', url: '/tip-and-tax-calculator', category: 'Calculators' },
     { title: 'US Sales Tax by ZIP Code', url: '/us-sales-tax-by-zip-code', category: 'Tax Rates' },
-    { title: 'Reverse Tax Formula Guide', url: '/reverse-tax-formula', category: 'Guides' },
     { title: 'How to Calculate Reverse Tax %', url: '/guides/how-to-calculate-reverse-tax-percentage', category: 'Guides' },
     { title: 'Forward vs Reverse Sales Tax', url: '/guides/reverse-tax-calculator-vs-forward-tax-calculator', category: 'Guides' },
+    { title: 'Net to Gross Salary Explained', url: '/guides/net-to-gross-salary-explained', category: 'Guides' },
+    { title: 'Canada GST vs HST vs PST Explained', url: '/guides/gst-vs-hst-vs-pst-canada-explained', category: 'Guides' },
     { title: 'All 50 State Tax Portals', url: '/data-sources', category: 'Tax Rates' },
     { title: 'About ReverseTaxCalculator.pro', url: '/about', category: 'Company' },
   ]
@@ -72,7 +75,7 @@ export function Header() {
             </Link>
 
             <Link
-              href="/reverse-tax-formula"
+              href="/guides/how-to-calculate-reverse-tax-percentage"
               className="text-slate-800 hover:text-blue-600 transition-colors py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md"
             >
               Guides
@@ -135,7 +138,7 @@ export function Header() {
             </Link>
 
             <Link
-              href="/reverse-tax-formula"
+              href="/guides/how-to-calculate-reverse-tax-percentage"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700 py-2 border-b border-slate-100"
             >

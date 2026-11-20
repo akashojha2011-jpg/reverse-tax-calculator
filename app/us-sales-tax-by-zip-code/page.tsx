@@ -159,7 +159,7 @@ export default function ZipTaxLookupPage() {
 
       <BreadcrumbNav
         items={[
-          { name: 'Sales Tax', url: '/reverse-sales-tax-calculator' },
+          { name: 'Sales Tax', url: '/' },
           { name: 'ZIP Code Tax Lookup', url: '/us-sales-tax-by-zip-code' },
         ]}
       />
@@ -330,7 +330,7 @@ export default function ZipTaxLookupPage() {
               </p>
             </div>
             <Link
-              href="/reverse-sales-tax-calculator"
+              href="/"
               className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors"
             >
               <span>View All 50 States</span>

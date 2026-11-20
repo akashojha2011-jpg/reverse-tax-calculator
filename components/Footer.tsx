@@ -37,18 +37,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/reverse-sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Reverse Sales Tax Calculator
-                </Link>
-              </li>
-              <li>
-                <Link href="/remove-sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Remove Sales Tax from Total
-                </Link>
-              </li>
-              <li>
-                <Link href="/sales-tax-breakdown-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                <Link href="/tools/sales-tax-breakdown" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
                   Sales Tax Breakdown Tool
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/reverse-vat-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                  Reverse VAT Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/reverse-gst-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                  Reverse GST Calculator
                 </Link>
               </li>
               <li>
@@ -67,12 +67,12 @@ export function Footer() {
             <ul className="space-y-2.5 text-xs font-medium">
               <li>
                 <Link href="/guides/how-to-calculate-reverse-tax-percentage" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Sales Tax Guides
+                  Sales Tax Formula Guide
                 </Link>
               </li>
               <li>
-                <Link href="/reverse-tax-formula" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Tax Calculation Formulas
+                <Link href="/guides/gst-vs-hst-vs-pst-canada-explained" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                  Canada Tax (GST/HST/PST) Guide
                 </Link>
               </li>
               <li>

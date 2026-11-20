@@ -519,32 +519,32 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/remove-sales-tax-calculator"
+              href="/guides/how-to-calculate-reverse-tax-percentage"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
             >
               <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
                 <Calculator className="w-4 h-4" />
               </div>
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                How to Remove Sales Tax from a Total
+                How to Calculate Reverse Tax Percentage
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Detailed instructions and formulas for taking sales tax out of receipts and expense reports.
+                Comprehensive formula derivation, algebraic proofs, division shortcuts, and step-by-step math.
               </p>
             </Link>
 
             <Link
-              href="/reverse-tax-formula"
+              href="/guides/reverse-tax-calculator-vs-forward-tax-calculator"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
             >
               <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
                 <BookOpen className="w-4 h-4" />
               </div>
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Reverse Sales Tax Formula Guide
+                Reverse vs Forward Sales Tax Guide
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Step-by-step mathematical derivation of the reverse tax division formula and spreadsheet examples.
+                Comparison of adding sales tax to net price vs extracting tax backwards from an inclusive receipt.
               </p>
             </Link>
           </div>

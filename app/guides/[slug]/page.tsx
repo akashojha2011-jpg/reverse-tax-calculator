@@ -83,7 +83,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           <strong>Reverse tax calculation</strong> (also known as <em>calculating tax backwards</em> or <em>back-calculating tax</em>) is the mathematical process of isolating the original pre-tax net subtotal and the exact tax amount paid from a known tax-inclusive gross total.
         </p>
         <p>
-          Whether you are an accountant reconciling expense receipts, a business owner pricing consumer goods for gross profit margins, or a consumer verifying receipt charges, mastering reverse tax math is an essential financial skill. For quick calculations, you can always use our free <Link href="/reverse-sales-tax-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link> or dedicated <Link href="/reverse-vat-calculator" className="text-blue-600 font-semibold hover:underline">Reverse VAT Calculator</Link>.
+          Whether you are an accountant reconciling expense receipts, a business owner pricing consumer goods for gross profit margins, or a consumer verifying receipt charges, mastering reverse tax math is an essential financial skill. For quick calculations, you can always use our free <Link href="/" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link> or dedicated <Link href="/tools/reverse-vat-calculator" className="text-blue-600 font-semibold hover:underline">Reverse VAT Calculator</Link>.
         </p>
 
         <h2 id="section-2" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -234,7 +234,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           <div>Rate Percentage = 0.10 × 100 = <strong>10.00%</strong></div>
         </div>
         <p className="mt-3">
-          To solve custom rates instantly, test our dedicated <Link href="/reverse-tax-rate-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Tax Rate Solver</Link>.
+          To solve custom rates, apply the formula above or see <Link href="#section-2" className="text-blue-600 font-semibold hover:underline">Section 2 for algebraic proofs</Link>.
         </p>
 
         <h2 id="section-6" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -256,7 +256,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           Net = Gross ÷ (1 + 0.05 + 0.09975) = Gross ÷ 1.14975
         </div>
         <p className="mt-3">
-          For full regional provincial breakdowns, refer to our comprehensive <Link href="/guides/gst-vs-hst-vs-pst-canada-explained" className="text-blue-600 font-semibold hover:underline">Canada Sales Tax Guide (GST vs HST vs PST)</Link> or use our <Link href="/reverse-hst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse HST Calculator</Link>.
+          For full regional provincial breakdowns, refer to our comprehensive <Link href="/guides/gst-vs-hst-vs-pst-canada-explained" className="text-blue-600 font-semibold hover:underline">Canada Sales Tax Guide (GST vs HST vs PST)</Link> or use our <Link href="/tools/reverse-hst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse HST Calculator</Link>.
         </p>
 
         <h2 id="section-7" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -275,7 +275,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           Pre-Tax Food Subtotal = $1,250.00 ÷ (1 + 0.08 + 0.17) = $1,250.00 ÷ 1.25 = <strong>$1,000.00</strong>
         </div>
         <p className="mt-3">
-          For dining receipt splits, use our specialized <Link href="/reverse-sales-tax-and-tip-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax and Tip Calculator</Link>.
+          For dining receipt splits, use our specialized <Link href="/tip-and-tax-calculator" className="text-blue-600 font-semibold hover:underline">Tip and Tax Calculator</Link>.
         </p>
 
         <h2 id="section-8" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -350,9 +350,9 @@ const GUIDES_DATA: Record<string, GuideData> = {
           Reverse tax calculation is critical across several business accounting functions:
         </p>
         <ul className="list-disc pl-6 space-y-2 text-slate-700 text-sm">
-          <li><strong>VAT / GST Reclaim Filing</strong>: When businesses submit quarterly tax returns, they must report input VAT paid on business expenses. Reclaiming VAT requires exact net subtotal breakdown. For UK/EU filings, consult our <Link href="/reverse-vat-calculator" className="text-blue-600 font-semibold hover:underline">Reverse VAT Tool</Link>.</li>
+          <li><strong>VAT / GST Reclaim Filing</strong>: When businesses submit quarterly tax returns, they must report input VAT paid on business expenses. Reclaiming VAT requires exact net subtotal breakdown. For UK/EU filings, consult our <Link href="/tools/reverse-vat-calculator" className="text-blue-600 font-semibold hover:underline">Reverse VAT Calculator</Link>.</li>
           <li><strong>E-Commerce Pricing Strategy</strong>: Merchants selling in B2C markets often quote round prices (e.g., $99.00 tax included). To calculate real gross profit margins, the pre-tax base price must be back-calculated.</li>
-          <li><strong>Payroll Net-to-Gross Adjustments</strong>: While sales taxes add to net price, payroll taxes are deducted from gross wages. To calculate payroll take-home pay, see our guide on <Link href="/guides/net-to-gross-salary-explained" className="text-blue-600 font-semibold hover:underline">Net to Gross Salary Explained</Link> or use the <Link href="/reverse-income-tax-calculator" className="text-blue-600 font-semibold hover:underline">Net to Gross Paycheck Estimator</Link>.</li>
+          <li><strong>Payroll Net-to-Gross Adjustments</strong>: While sales taxes add to net price, payroll taxes are deducted from gross wages. To calculate payroll take-home pay, see our guide on <Link href="/guides/net-to-gross-salary-explained" className="text-blue-600 font-semibold hover:underline">Net to Gross Salary Explained</Link>.</li>
         </ul>
       </>
     ),
@@ -414,7 +414,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           </li>
         </ul>
         <p>
-          Understanding when and how to apply each method is critical for avoiding tax audit penalties, maintaining financial reporting integrity, and preventing profit margin erosion. For instant reverse calculations, try our <Link href="/reverse-sales-tax-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link>.
+          Understanding when and how to apply each method is critical for avoiding tax audit penalties, maintaining financial reporting integrity, and preventing profit margin erosion. For instant reverse calculations, try our <Link href="/" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link>.
         </p>
 
         <h2 id="section-2" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -462,7 +462,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
               <tr>
                 <td className="p-3 font-bold text-slate-900">Dedicated Tool Link</td>
                 <td className="p-3">Standard POS Register</td>
-                <td className="p-3 font-bold"><Link href="/reverse-tax-formula" className="text-blue-600 hover:underline">Reverse Tax Formula Tool</Link></td>
+                <td className="p-3 font-bold"><Link href="/guides/how-to-calculate-reverse-tax-percentage" className="text-blue-600 hover:underline">Reverse Tax Formula</Link></td>
               </tr>
             </tbody>
           </table>
@@ -540,7 +540,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
               Scenario A: E-Commerce Cross-Border Sales (VAT / GST Compliance)
             </h3>
             <p className="text-sm text-slate-700">
-              When selling online to European customers, consumer protection laws mandate displaying tax-inclusive prices (e.g., €50.00 VAT included). To record revenue in accounting software like QuickBooks or Xero, the seller must extract net revenue (€50 ÷ 1.20 = €41.67) and liability (€8.33 VAT). Use our <Link href="/reverse-vat-calculator" className="text-blue-600 hover:underline font-semibold">Reverse VAT Calculator</Link> for European sales.
+              When selling online to European customers, consumer protection laws mandate displaying tax-inclusive prices (e.g., €50.00 VAT included). To record revenue in accounting software like QuickBooks or Xero, the seller must extract net revenue (€50 ÷ 1.20 = €41.67) and liability (€8.33 VAT). Use our <Link href="/tools/reverse-vat-calculator" className="text-blue-600 hover:underline font-semibold">Reverse VAT Calculator</Link> for European sales.
             </p>
           </div>
 
@@ -549,7 +549,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
               Scenario B: Canadian Expense Receipts (GST / HST Input Tax Credits)
             </h3>
             <p className="text-sm text-slate-700">
-              Canadian businesses filing quarterly GST/HST returns must claim Input Tax Credits (ITCs). If an employee submits an Ontario fuel receipt for $113.00, the accountant divides by 1.13 to record $100.00 expense and $13.00 ITC reclaimable from the CRA. See our <Link href="/reverse-hst-calculator" className="text-blue-600 hover:underline font-semibold">Reverse HST Calculator</Link>.
+              Canadian businesses filing quarterly GST/HST returns must claim Input Tax Credits (ITCs). If an employee submits an Ontario fuel receipt for $113.00, the accountant divides by 1.13 to record $100.00 expense and $13.00 ITC reclaimable from the CRA. See our <Link href="/tools/reverse-hst-calculator" className="text-blue-600 hover:underline font-semibold">Reverse HST Calculator</Link>.
             </p>
           </div>
         </div>
@@ -575,11 +575,11 @@ const GUIDES_DATA: Record<string, GuideData> = {
           Depending on your transaction type, select the optimal reverse calculator tool:
         </p>
         <ul className="list-disc pl-6 space-y-2 text-slate-700 text-sm">
-          <li>US Retail & State Sales Tax → <Link href="/reverse-sales-tax-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link></li>
-          <li>UK / EU Invoices & VAT → <Link href="/reverse-vat-calculator" className="text-blue-600 font-semibold hover:underline">Reverse VAT Calculator</Link></li>
-          <li>Canada GST & Blended HST → <Link href="/reverse-hst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse HST Calculator</Link></li>
-          <li>Unknown Tax Rate Solver → <Link href="/reverse-tax-rate-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Tax Rate Solver</Link></li>
-          <li>Dining Receipts with Tip → <Link href="/reverse-sales-tax-and-tip-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Tax and Tip Calculator</Link></li>
+          <li>US Retail & State Sales Tax → <Link href="/" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link></li>
+          <li>UK / EU Invoices & VAT → <Link href="/tools/reverse-vat-calculator" className="text-blue-600 font-semibold hover:underline">Reverse VAT Calculator</Link></li>
+          <li>Canada GST & Blended HST → <Link href="/tools/reverse-hst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse HST Calculator</Link></li>
+          <li>Unknown Tax Rate Solver → <Link href="/guides/how-to-calculate-reverse-tax-percentage#section-5" className="text-blue-600 font-semibold hover:underline">Reverse Tax Rate Solver Formula</Link></li>
+          <li>Dining Receipts with Tip → <Link href="/tip-and-tax-calculator" className="text-blue-600 font-semibold hover:underline">Tip and Tax Calculator</Link></li>
         </ul>
       </>
     ),
@@ -641,7 +641,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           </li>
         </ul>
         <p>
-          When job candidates negotiate compensation based on lifestyle budget needs (e.g., "I need $5,000 net cash per month to cover living expenses"), employers and HR managers must calculate the required gross salary backwards. To calculate custom paycheck figures instantly, use our free <Link href="/reverse-income-tax-calculator" className="text-blue-600 font-semibold hover:underline">Net to Gross Paycheck Estimator</Link>.
+          When job candidates negotiate compensation based on lifestyle budget needs (e.g., "I need $5,000 net cash per month to cover living expenses"), employers and HR managers must calculate the required gross salary backwards using effective tax rate formulas.
         </p>
 
         <h2 id="section-2" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -847,7 +847,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           When converting net to gross salary for independent 1099 contractors, remember that contractors must pay both the employee AND employer portions of FICA taxes (known as <strong>Self-Employment Tax = 15.3%</strong>).
         </p>
         <p>
-          Consequently, a 1099 contractor requires a significantly higher gross rate (typically 20% to 30% higher than a W-2 employee) to achieve the exact same net take-home pay! For standard consumer sales tax math, visit our <Link href="/guides/how-to-calculate-reverse-tax-percentage" className="text-blue-600 font-semibold hover:underline">How to Calculate Reverse Tax Percentage Guide</Link> or test the <Link href="/reverse-income-tax-calculator" className="text-blue-600 font-semibold hover:underline">Net to Gross Paycheck Estimator</Link>.
+          Consequently, a 1099 contractor requires a significantly higher gross rate (typically 20% to 30% higher than a W-2 employee) to achieve the exact same net take-home pay! For standard consumer sales tax math, visit our <Link href="/guides/how-to-calculate-reverse-tax-percentage" className="text-blue-600 font-semibold hover:underline">How to Calculate Reverse Tax Percentage Guide</Link>.
         </p>
       </>
     ),
@@ -902,7 +902,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           <li><strong>HST (Harmonized Sales Tax)</strong>: A single blended tax combining GST and provincial tax into one rate, administered by the CRA in Ontario (13%), New Brunswick (15%), Nova Scotia (15%), PEI (15%), and Newfoundland & Labrador (15%).</li>
         </ul>
         <p>
-          For instant Canadian sales tax calculations, use our dedicated <Link href="/reverse-hst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse HST Calculator</Link> or <Link href="/reverse-gst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse GST Calculator</Link>.
+          For instant Canadian sales tax calculations, use our dedicated <Link href="/tools/reverse-hst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse HST Calculator</Link> or <Link href="/tools/reverse-gst-calculator" className="text-blue-600 font-semibold hover:underline">Reverse GST Calculator</Link>.
         </p>
 
         <h2 id="section-2" className="text-2xl font-extrabold text-slate-900 mt-8 mb-3 scroll-mt-24">
@@ -1101,7 +1101,7 @@ const GUIDES_DATA: Record<string, GuideData> = {
           </ul>
         </div>
         <p className="mt-3">
-          To learn more about standard reverse tax algebra, visit our <Link href="/guides/how-to-calculate-reverse-tax-percentage" className="text-blue-600 font-semibold hover:underline">How to Calculate Reverse Tax Percentage Guide</Link> or use our <Link href="/reverse-sales-tax-calculator" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link>.
+          To learn more about standard reverse tax algebra, visit our <Link href="/guides/how-to-calculate-reverse-tax-percentage" className="text-blue-600 font-semibold hover:underline">How to Calculate Reverse Tax Percentage Guide</Link> or use our <Link href="/" className="text-blue-600 font-semibold hover:underline">Reverse Sales Tax Calculator</Link>.
         </p>
       </>
     ),
@@ -1165,7 +1165,7 @@ export default function GuidePage({ params }: GuidePageProps) {
 
       <BreadcrumbNav
         items={[
-          { name: 'Guides', url: '/reverse-tax-formula' },
+          { name: 'Guides', url: '/guides/how-to-calculate-reverse-tax-percentage' },
           { name: guide.title, url: `/guides/${params.slug}` },
         ]}
       />
@@ -1224,28 +1224,28 @@ export default function GuidePage({ params }: GuidePageProps) {
             </p>
             <div className="space-y-2">
               <Link
-                href="/reverse-sales-tax-calculator"
+                href="/"
                 className="block w-full text-center px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all"
               >
                 Reverse Sales Tax Calculator
               </Link>
               <Link
-                href="/reverse-vat-calculator"
+                href="/tools/reverse-vat-calculator"
                 className="block w-full text-center px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs transition-all"
               >
                 Reverse VAT Calculator (UK/EU)
               </Link>
               <Link
-                href="/reverse-hst-calculator"
+                href="/tools/reverse-hst-calculator"
                 className="block w-full text-center px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs transition-all"
               >
                 Reverse HST Calculator (Canada)
               </Link>
               <Link
-                href="/reverse-income-tax-calculator"
+                href="/tools/sales-tax-breakdown"
                 className="block w-full text-center px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs transition-all"
               >
-                Net to Gross Paycheck Estimator
+                Sales Tax Breakdown Tool
               </Link>
             </div>
           </div>

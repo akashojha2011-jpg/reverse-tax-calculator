@@ -94,16 +94,16 @@ export default function RegionPage({ params }: RegionPageProps) {
   const usStateData = getUsStateTaxRate(region.slug)
 
   // Determine parent hub
-  let hubUrl = '/reverse-sales-tax-calculator'
+  let hubUrl = '/'
   let hubName = 'Reverse Sales Tax Calculator'
   if (region.taxName.includes('HST')) {
-    hubUrl = '/reverse-hst-calculator'
+    hubUrl = '/tools/reverse-hst-calculator'
     hubName = 'Reverse HST Calculator'
   } else if (region.taxName.includes('GST')) {
-    hubUrl = '/reverse-gst-calculator'
+    hubUrl = '/tools/reverse-gst-calculator'
     hubName = 'Reverse GST Calculator'
   } else if (region.taxName.includes('VAT')) {
-    hubUrl = '/reverse-vat-calculator'
+    hubUrl = '/tools/reverse-vat-calculator'
     hubName = 'Reverse VAT Calculator'
   }
 
@@ -704,7 +704,7 @@ export default function RegionPage({ params }: RegionPageProps) {
                   <Link href="/us-sales-tax-by-zip-code" className="block hover:underline">
                     • ZIP Code Sales Tax Lookup
                   </Link>
-                  <Link href="/sales-tax-calculator" className="block hover:underline">
+                  <Link href="/tools/sales-tax-calculator" className="block hover:underline">
                     • Standard Sales Tax Calculator
                   </Link>
                   <Link href="/discount-and-tax-calculator" className="block hover:underline">

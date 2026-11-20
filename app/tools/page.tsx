@@ -110,25 +110,6 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/add-sales-tax-calculator"
-              className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
-            >
-              <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-                <PlusCircle className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Add Sales Tax Calculator
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Quick register price estimator to add statutory sales tax to advertised shelf prices.
-              </p>
-              <div className="pt-1 text-xs font-bold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                <span>Open Tool</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </div>
-            </Link>
-
-            <Link
               href="/tools/sales-tax-breakdown"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
             >
@@ -220,7 +201,7 @@ export default function ToolsDirectoryPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <Link
-              href="/reverse-sales-tax-calculator"
+              href="/"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
             >
               <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
@@ -239,17 +220,17 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/remove-sales-tax-calculator"
+              href="/tools/reverse-vat-calculator"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
             >
               <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
                 <MinusCircle className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Remove Sales Tax from Total
+                Reverse VAT Calculator
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Deduct sales tax for business expense reports, bookkeeping, and Schedule C tax filings.
+                Extract Value Added Tax (VAT) from gross invoice totals for UK, EU, and international cross-border trade.
               </p>
               <div className="pt-1 text-xs font-bold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
                 <span>Open Tool</span>
@@ -258,17 +239,17 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/tax-inclusive-price-calculator"
+              href="/tools/reverse-gst-calculator"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
             >
               <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
                 <Layers className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
-                Tax-Inclusive Price Calculator
+                Reverse GST Calculator
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Deconstruct gross inclusive prices into pre-tax revenue and tax payable for GAAP/IFRS accounting.
+                Back-calculate Goods and Services Tax (GST) for Australia, India, New Zealand, and Canadian businesses.
               </p>
               <div className="pt-1 text-xs font-bold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
                 <span>Open Tool</span>
@@ -277,7 +258,7 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/reverse-tax-formula"
+              href="/guides/how-to-calculate-reverse-tax-percentage"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
             >
               <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">

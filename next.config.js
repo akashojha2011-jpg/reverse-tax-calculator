@@ -14,6 +14,85 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/sales-tax-calculator',
+        destination: '/tools/sales-tax-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/sales-tax-breakdown-calculator',
+        destination: '/tools/sales-tax-breakdown/',
+        permanent: true,
+      },
+      {
+        source: '/reverse-vat-calculator',
+        destination: '/tools/reverse-vat-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/reverse-gst-calculator',
+        destination: '/tools/reverse-gst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/reverse-hst-calculator',
+        destination: '/tools/reverse-hst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/reverse-pst-calculator',
+        destination: '/tools/reverse-pst-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/reverse-sales-tax-calculator',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/remove-sales-tax-calculator',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/tax-inclusive-price-calculator',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/add-sales-tax-calculator',
+        destination: '/tools/sales-tax-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/tax-exclusive-price-calculator',
+        destination: '/tools/sales-tax-calculator/',
+        permanent: true,
+      },
+      {
+        source: '/reverse-sales-tax-and-tip-calculator',
+        destination: '/tip-and-tax-calculator',
+        permanent: true,
+      },
+      {
+        source: '/reverse-tax-formula',
+        destination: '/guides/how-to-calculate-reverse-tax-percentage',
+        permanent: true,
+      },
+      {
+        source: '/reverse-tax-rate-calculator',
+        destination: '/guides/how-to-calculate-reverse-tax-percentage',
+        permanent: true,
+      },
+      {
+        source: '/reverse-income-tax-calculator',
+        destination: '/guides/net-to-gross-salary-explained',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = withMDX(nextConfig)
