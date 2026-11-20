@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Core static & specialized calculator pages
   const corePages = [
     '',
+    '/tools',
+    '/tools/sales-tax-calculator',
     '/reverse-sales-tax-calculator',
     '/sales-tax-calculator',
     '/add-sales-tax-calculator',

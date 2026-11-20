@@ -22,7 +22,7 @@ export function BreadcrumbNav({ items }: BreadcrumbNavProps) {
       '@type': 'ListItem',
       position: idx + 1,
       name: item.name,
-      item: `https://reversetaxcalculator.pro${item.url}`,
+      item: `https://www.reversetaxcalculator.pro${item.url}`,
     })),
   }
 

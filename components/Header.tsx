@@ -65,17 +65,17 @@ export function Header() {
             </Link>
 
             <Link
-              href="/reverse-sales-tax-calculator"
+              href="/tools"
               className="text-slate-800 hover:text-blue-600 transition-colors py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md"
             >
-              Reverse Sales Tax Calculator
+              Tools
             </Link>
 
             <Link
               href="/reverse-tax-formula"
               className="text-slate-800 hover:text-blue-600 transition-colors py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md"
             >
-              Sales Tax Guides
+              Guides
             </Link>
 
             <Link
@@ -127,11 +127,11 @@ export function Header() {
             </Link>
 
             <Link
-              href="/reverse-sales-tax-calculator"
+              href="/tools"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700 py-2 border-b border-slate-100"
             >
-              Reverse Sales Tax Calculator
+              Tools
             </Link>
 
             <Link
@@ -139,7 +139,7 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700 py-2 border-b border-slate-100"
             >
-              Sales Tax Guides
+              Guides
             </Link>
 
             <Link

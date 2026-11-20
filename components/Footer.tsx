@@ -23,35 +23,37 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Calculators */}
+          {/* Column 2: Tools */}
           <div>
             <h3 className="text-slate-900 font-bold text-xs uppercase tracking-wider mb-4 leading-none">
-              Calculators
+              <Link href="/tools" className="hover:text-blue-600 transition-colors">
+                Tools
+              </Link>
             </h3>
             <ul className="space-y-2.5 text-xs font-medium">
+              <li>
+                <Link href="/tools/sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                  Sales Tax Calculator
+                </Link>
+              </li>
               <li>
                 <Link href="/reverse-sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
                   Reverse Sales Tax Calculator
                 </Link>
               </li>
               <li>
-                <Link href="/reverse-vat-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Reverse VAT Calculator
+                <Link href="/remove-sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                  Remove Sales Tax from Total
                 </Link>
               </li>
               <li>
-                <Link href="/reverse-gst-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Reverse GST Calculator
+                <Link href="/sales-tax-breakdown-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
+                  Sales Tax Breakdown Tool
                 </Link>
               </li>
               <li>
-                <Link href="/sales-tax-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Sales Tax Calculator
-                </Link>
-              </li>
-              <li>
-                <Link href="/tax-inclusive-price-calculator" className="text-slate-600 hover:text-blue-600 hover:underline transition-colors block">
-                  Tax-Inclusive Calculator
+                <Link href="/tools" className="text-blue-600 hover:underline transition-colors block font-semibold">
+                  View All Tax Tools →
                 </Link>
               </li>
             </ul>
