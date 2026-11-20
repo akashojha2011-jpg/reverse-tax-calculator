@@ -107,6 +107,55 @@ describe('Sales Tax Calculation Engine', () => {
       expect(result.totalTaxAmount).toBe(8.25)
       expect(result.finalTotalAmount).toBe(108.25)
     })
+
+    it('calculates 4-tier breakdown for $100 purchase: State 5%, County 1%, City 1.5%, District 0.5%', () => {
+      const result = calculateTaxBreakdown(100, {
+        stateRate: 5.0,
+        countyRate: 1.0,
+        cityRate: 1.5,
+        specialDistrictRate: 0.5,
+      })
+      expect(result.preTaxNet).toBe(100.0)
+      expect(result.stateTaxAmount).toBe(5.0)
+      expect(result.countyTaxAmount).toBe(1.0)
+      expect(result.cityTaxAmount).toBe(1.5)
+      expect(result.specialDistrictTaxAmount).toBe(0.5)
+      expect(result.combinedRatePercentage).toBe(8.0)
+      expect(result.totalTaxAmount).toBe(8.0)
+      expect(result.finalTotalAmount).toBe(108.0)
+    })
+
+    it('calculates 4-tier breakdown for $500 purchase: State 5%, County 1%, City 1.5%, District 0.5%', () => {
+      const result = calculateTaxBreakdown(500, {
+        stateRate: 5.0,
+        countyRate: 1.0,
+        cityRate: 1.5,
+        specialDistrictRate: 0.5,
+      })
+      expect(result.preTaxNet).toBe(500.0)
+      expect(result.stateTaxAmount).toBe(25.0)
+      expect(result.countyTaxAmount).toBe(5.0)
+      expect(result.cityTaxAmount).toBe(7.5)
+      expect(result.specialDistrictTaxAmount).toBe(2.5)
+      expect(result.combinedRatePercentage).toBe(8.0)
+      expect(result.totalTaxAmount).toBe(40.0)
+      expect(result.finalTotalAmount).toBe(540.0)
+    })
+
+    it('handles zero rates and non-applicable tiers gracefully', () => {
+      const result = calculateTaxBreakdown(250, {
+        stateRate: 6.0,
+        countyRate: 0,
+        cityRate: 0,
+        specialDistrictRate: 0,
+      })
+      expect(result.stateTaxAmount).toBe(15.0)
+      expect(result.countyTaxAmount).toBe(0)
+      expect(result.cityTaxAmount).toBe(0)
+      expect(result.specialDistrictTaxAmount).toBe(0)
+      expect(result.totalTaxAmount).toBe(15.0)
+      expect(result.finalTotalAmount).toBe(265.0)
+    })
   })
 
   describe('compareLocationTaxes', () => {
