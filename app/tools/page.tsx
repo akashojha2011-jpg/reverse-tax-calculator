@@ -365,7 +365,7 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/reverse-hst-calculator"
+              href="/tools/reverse-hst-calculator/"
               className="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-2xs transition-all space-y-1 block"
             >
               <div className="font-bold text-slate-900 text-sm">Reverse HST Calculator</div>

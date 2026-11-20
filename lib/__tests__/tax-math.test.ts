@@ -127,6 +127,46 @@ describe('Sales Tax Calculation Engine', () => {
         expect(result.taxAmount).toBe(10.0)
       })
     })
+
+    describe('Reverse HST Calculation Specific Test Cases', () => {
+      it('TEST 1: C$113 gross at 13% HST -> C$100 original price, C$13 HST', () => {
+        const result = calculateReverseTax(113, 13)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(13.0)
+        expect(result.grossAmount).toBe(113.0)
+      })
+
+      it('TEST 2: C$115 gross at 15% HST -> C$100 original price, C$15 HST', () => {
+        const result = calculateReverseTax(115, 15)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(15.0)
+        expect(result.grossAmount).toBe(115.0)
+      })
+
+      it('TEST 3: C$105 gross at 5% HST/GST -> C$100 original price, C$5 HST', () => {
+        const result = calculateReverseTax(105, 5)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(5.0)
+        expect(result.grossAmount).toBe(105.0)
+      })
+
+      it('TEST 4: C$100 gross at 0% HST -> C$100 original price, C$0 HST', () => {
+        const result = calculateReverseTax(100, 0)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(0.0)
+        expect(result.grossAmount).toBe(100.0)
+      })
+
+      it('handles C$108 at 8% and C$120 at 20%', () => {
+        const res108 = calculateReverseTax(108, 8)
+        expect(res108.netAmount).toBe(100.0)
+        expect(res108.taxAmount).toBe(8.0)
+
+        const res120 = calculateReverseTax(120, 20)
+        expect(res120.netAmount).toBe(100.0)
+        expect(res120.taxAmount).toBe(20.0)
+      })
+    })
   })
 
   describe('calculateForwardSalesTax (Add Sales Tax)', () => {
