@@ -38,11 +38,11 @@ interface JurisdictionPreset {
 }
 
 const POPULAR_PRESETS: JurisdictionPreset[] = [
-  { name: 'Standard Example', state: '5.00', county: '1.00', city: '1.50', district: '0.50' },
-  { name: 'Houston, TX', state: '6.25', county: '0.00', city: '1.00', district: '1.00' },
-  { name: 'Los Angeles, CA', state: '6.00', county: '0.25', city: '1.00', district: '2.25' },
-  { name: 'New York City, NY', state: '4.00', county: '0.00', city: '4.50', district: '0.375' },
-  { name: 'Chicago, IL', state: '6.25', county: '1.75', city: '1.25', district: '1.00' },
+  { name: 'Standard Example (8.00%)', state: '5.00', county: '1.00', city: '1.50', district: '0.50' },
+  { name: 'Sample Scenario A (6.00%)', state: '4.00', county: '1.00', city: '1.00', district: '0.00' },
+  { name: 'Sample Scenario B (7.25%)', state: '6.00', county: '0.25', city: '1.00', district: '0.00' },
+  { name: 'Sample Scenario C (8.25%)', state: '6.25', county: '0.00', city: '1.00', district: '1.00' },
+  { name: 'Sample Scenario D (9.50%)', state: '6.00', county: '0.50', city: '1.50', district: '1.50' },
 ]
 
 export function SalesTaxBreakdownTool() {
@@ -184,7 +184,7 @@ Calculated at ReverseTaxCalculator.pro/tools/sales-tax-breakdown/`
         </div>
         <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Real-time Jurisdiction Math</span>
+          <span>Instant Tax Component Calculation</span>
         </div>
       </div>
 
@@ -374,7 +374,7 @@ Calculated at ReverseTaxCalculator.pro/tools/sales-tax-breakdown/`
         {/* Quick Example Presets */}
         <div>
           <div className="text-[11px] font-semibold text-slate-500 mb-1.5">
-            Illustrative Jurisdiction Examples:
+            Illustrative Rate Presets:
           </div>
           <div className="flex flex-wrap gap-1.5">
             {POPULAR_PRESETS.map((p) => (
@@ -388,6 +388,9 @@ Calculated at ReverseTaxCalculator.pro/tools/sales-tax-breakdown/`
               </button>
             ))}
           </div>
+          <p className="text-[11px] text-slate-400 mt-1 m-0">
+            Sample combinations for quick testing. Enter your specific rates above.
+          </p>
         </div>
 
         {/* Currency Formatting Selector */}
@@ -641,6 +644,11 @@ Calculated at ReverseTaxCalculator.pro/tools/sales-tax-breakdown/`
               </tbody>
             </table>
           </div>
+
+          {/* Taxable Base Assumption Note */}
+          <p className="text-[11px] text-slate-500 m-0 leading-relaxed italic">
+            Illustrative breakdown: each entered rate is applied independently to the taxable purchase amount. Actual jurisdiction rules may use different taxable bases or calculation methods.
+          </p>
 
           {/* Mathematical Step-by-Step Breakdown */}
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 text-xs text-slate-700 space-y-1 font-mono">

@@ -156,6 +156,40 @@ describe('Sales Tax Calculation Engine', () => {
       expect(result.totalTaxAmount).toBe(15.0)
       expect(result.finalTotalAmount).toBe(265.0)
     })
+
+    it('handles all rates at 0% correctly', () => {
+      const result = calculateTaxBreakdown(150, {
+        stateRate: 0,
+        countyRate: 0,
+        cityRate: 0,
+        specialDistrictRate: 0,
+      })
+      expect(result.preTaxNet).toBe(150.0)
+      expect(result.stateTaxAmount).toBe(0)
+      expect(result.countyTaxAmount).toBe(0)
+      expect(result.cityTaxAmount).toBe(0)
+      expect(result.specialDistrictTaxAmount).toBe(0)
+      expect(result.combinedRatePercentage).toBe(0)
+      expect(result.totalTaxAmount).toBe(0)
+      expect(result.finalTotalAmount).toBe(150.0)
+    })
+
+    it('handles decimal component rates accurately (e.g. NYC 8.875%)', () => {
+      const result = calculateTaxBreakdown(100, {
+        stateRate: 4.0,
+        countyRate: 0,
+        cityRate: 4.5,
+        specialDistrictRate: 0.375,
+      })
+      expect(result.preTaxNet).toBe(100.0)
+      expect(result.stateTaxAmount).toBe(4.0)
+      expect(result.countyTaxAmount).toBe(0)
+      expect(result.cityTaxAmount).toBe(4.5)
+      expect(result.specialDistrictTaxAmount).toBe(0.38) // 0.375 rounds to 0.38
+      expect(result.combinedRatePercentage).toBe(8.875)
+      expect(result.totalTaxAmount).toBe(8.88)
+      expect(result.finalTotalAmount).toBe(108.88)
+    })
   })
 
   describe('compareLocationTaxes', () => {

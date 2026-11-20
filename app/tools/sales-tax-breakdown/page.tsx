@@ -25,14 +25,14 @@ import {
 export const metadata: Metadata = {
   title: 'Sales Tax Breakdown Calculator – State & Local Tax',
   description:
-    'Break down sales tax into state, county, city and district components. Enter your purchase price and individual tax rates to calculate each tax amount and total cost.',
+    'Break down sales tax into state, county, city and special district components. Calculate individual tax amounts, combined rates and your final purchase total.',
   alternates: {
     canonical: 'https://www.reversetaxcalculator.pro/tools/sales-tax-breakdown/',
   },
   openGraph: {
     title: 'Sales Tax Breakdown Calculator – State & Local Tax',
     description:
-      'Break down sales tax into state, county, city and district components. Enter your purchase price and individual tax rates to calculate each tax amount and total cost.',
+      'Break down sales tax into state, county, city and special district components. Calculate individual tax amounts, combined rates and your final purchase total.',
     url: 'https://www.reversetaxcalculator.pro/tools/sales-tax-breakdown/',
     siteName: 'ReverseTaxCalculator.pro',
     type: 'website',
@@ -44,6 +44,11 @@ const FAQS = [
     question: 'What is a sales tax breakdown calculator?',
     answer:
       'A sales tax breakdown calculator is a financial tool that separates a combined retail sales tax into its individual statutory components—including state, county, municipal (city), and special district taxes. It calculates the exact dollar amount allocated to each jurisdiction from a single pre-tax purchase price.',
+  },
+  {
+    question: 'Are all sales tax components calculated on the same purchase amount?',
+    answer:
+      'Not necessarily. This calculator applies each entered rate to the same taxable purchase amount for an illustrative breakdown. Actual tax rules can differ by jurisdiction, transaction and taxable item.',
   },
   {
     question: 'What is the difference between state and local sales tax?',
@@ -78,7 +83,7 @@ const FAQS = [
   {
     question: 'Does this calculator automatically find my local sales tax rate?',
     answer:
-      'No. This calculator allows you to enter and evaluate specific rates you provide. It does not automatically look up or determine legally binding rates by address. If you need to search local rate breakdowns across the United States, use our US Sales Tax by ZIP Code lookup tool.',
+      'No. This calculator allows you to enter and evaluate specific rates you provide. It does not automatically look up or determine legally binding rates by address.',
   },
   {
     question: 'Why might my receipt show a different sales tax amount?',
@@ -94,7 +99,7 @@ export default function SalesTaxBreakdownPage() {
     name: 'Sales Tax Breakdown Calculator',
     url: 'https://www.reversetaxcalculator.pro/tools/sales-tax-breakdown/',
     description:
-      'Break down sales tax into state, county, city and district components. Enter your purchase price and individual tax rates to calculate each tax amount and total cost.',
+      'Break down sales tax into state, county, city and special district components. Calculate individual tax amounts, combined rates and your final purchase total.',
   }
 
   const appSchema = {
@@ -346,17 +351,10 @@ export default function SalesTaxBreakdownPage() {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-xs text-slate-600 leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-xs text-slate-600 leading-relaxed">
             <p className="m-0">
-              Not all jurisdictions impose every component. The combined applicable rate depends on the physical location of the transaction and local tax rules.
+              Not all jurisdictions impose every component. The combined applicable rate depends on the physical location of the transaction, product taxability, and local taxing rules. Note: Postal ZIP codes do not strictly align with taxing district boundaries and can cross municipal or county jurisdictions.
             </p>
-            <Link
-              href="/us-sales-tax-by-zip-code"
-              className="inline-flex items-center gap-1 font-bold text-blue-600 hover:text-blue-800 shrink-0"
-            >
-              <span>Search rates by 5-digit ZIP code</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
           </div>
         </section>
 
