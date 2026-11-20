@@ -20,16 +20,16 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Sales Tax Calculator – Calculate Sales Tax and Total Price',
+  title: 'Sales Tax Calculator – Calculate Tax & Final Price',
   description:
-    'Calculate sales tax instantly. Enter your purchase price and tax rate to find the tax amount and final price including sales tax. Free online calculator.',
+    'Calculate sales tax on any purchase instantly. Enter the original price and tax rate to find the sales tax amount and final price. Free online sales tax calculator.',
   alternates: {
     canonical: 'https://www.reversetaxcalculator.pro/tools/sales-tax-calculator/',
   },
   openGraph: {
-    title: 'Sales Tax Calculator – Calculate Sales Tax and Total Price',
+    title: 'Sales Tax Calculator – Calculate Tax & Final Price',
     description:
-      'Calculate sales tax instantly. Enter your purchase price and tax rate to find the tax amount and final price including sales tax. Free online calculator.',
+      'Calculate sales tax on any purchase instantly. Enter the original price and tax rate to find the sales tax amount and final price. Free online sales tax calculator.',
     url: 'https://www.reversetaxcalculator.pro/tools/sales-tax-calculator/',
     siteName: 'ReverseTaxCalculator.pro',
     type: 'website',
@@ -85,6 +85,7 @@ const CALCULATION_EXAMPLES = [
   { price: 100.00, rate: 8.00, tax: 8.00, final: 108.00 },
   { price: 100.00, rate: 8.25, tax: 8.25, final: 108.25 },
   { price: 200.00, rate: 10.00, tax: 20.00, final: 220.00 },
+  { price: 349.99, rate: 7.25, tax: 25.37, final: 375.36 },
   { price: 500.00, rate: 7.50, tax: 37.50, final: 537.50 },
 ]
 
@@ -225,6 +226,11 @@ export default function SalesTaxCalculatorPage() {
                     See a clear breakdown of your purchase total.
                   </span>
                 </div>
+              </div>
+
+              {/* Subtle Supporting Example */}
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 font-medium">
+                <span className="font-semibold text-slate-900">Example:</span> $100.00 purchase price + 8.25% sales tax = $108.25 final price.
               </div>
 
               {/* Trust Statement */}
@@ -382,35 +388,35 @@ export default function SalesTaxCalculatorPage() {
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1">
               <div className="font-bold text-slate-900 text-xs">1. State Sales Tax</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                The base tax levied by the state general revenue fund (ranging from 2.9% in Colorado to 7.25% in California).
+                State sales tax is a tax imposed by a state on qualifying purchases. Not every state imposes a general statewide sales tax.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1">
               <div className="font-bold text-slate-900 text-xs">2. County Sales Tax</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Taxes imposed by county authorities to fund public health, county courts, and county infrastructure.
+                Some counties impose additional sales taxes on qualifying transactions.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1">
               <div className="font-bold text-slate-900 text-xs">3. City Sales Tax</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Municipal levies voted by city councils or local referendums for emergency services, parks, and libraries.
+                Certain municipalities impose additional local sales taxes.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1">
               <div className="font-bold text-slate-900 text-xs">4. Special District Tax</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Regional transit districts, stadium authorities, or emergency medical response zones that add 0.1% to 2.5%.
+                Designated tax districts may impose additional sales taxes for specific local purposes.
               </p>
             </div>
           </div>
 
           <div className="pt-2 text-xs text-slate-600 leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <p className="m-0">
-              Because applicable rates vary depending on your physical delivery location and transaction type, enter the specific combined rate for your area into the calculator.
+              Your combined sales tax rate may include state, county, city and special district taxes. The applicable rate depends on the transaction and jurisdiction. Enter the combined rate that applies to your purchase.
             </p>
             <Link
               href="/us-sales-tax-by-zip-code"
@@ -500,7 +506,7 @@ export default function SalesTaxCalculatorPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {/* Reverse Sales Tax Contextual Card */}
+            {/* Card 1: Reverse Sales Tax Calculator */}
             <Link
               href="/"
               className="group p-5 rounded-2xl border border-blue-200 bg-blue-50/40 hover:border-blue-400 hover:shadow-xs transition-all space-y-2 block"
@@ -512,17 +518,16 @@ export default function SalesTaxCalculatorPage() {
                 Reverse Sales Tax Calculator
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Already have a tax-inclusive total? Use our Reverse Sales Tax Calculator to find the original price before tax.
+                Already have a receipt total that includes tax? Find the original price before sales tax.
               </p>
               <div className="pt-1 text-xs font-bold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                <span>Calculate Backwards</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Calculate Backwards →</span>
               </div>
             </Link>
 
-            {/* Sales Tax Breakdown Tool */}
+            {/* Card 2: Sales Tax Breakdown Calculator */}
             <Link
-              href="/sales-tax-breakdown-calculator"
+              href="/tools/sales-tax-breakdown/"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
             >
               <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
@@ -532,17 +537,16 @@ export default function SalesTaxCalculatorPage() {
                 Sales Tax Breakdown Calculator
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                See exactly how sales tax dollars are allocated across state, county, municipal, and transit districts.
+                Understand how sales tax is divided across applicable state, county, city and special district components.
               </p>
               <div className="pt-1 text-xs font-bold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                <span>Open Breakdown Tool</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Open Breakdown Tool →</span>
               </div>
             </Link>
 
-            {/* Reverse VAT Calculator */}
+            {/* Card 3: Reverse VAT Calculator */}
             <Link
-              href="/reverse-vat-calculator"
+              href="/tools/reverse-vat-calculator/"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2 block"
             >
               <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
@@ -552,11 +556,10 @@ export default function SalesTaxCalculatorPage() {
                 Reverse VAT Calculator
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed m-0">
-                Extract Value Added Tax (VAT) from gross European and British invoices at 20%, 21%, and custom rates.
+                Extract the original price before VAT from a tax-inclusive amount.
               </p>
               <div className="pt-1 text-xs font-bold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                <span>Open VAT Tool</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Open VAT Tool →</span>
               </div>
             </Link>
           </div>

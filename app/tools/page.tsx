@@ -129,7 +129,7 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/sales-tax-breakdown-calculator"
+              href="/tools/sales-tax-breakdown"
               className="group p-5 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs transition-all space-y-2.5 block"
             >
               <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
@@ -349,7 +349,7 @@ export default function ToolsDirectoryPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
             <Link
-              href="/reverse-vat-calculator"
+              href="/tools/reverse-vat-calculator"
               className="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-2xs transition-all space-y-1 block"
             >
               <div className="font-bold text-slate-900 text-sm">Reverse VAT Calculator</div>

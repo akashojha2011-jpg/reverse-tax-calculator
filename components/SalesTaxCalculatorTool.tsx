@@ -34,12 +34,17 @@ export function SalesTaxCalculatorTool() {
   const [copied, setCopied] = useState<boolean>(false)
 
   const presetRates = [
+    { label: '0%', value: '0.00' },
     { label: '5%', value: '5.00' },
+    { label: '5.5%', value: '5.50' },
     { label: '6%', value: '6.00' },
     { label: '7%', value: '7.00' },
+    { label: '7.25%', value: '7.25' },
+    { label: '7.5%', value: '7.50' },
     { label: '8%', value: '8.00' },
     { label: '8.25%', value: '8.25' },
     { label: '9.5%', value: '9.50' },
+    { label: '10%', value: '10.00' },
   ]
 
   const activeCurrency = useMemo(() => {
@@ -207,7 +212,7 @@ Calculated at ReverseTaxCalculator.pro/tools/sales-tax-calculator/`
                   setErrorMessage(null)
                 }}
                 className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  taxRateInput === p.value
+                  parseFloat(taxRateInput) === parseFloat(p.value)
                     ? 'bg-blue-600 text-white shadow-2xs'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
@@ -216,6 +221,9 @@ Calculated at ReverseTaxCalculator.pro/tools/sales-tax-calculator/`
               </button>
             ))}
           </div>
+          <p className="text-[11px] text-slate-500 mt-1.5 m-0 leading-normal">
+            Example rates shown for convenience only. Applicable rates depend on your local taxing jurisdiction.
+          </p>
         </div>
 
         {/* Optional Input 3: Currency */}
