@@ -42,6 +42,48 @@ describe('Sales Tax Calculation Engine', () => {
       expect(() => calculateReverseTax(100, -5)).toThrow()
       expect(() => calculateReverseTax(100, 600)).toThrow()
     })
+
+    it('calculates reverse VAT for TEST 1: €120 gross at 20% VAT -> €100 net, €20 VAT', () => {
+      const result = calculateReverseTax(120, 20)
+      expect(result.netAmount).toBe(100.0)
+      expect(result.taxAmount).toBe(20.0)
+      expect(result.grossAmount).toBe(120.0)
+    })
+
+    it('calculates reverse VAT for TEST 2: €119 gross at 19% VAT -> €100 net, €19 VAT', () => {
+      const result = calculateReverseTax(119, 19)
+      expect(result.netAmount).toBe(100.0)
+      expect(result.taxAmount).toBe(19.0)
+      expect(result.grossAmount).toBe(119.0)
+    })
+
+    it('calculates reverse VAT for TEST 3: €121 gross at 21% VAT -> €100 net, €21 VAT', () => {
+      const result = calculateReverseTax(121, 21)
+      expect(result.netAmount).toBe(100.0)
+      expect(result.taxAmount).toBe(21.0)
+      expect(result.grossAmount).toBe(121.0)
+    })
+
+    it('calculates reverse VAT for TEST 4: €100 gross at 0% VAT -> €100 net, €0 VAT', () => {
+      const result = calculateReverseTax(100, 0)
+      expect(result.netAmount).toBe(100.0)
+      expect(result.taxAmount).toBe(0.0)
+      expect(result.grossAmount).toBe(100.0)
+    })
+
+    it('calculates reverse VAT for additional examples (£240 at 20%, £115 at 15%, $110 at 10%)', () => {
+      const res240 = calculateReverseTax(240, 20)
+      expect(res240.netAmount).toBe(200.0)
+      expect(res240.taxAmount).toBe(40.0)
+
+      const res115 = calculateReverseTax(115, 15)
+      expect(res115.netAmount).toBe(100.0)
+      expect(res115.taxAmount).toBe(15.0)
+
+      const res110 = calculateReverseTax(110, 10)
+      expect(res110.netAmount).toBe(100.0)
+      expect(res110.taxAmount).toBe(10.0)
+    })
   })
 
   describe('calculateForwardSalesTax (Add Sales Tax)', () => {
