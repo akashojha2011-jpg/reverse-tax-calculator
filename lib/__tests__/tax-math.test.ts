@@ -64,7 +64,14 @@ describe('Sales Tax Calculation Engine', () => {
       expect(result.grossAmount).toBe(121.0)
     })
 
-    it('calculates reverse VAT for TEST 4: €100 gross at 0% VAT -> €100 net, €0 VAT', () => {
+    it('calculates reverse VAT for TEST 4: €149.99 gross at 19% VAT -> €126.04 net, €23.95 VAT', () => {
+      const result = calculateReverseTax(149.99, 19)
+      expect(result.netAmount).toBe(126.04)
+      expect(result.taxAmount).toBe(23.95)
+      expect(result.grossAmount).toBe(149.99)
+    })
+
+    it('calculates reverse VAT for TEST 5: €100 gross at 0% VAT -> €100 net, €0 VAT', () => {
       const result = calculateReverseTax(100, 0)
       expect(result.netAmount).toBe(100.0)
       expect(result.taxAmount).toBe(0.0)

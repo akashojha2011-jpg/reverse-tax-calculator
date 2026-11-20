@@ -24,7 +24,17 @@ const CURRENCIES: CurrencyOption[] = [
   { code: 'CHF', symbol: 'CHF ', label: 'CHF (CHF) — Swiss Franc' },
   { code: 'CAD', symbol: 'C$', label: 'CAD (C$) — Canadian Dollar' },
   { code: 'AUD', symbol: 'A$', label: 'AUD (A$) — Australian Dollar' },
+  { code: 'SEK', symbol: 'kr ', label: 'SEK (kr) — Swedish Krona' },
+  { code: 'NOK', symbol: 'kr ', label: 'NOK (kr) — Norwegian Krone' },
+  { code: 'DKK', symbol: 'kr. ', label: 'DKK (kr.) — Danish Krone' },
+  { code: 'PLN', symbol: 'zł ', label: 'PLN (zł) — Polish Złoty' },
+  { code: 'CZK', symbol: 'Kč ', label: 'CZK (Kč) — Czech Koruna' },
+  { code: 'INR', symbol: '₹', label: 'INR (₹) — Indian Rupee' },
 ]
+
+function formatCurrencyNumber(val: number): string {
+  return val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
 
 export function ReverseVatCalculatorTool() {
   const [grossInput, setGrossInput] = useState<string>('120.00')
@@ -38,11 +48,13 @@ export function ReverseVatCalculatorTool() {
     { label: '5%', value: '5' },
     { label: '7%', value: '7' },
     { label: '10%', value: '10' },
+    { label: '12%', value: '12' },
     { label: '15%', value: '15' },
     { label: '17%', value: '17' },
     { label: '19%', value: '19' },
     { label: '20%', value: '20' },
     { label: '21%', value: '21' },
+    { label: '22%', value: '22' },
     { label: '23%', value: '23' },
     { label: '25%', value: '25' },
   ]
@@ -106,17 +118,17 @@ export function ReverseVatCalculatorTool() {
   }
 
   const handleCopy = () => {
-    if (calculation.error || calculation.net === undefined) return
+    if (calculation.error || calculation.net === undefined || calculation.gross === undefined || calculation.vat === undefined || calculation.rate === undefined) return
     const sym = activeCurrency.symbol
     const text = `REVERSE VAT CALCULATION
 ----------------------------------------
-VAT-Inclusive Gross Total: ${sym}${calculation.gross.toFixed(2)}
+VAT-Inclusive Gross Total: ${sym}${formatCurrencyNumber(calculation.gross)}
 VAT Rate Applied:          ${calculation.rate.toFixed(2)}%
 ----------------------------------------
-Net Price Before VAT:      ${sym}${calculation.net.toFixed(2)}
-VAT Amount Extracted:      ${sym}${calculation.vat.toFixed(2)}
+Net Price Before VAT:      ${sym}${formatCurrencyNumber(calculation.net)}
+VAT Amount Extracted:      ${sym}${formatCurrencyNumber(calculation.vat)}
 ----------------------------------------
-Formula: ${sym}${calculation.gross.toFixed(2)} ÷ (1 + ${calculation.rate} / 100) = ${sym}${calculation.net.toFixed(2)}
+Formula: ${sym}${formatCurrencyNumber(calculation.gross)} ÷ (1 + ${calculation.rate} / 100) = ${sym}${formatCurrencyNumber(calculation.net)}
 Calculated at ReverseTaxCalculator.pro/tools/reverse-vat-calculator/`
 
     navigator.clipboard.writeText(text)
@@ -331,11 +343,11 @@ Calculated at ReverseTaxCalculator.pro/tools/reverse-vat-calculator/`
 
             {/* Giant Hero Net Price */}
             <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 tabular-nums tracking-tight">
-              {sym}{calculation.net.toFixed(2)}
+              {sym}{formatCurrencyNumber(calculation.net)}
             </div>
 
             <p className="text-xs text-slate-500 m-0">
-              The original pre-tax value extracted from your {sym}{calculation.gross.toFixed(2)} gross total at {calculation.rate.toFixed(2)}% VAT.
+              The original pre-tax value extracted from your {sym}{formatCurrencyNumber(calculation.gross)} gross total at {calculation.rate.toFixed(2)}% VAT.
             </p>
           </div>
 
@@ -344,7 +356,7 @@ Calculated at ReverseTaxCalculator.pro/tools/reverse-vat-calculator/`
             <div className="p-3 rounded-xl border border-slate-200 bg-white">
               <div className="text-slate-500 text-[11px] font-medium">Gross Total (With VAT)</div>
               <div className="text-sm sm:text-base font-bold text-slate-900 mt-0.5">
-                {sym}{calculation.gross.toFixed(2)}
+                {sym}{formatCurrencyNumber(calculation.gross)}
               </div>
             </div>
 
@@ -358,7 +370,7 @@ Calculated at ReverseTaxCalculator.pro/tools/reverse-vat-calculator/`
             <div className="p-3 rounded-xl border border-slate-200 bg-white">
               <div className="text-slate-500 text-[11px] font-medium">VAT Amount Included</div>
               <div className="text-sm sm:text-base font-bold text-blue-700 mt-0.5">
-                {sym}{calculation.vat.toFixed(2)}
+                {sym}{formatCurrencyNumber(calculation.vat)}
               </div>
             </div>
           </div>
@@ -372,12 +384,12 @@ Calculated at ReverseTaxCalculator.pro/tools/reverse-vat-calculator/`
               1. Divisor: 1 + ({calculation.rate} ÷ 100) = <strong>{(1 + calculation.rate / 100).toFixed(4).replace(/\.?0+$/, '')}</strong>
             </div>
             <div>
-              2. Net Price: {sym}{calculation.gross.toFixed(2)} ÷ {(1 + calculation.rate / 100).toFixed(4).replace(/\.?0+$/, '')} ={' '}
-              <strong className="text-blue-900 font-bold">{sym}{calculation.net.toFixed(2)}</strong>
+              2. Net Price: {sym}{formatCurrencyNumber(calculation.gross)} ÷ {(1 + calculation.rate / 100).toFixed(4).replace(/\.?0+$/, '')} ={' '}
+              <strong className="text-blue-900 font-bold">{sym}{formatCurrencyNumber(calculation.net)}</strong>
             </div>
             <div>
-              3. VAT Amount: {sym}{calculation.gross.toFixed(2)} - {sym}{calculation.net.toFixed(2)} ={' '}
-              <strong className="text-blue-900 font-bold">{sym}{calculation.vat.toFixed(2)}</strong>
+              3. VAT Amount: {sym}{formatCurrencyNumber(calculation.gross)} - {sym}{formatCurrencyNumber(calculation.net)} ={' '}
+              <strong className="text-blue-900 font-bold">{sym}{formatCurrencyNumber(calculation.vat)}</strong>
             </div>
           </div>
         </div>

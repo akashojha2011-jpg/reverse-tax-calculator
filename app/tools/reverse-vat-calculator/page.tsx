@@ -22,14 +22,14 @@ import {
 export const metadata: Metadata = {
   title: 'Reverse VAT Calculator – Remove VAT from Total',
   description:
-    'Calculate the original price before VAT from a VAT-inclusive total. Enter your gross amount and VAT rate to find the net price and VAT amount instantly.',
+    'Remove VAT from a gross price with our free reverse VAT calculator. Enter your VAT-inclusive amount and rate to calculate the original net price and VAT amount.',
   alternates: {
     canonical: 'https://www.reversetaxcalculator.pro/tools/reverse-vat-calculator/',
   },
   openGraph: {
     title: 'Reverse VAT Calculator – Remove VAT from Total',
     description:
-      'Calculate the original price before VAT from a VAT-inclusive total. Enter your gross amount and VAT rate to find the net price and VAT amount instantly.',
+      'Remove VAT from a gross price with our free reverse VAT calculator. Enter your VAT-inclusive amount and rate to calculate the original net price and VAT amount.',
     url: 'https://www.reversetaxcalculator.pro/tools/reverse-vat-calculator/',
     siteName: 'ReverseTaxCalculator.pro',
     type: 'website',
@@ -68,6 +68,11 @@ const FAQS = [
       'Subtracting the VAT percentage directly from the gross total produces an inaccurate figure because statutory VAT was originally assessed as a percentage of the lower pre-tax base, not the final gross amount. For instance, subtracting 20% from €120.00 subtracts €24.00, yielding €96.00—which is €4.00 less than the true €100.00 net value.',
   },
   {
+    question: 'What is the difference between zero-rated and VAT-exempt goods?',
+    answer:
+      'Zero-rated goods and services are generally taxable at a 0% VAT rate, while exempt transactions are not subject to VAT under the applicable exemption rules. The treatment of input VAT can also differ. Exact rules depend on the country.',
+  },
+  {
     question: 'Can I calculate reverse VAT using different currencies?',
     answer:
       'Yes. Mathematical reverse VAT calculations function identically regardless of currency, whether in Euros (€), British Pounds (£), US Dollars ($), Swiss Francs (CHF), Canadian Dollars (C$), or Australian Dollars (A$). Currency formatting updates display symbols only.',
@@ -86,6 +91,7 @@ const FAQS = [
 
 const CALCULATION_EXAMPLES = [
   { symbol: '€', gross: 120.00, rate: 20, net: 100.00, vat: 20.00, currency: 'EUR' },
+  { symbol: '€', gross: 149.99, rate: 19, net: 126.04, vat: 23.95, currency: 'EUR' },
   { symbol: '€', gross: 240.00, rate: 20, net: 200.00, vat: 40.00, currency: 'EUR' },
   { symbol: '€', gross: 119.00, rate: 19, net: 100.00, vat: 19.00, currency: 'EUR' },
   { symbol: '€', gross: 121.00, rate: 21, net: 100.00, vat: 21.00, currency: 'EUR' },
@@ -100,7 +106,7 @@ export default function ReverseVATPage() {
     name: 'Reverse VAT Calculator',
     url: 'https://www.reversetaxcalculator.pro/tools/reverse-vat-calculator/',
     description:
-      'Calculate the original price before VAT from a VAT-inclusive total. Enter your gross amount and VAT rate to find the net price and VAT amount instantly.',
+      'Remove VAT from a gross price with our free reverse VAT calculator. Enter your VAT-inclusive amount and rate to calculate the original net price and VAT amount.',
   }
 
   const appSchema = {
@@ -406,34 +412,34 @@ export default function ReverseVATPage() {
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 shadow-2xs">
               <div className="font-bold text-slate-900 text-xs">Standard VAT Rates</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Applies to the majority of commercial goods and services within a jurisdiction (e.g., 20% in the UK, 19% in Germany, 21% in Spain).
+                Standard VAT rates generally apply to most taxable goods and services in a particular jurisdiction.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 shadow-2xs">
               <div className="font-bold text-slate-900 text-xs">Reduced VAT Rates</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Lower statutory rates designated for socially beneficial sectors such as domestic energy, passenger transit, or cultural events.
+                Some qualifying goods and services may receive reduced VAT rates depending on the country&apos;s tax legislation.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 shadow-2xs">
               <div className="font-bold text-slate-900 text-xs">Zero-Rated Supplies</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Goods taxable at 0% (such as staple food or prescription medicine in certain jurisdictions), allowing businesses to reclaim input VAT.
+                Zero-rated supplies are generally taxable supplies charged at 0% VAT, subject to local rules.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-1.5 shadow-2xs">
               <div className="font-bold text-slate-900 text-xs">Exempt Transactions</div>
               <p className="text-slate-600 m-0 leading-relaxed">
-                Supplies outside the VAT system (such as specific financial services or insurance) where no VAT is charged or reclaimed.
+                Exempt transactions are not subject to VAT under the applicable exemption rules. Input VAT recovery treatment may differ.
               </p>
             </div>
           </div>
 
           <p className="text-xs text-slate-600 m-0 leading-relaxed">
-            Because applicable VAT rates depend on your country of registration, customer destination, and specific commodity classification, always enter the verified rate applicable to your transaction into the calculator.
+            VAT rates and tax treatments vary by country, product category and transaction. Always enter the rate applicable to your purchase.
           </p>
         </section>
 
