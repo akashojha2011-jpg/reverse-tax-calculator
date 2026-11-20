@@ -127,16 +127,22 @@ export function Footer() {
         </div>
 
         {/* Bottom Copyright & Disclaimer */}
-        <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-normal">
-          <p className="m-0 text-slate-500">
-            © {new Date().getFullYear()} ReverseTaxCalculator.pro. All rights reserved. For informational and calculation estimation purposes only.
+        <div className="pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-normal">
+          <p className="m-0 text-slate-500 text-center md:text-left">
+            © {new Date().getFullYear()} ReverseTaxCalculator.pro. Calculations are estimates for informational purposes only. Users should verify applicable tax rates and requirements with official state and local revenue authorities.
           </p>
-          <div className="flex items-center gap-4 text-xs">
+          <div className="flex items-center gap-4 text-xs shrink-0">
             <Link href="/sitemap.xml" className="text-slate-500 hover:text-slate-900 transition-colors">
-              XML Sitemap
+              Sitemap
             </Link>
             <Link href="/disclaimer" className="text-slate-500 hover:text-slate-900 transition-colors">
-              Legal Disclaimer
+              Disclaimer
+            </Link>
+            <Link href="/privacy-policy" className="text-slate-500 hover:text-slate-900 transition-colors">
+              Privacy
+            </Link>
+            <Link href="/terms" className="text-slate-500 hover:text-slate-900 transition-colors">
+              Terms
             </Link>
           </div>
         </div>
