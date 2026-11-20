@@ -91,6 +91,42 @@ describe('Sales Tax Calculation Engine', () => {
       expect(res110.netAmount).toBe(100.0)
       expect(res110.taxAmount).toBe(10.0)
     })
+
+    describe('Reverse GST Calculation Specific Test Cases', () => {
+      it('TEST 1: ₹1,180 gross at 18% GST -> ₹1,000 net, ₹180 GST', () => {
+        const result = calculateReverseTax(1180, 18)
+        expect(result.netAmount).toBe(1000.0)
+        expect(result.taxAmount).toBe(180.0)
+        expect(result.grossAmount).toBe(1180.0)
+      })
+
+      it('TEST 2: ₹1,050 gross at 5% GST -> ₹1,000 net, ₹50 GST', () => {
+        const result = calculateReverseTax(1050, 5)
+        expect(result.netAmount).toBe(1000.0)
+        expect(result.taxAmount).toBe(50.0)
+        expect(result.grossAmount).toBe(1050.0)
+      })
+
+      it('TEST 3: ₹1,120 gross at 12% GST -> ₹1,000 net, ₹120 GST', () => {
+        const result = calculateReverseTax(1120, 12)
+        expect(result.netAmount).toBe(1000.0)
+        expect(result.taxAmount).toBe(120.0)
+        expect(result.grossAmount).toBe(1120.0)
+      })
+
+      it('TEST 4: ₹100 gross at 0% GST -> ₹100 net, ₹0 GST', () => {
+        const result = calculateReverseTax(100, 0)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(0.0)
+        expect(result.grossAmount).toBe(100.0)
+      })
+
+      it('handles Australia 10% GST on $110 -> $100 net, $10 GST', () => {
+        const result = calculateReverseTax(110, 10)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(10.0)
+      })
+    })
   })
 
   describe('calculateForwardSalesTax (Add Sales Tax)', () => {

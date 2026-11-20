@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/sales-tax-calculator',
     '/tools/sales-tax-breakdown',
     '/tools/reverse-vat-calculator',
+    '/tools/reverse-gst-calculator',
     '/reverse-sales-tax-calculator',
     '/sales-tax-calculator',
     '/add-sales-tax-calculator',

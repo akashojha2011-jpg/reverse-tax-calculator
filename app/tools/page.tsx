@@ -357,11 +357,11 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/reverse-gst-calculator"
+              href="/tools/reverse-gst-calculator/"
               className="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-2xs transition-all space-y-1 block"
             >
               <div className="font-bold text-slate-900 text-sm">Reverse GST Calculator</div>
-              <p className="text-slate-600 m-0">For Canada (5%), Australia (10%), and New Zealand (15%).</p>
+              <p className="text-slate-600 m-0">For India, Australia (10%), New Zealand (15%), and Canada.</p>
             </Link>
 
             <Link
