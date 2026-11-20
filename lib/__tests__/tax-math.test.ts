@@ -167,6 +167,46 @@ describe('Sales Tax Calculation Engine', () => {
         expect(res120.taxAmount).toBe(20.0)
       })
     })
+
+    describe('Reverse PST Calculation Specific Test Cases', () => {
+      it('TEST 1: C$112 gross at 7% PST -> C$104.67 original price, C$7.33 PST', () => {
+        const result = calculateReverseTax(112, 7)
+        expect(result.netAmount).toBe(104.67)
+        expect(result.taxAmount).toBe(7.33)
+        expect(result.grossAmount).toBe(112.0)
+      })
+
+      it('TEST 2: C$105 gross at 5% PST -> C$100.00 original price, C$5.00 PST', () => {
+        const result = calculateReverseTax(105, 5)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(5.0)
+        expect(result.grossAmount).toBe(105.0)
+      })
+
+      it('TEST 3: C$108 gross at 8% PST -> C$100.00 original price, C$8.00 PST', () => {
+        const result = calculateReverseTax(108, 8)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(8.0)
+        expect(result.grossAmount).toBe(108.0)
+      })
+
+      it('TEST 4: C$100 gross at 0% PST -> C$100.00 original price, C$0.00 PST', () => {
+        const result = calculateReverseTax(100, 0)
+        expect(result.netAmount).toBe(100.0)
+        expect(result.taxAmount).toBe(0.0)
+        expect(result.grossAmount).toBe(100.0)
+      })
+
+      it('handles C$110 at 10% and C$115 at 15%', () => {
+        const res110 = calculateReverseTax(110, 10)
+        expect(res110.netAmount).toBe(100.0)
+        expect(res110.taxAmount).toBe(10.0)
+
+        const res115 = calculateReverseTax(115, 15)
+        expect(res115.netAmount).toBe(100.0)
+        expect(res115.taxAmount).toBe(15.0)
+      })
+    })
   })
 
   describe('calculateForwardSalesTax (Add Sales Tax)', () => {

@@ -373,11 +373,11 @@ export default function ToolsDirectoryPage() {
             </Link>
 
             <Link
-              href="/reverse-pst-calculator"
+              href="/tools/reverse-pst-calculator/"
               className="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-2xs transition-all space-y-1 block"
             >
               <div className="font-bold text-slate-900 text-sm">Reverse PST Calculator</div>
-              <p className="text-slate-600 m-0">For British Columbia, Saskatchewan, and Manitoba.</p>
+              <p className="text-slate-600 m-0">For British Columbia, Saskatchewan, Manitoba, and Quebec.</p>
             </Link>
           </div>
         </section>
