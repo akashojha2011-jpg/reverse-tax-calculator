@@ -85,6 +85,11 @@ export function Footer() {
                   State Tax Resources
                 </Link>
               </li>
+              <li>
+                <Link href="/guides" className="text-blue-600 hover:underline transition-colors block font-semibold">
+                  View All Guides →
+                </Link>
+              </li>
             </ul>
           </div>
 

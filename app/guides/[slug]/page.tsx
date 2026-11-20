@@ -1165,7 +1165,7 @@ export default function GuidePage({ params }: GuidePageProps) {
 
       <BreadcrumbNav
         items={[
-          { name: 'Guides', url: '/guides/how-to-calculate-reverse-tax-percentage' },
+          { name: 'Guides', url: '/guides' },
           { name: guide.title, url: `/guides/${params.slug}` },
         ]}
       />

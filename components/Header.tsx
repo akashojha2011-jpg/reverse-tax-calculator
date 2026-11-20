@@ -75,7 +75,7 @@ export function Header() {
             </Link>
 
             <Link
-              href="/guides/how-to-calculate-reverse-tax-percentage"
+              href="/guides"
               className="text-slate-800 hover:text-blue-600 transition-colors py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md"
             >
               Guides
@@ -138,7 +138,7 @@ export function Header() {
             </Link>
 
             <Link
-              href="/guides/how-to-calculate-reverse-tax-percentage"
+              href="/guides"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700 py-2 border-b border-slate-100"
             >

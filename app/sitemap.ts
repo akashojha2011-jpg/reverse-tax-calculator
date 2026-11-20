@@ -37,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // MDX Guide pages
   const guidePages = [
+    '/guides',
     '/guides/how-to-calculate-reverse-tax-percentage',
     '/guides/reverse-tax-calculator-vs-forward-tax-calculator',
     '/guides/net-to-gross-salary-explained',
@@ -45,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    priority: route === '/guides' ? 0.9 : 0.8,
   }))
 
   // Regional pages dynamically generated from data/regions.ts
